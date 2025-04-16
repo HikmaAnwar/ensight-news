@@ -1,4 +1,3 @@
-// components/ui/HeroSection.tsx
 import { Button, Title, Text } from "@mantine/core";
 import Link from "next/link";
 

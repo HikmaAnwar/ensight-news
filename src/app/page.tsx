@@ -6,11 +6,11 @@ import { TrustedBy } from "@/components/ui/TrustedBy";
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-surface">
       <HeroSection />
       <ArticleSection />
       <SubscriptionPlans />
       <TrustedBy />
-    </>
+    </div>
   );
 }
