@@ -8,7 +8,10 @@ export function HeroSection() {
         <span className="inline-block bg-primary-accent text-light px-5 py-2 rounded-full text-sm font-bold mb-6">
           Ethiopia Focus
         </span>
-        <Title order={1} className="text-primary mb-6 max-w-3xl">
+        <Title
+          order={1}
+          className="text-primary mb-6 max-w-3xl text-5xl font-bold"
+        >
           Infrastructure Push & GERD Financing: Ethiopia Explores New Models
         </Title>
         <Text className="text-secondary mb-8 max-w-2xl">

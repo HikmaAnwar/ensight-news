@@ -37,7 +37,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-surface border-b border-border shadow-sm">
+    <header className="sticky top-5  z-50 bg-surface border-b border-border shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-primary">
           EN<span className="text-primary-accent">sight</span>

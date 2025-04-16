@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body>
+      <body className="px-20 bg-surface">
         <MantineProvider defaultColorScheme="dark">
           <a href="#main-content" className="sr-only focus:not-sr-only">
             Skip to Main Content
