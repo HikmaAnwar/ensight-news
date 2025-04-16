@@ -20,13 +20,15 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className="px-20 bg-surface">
+      <body className="bg-surface">
         <MantineProvider defaultColorScheme="dark">
           <a href="#main-content" className="sr-only focus:not-sr-only">
             Skip to Main Content
           </a>
           <Header />
-          <main id="main-content">{children}</main>
+          <main id="main-content" className="px-20">
+            {children}
+          </main>
           <Footer />
         </MantineProvider>
       </body>
