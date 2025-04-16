@@ -1,3 +1,4 @@
+/* styles/tailwind.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,11 +16,9 @@
   --color-input-bg: rgba(255, 255, 255, 0.08);
   --color-shadow: rgba(0, 0, 0, 0.25);
   --color-text-light: #ffffff;
-  --base-font-size: 16px;
-  --border-radius: 8px;
 }
 
-[data-mantine-color-scheme="light"] {
+.light-mode {
   --color-background: #f4f7f6;
   --color-surface: #ffffff;
   --color-surface-alt: #f0f3f2;
@@ -33,13 +32,5 @@
 }
 
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
 }
