@@ -7,6 +7,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./public/**/*.{js,ts,jsx,tsx}",
     "./styles/**/*.{js,ts,jsx,tsx}",
+    "./index.html",
   ],
   theme: {
     extend: {},

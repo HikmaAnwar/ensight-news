@@ -7,14 +7,14 @@ export function SocialShare() {
       <ActionIcon
         component="a"
         href="https://twitter.com"
-        className="text-text-muted hover:text-primary-accent"
+        className="text-muted hover:text-primary-accent"
       >
         <IconBrandTwitter />
       </ActionIcon>
       <ActionIcon
         component="a"
         href="https://linkedin.com"
-        className="text-text-muted hover:text-primary-accent"
+        className="text-muted hover:text-primary-accent"
       >
         <IconBrandLinkedin />
       </ActionIcon>

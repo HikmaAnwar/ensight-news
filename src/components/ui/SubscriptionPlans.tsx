@@ -1,4 +1,5 @@
-import { Card, Title, Text, Button, Group } from "@mantine/core";
+import { Card, Title, Text } from "@mantine/core";
+import { SharedButton } from "@/components/ui/SharedButton";
 
 interface Plan {
   name: string;
@@ -50,11 +51,11 @@ export function SubscriptionPlans() {
       <div className="max-w-[1200px] mx-auto px-4">
         <Title
           order={2}
-          className="text-text-primary text-center mb-4 animate-fade-in-up"
+          className="text-primary text-center mb-4 animate-fade-in-up"
         >
           Choose Your Plan
         </Title>
-        <Text className="text-text-secondary text-center mb-12 max-w-2xl mx-auto">
+        <Text className="text-secondary text-center mb-12 max-w-2xl mx-auto">
           Select the plan that best suits your needs and start exploring
           actionable business intelligence today.
         </Text>
@@ -69,36 +70,31 @@ export function SubscriptionPlans() {
               }`}
               radius="md"
             >
-              <Title order={3} className="text-text-primary mb-2">
+              <Title order={3} className="text-primary mb-2">
                 {plan.name}
               </Title>
-              <Text className="text-text-secondary text-2xl font-bold mb-4">
+              <Text className="text-secondary text-2xl font-bold mb-4">
                 {plan.price}
               </Text>
-              <Text className="text-text-muted mb-6 flex-1">
-                {plan.description}
-              </Text>
+              <Text className="text-muted mb-6 flex-1">{plan.description}</Text>
               <ul className="mb-6 space-y-2">
                 {plan.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="text-text-secondary flex items-start"
-                  >
+                  <li key={feature} className="text-secondary flex items-start">
                     <span className="text-primary-accent mr-2">✓</span>
                     {feature}
                   </li>
                 ))}
               </ul>
-              <Button
+              <SharedButton
                 className={`${
                   plan.isHighlighted
-                    ? "bg-primary-accent text-text-light"
-                    : "bg-surface-alt text-text-primary"
-                } hover:bg-primary-accent hover:text-text-light`}
+                    ? "bg-primary-accent text-light"
+                    : "bg-surface-alt text-primary"
+                } hover:bg-primary-accent hover:text-light`}
                 fullWidth
               >
                 Select Plan
-              </Button>
+              </SharedButton>
             </Card>
           ))}
         </div>

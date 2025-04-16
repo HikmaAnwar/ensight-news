@@ -24,7 +24,7 @@ export function ArticleSection({ article }: ArticleSectionProps) {
     image: "/images/gerd-placeholder.png",
     content: (
       <>
-        <Text className="mb-4">
+        <Text className="mb-4 text-primary">
           <strong>
             ADDIS ABABA – With the Grand Ethiopian Renaissance Dam (GERD)
             entering its final operational phases...
@@ -44,10 +44,10 @@ export function ArticleSection({ article }: ArticleSectionProps) {
     <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
       <div className="flex-1 min-w-[300px]">
         <Card className="bg-surface border border-border shadow-md p-6 mb-8">
-          <Title order={1} className="text-text-primary mb-4">
+          <Title order={1} className="text-primary mb-4">
             {displayArticle.title}
           </Title>
-          <Group className="text-text-muted mb-6">
+          <Group className="text-muted mb-6">
             <Text>{displayArticle.category}</Text>
             <Text>By {displayArticle.author}</Text>
             <Text>{displayArticle.date}</Text>

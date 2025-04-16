@@ -17,7 +17,7 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
       <Anchor
         component={Link}
         href={href}
-        className={`text-text-secondary transition-colors ${
+        className={`text-secondary transition-colors ${
           isActive
             ? "text-primary-accent"
             : "hover:text-primary-accent hover:[filter:brightness(var(--color-link-hover-brightness,1.15))]"

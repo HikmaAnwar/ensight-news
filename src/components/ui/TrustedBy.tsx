@@ -25,11 +25,11 @@ export function TrustedBy() {
       <div className="max-w-[1200px] mx-auto px-4">
         <Title
           order={2}
-          className="text-text-primary text-center mb-4 animate-fade-in-up"
+          className="text-primary text-center mb-4 animate-fade-in-up"
         >
           Trusted By
         </Title>
-        <Text className="text-text-secondary text-center mb-12 max-w-xl mx-auto">
+        <Text className="text-secondary text-center mb-12 max-w-xl mx-auto">
           We’re proud to partner with leading organizations driving impact
           across Africa and beyond.
         </Text>

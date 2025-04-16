@@ -1,14 +1,13 @@
-// components/ui/Header.tsx
 "use client";
 
-import { useState } from "react";
-import { Burger, Group, Button, ActionIcon } from "@mantine/core";
+import { Burger, Group, ActionIcon, Avatar } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import { useTheme } from "@/lib/theme";
 import { NavLink } from "@/components/common/NavLink";
-import { Submenu } from "@/components/common/Submenu";
+import { SharedButton } from "@/components/ui/SharedButton";
+import { IconUserCircle } from "@tabler/icons-react";
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
@@ -40,7 +39,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-surface border-b border-border shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-text-primary">
+        <Link href="/" className="text-2xl font-bold text-primary">
           EN<span className="text-primary-accent">sight</span>
         </Link>
 
@@ -60,11 +59,17 @@ export function Header() {
           <ActionIcon
             onClick={() => toggleColorScheme()}
             aria-label="Toggle Theme"
+            className="text-primary cursor-pointer"
           >
             {colorScheme === "light" ? <IconMoon /> : <IconSun />}
           </ActionIcon>
-          <Button variant="outline">Profile</Button>
-          <Button color="primary-accent">Subscribe</Button>
+          <IconUserCircle
+            size={20}
+            className="mx-3 text-primary cursor-pointer"
+          />
+          <SharedButton variant="outline" className="text-primary">
+            Subscribe
+          </SharedButton>
         </Group>
 
         <Burger
