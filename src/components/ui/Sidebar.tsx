@@ -25,13 +25,7 @@ export default async function Sidebar() {
                 {article.title}
               </Text>
               <Group className="text-muted mb-6 inline-flex flex-row gap-4 hover:text-red-600">
-                <Text
-                  className={`whitespace-nowrap px-1 py-0 rounded ${
-                    article.category === "Economy"
-                      ? "text-blue-600 hover:text-red-600"
-                      : "text-green-500 hover:text-red-600"
-                  }`}
-                >
+                <Text className="text-red-600 whitespace-nowrap px-1 py-0 rounded">
                   {article.category}
                 </Text>
                 <Text className="whitespace-nowrap">|</Text>
