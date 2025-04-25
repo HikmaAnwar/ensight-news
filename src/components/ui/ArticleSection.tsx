@@ -43,7 +43,7 @@ export function ArticleSection({ article }: ArticleSectionProps) {
   return (
     <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
       <div className="flex-1 min-w-[300px]">
-        <Card className="bg-surface border border-border shadow-md p-6 mb-8">
+        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8">
           <Title order={1} className="text-primary mb-4">
             {displayArticle.title}
           </Title>
