@@ -20,14 +20,33 @@ export function ArticleSection({ article }: ArticleSectionProps) {
     author: "John Abebe",
     date: "May 15, 2025",
     readTime: "8 min read",
-    image: "/images/gerd-placeholder.png",
+    image: "/images/gerd-placeholder.jpg",
     content: (
       <>
         <Text className="mb-4 text-primary">
           <strong>
             ADDIS ABABA – With the Grand Ethiopian Renaissance Dam (GERD)
-            entering its final operational phases...
+            entering its final operational phases and a continued national drive
+            for major infrastructure upgrades—spanning transport networks,
+            energy grids, and industrial parks—Ethiopia's government is actively
+            investigating alternative financing mechanisms. The goal is to
+            sustainably manage debt levels while attracting diverse capital
+            inflows essential for growth.
           </strong>
+        </Text>
+        <br />
+        <Text className="mb-4 text-primary">
+          The colossal scale of projects like the GERD, combined with critical
+          investments needed in roads, rail, and digital infrastructure to
+          bolster the Homegrown Economic Reform Agenda, necessitates a strategic
+          shift beyond traditional concessional loans and bilateral financing
+          arrangements. While these sources remain important pillars, mounting
+          concerns about national debt sustainability and a desire for greater
+          fiscal autonomy are prompting officials to seriously consider options
+          like robust public-private partnerships (PPPs), specialized纷 domestic
+          and international infrastructure bonds, and potentially tapping into
+          climate-linked finance mechanisms such as green bonds for eligible
+          renewable energy or sustainable transport projects.
         </Text>
         <GraphPlaceholder />
         <InlineCTA />
@@ -40,15 +59,17 @@ export function ArticleSection({ article }: ArticleSectionProps) {
   return (
     <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
       <div className="flex-1 min-w-[350px]">
-        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8 max-w-[700px]">
-          <Title order={1} className="text-primary mb-4">
+        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8 max-w-[700px] pl-6">
+          <Title order={1} className="text-primary mb-4 font-bold">
             {displayArticle.title}
           </Title>
-          <Group className="text-muted mb-6">
-            <Text>{displayArticle.category}</Text>
-            <Text>By {displayArticle.author}</Text>
-            <Text>{displayArticle.date}</Text>
-            <Text>{displayArticle.readTime}</Text>
+          <Group className="text-muted mb-6 inline-flex flex-row gap-4">
+            <Text className="whitespace-nowrap">{displayArticle.category}</Text>
+            <Text className="whitespace-nowrap">
+              By {displayArticle.author}
+            </Text>
+            <Text className="whitespace-nowrap">{displayArticle.date}</Text>
+            <Text className="whitespace-nowrap">{displayArticle.readTime}</Text>
           </Group>
           <SocialShare />
           <Image
