@@ -58,9 +58,9 @@ export function ArticleSection({ article }: ArticleSectionProps) {
 
   return (
     <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
-      <div className="flex-1 min-w-[350px]">
-        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8 max-w-[700px] pl-6">
-          <Title order={1} className="text-primary mb-4 font-bold">
+      <div className="flex-1 min-w-[400px]">
+        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8 max-w-[800px] pl-6">
+          <Title order={1} className="text-primary mb-4 text-5xl font-bold">
             {displayArticle.title}
           </Title>
           <Group className="text-muted mb-6 inline-flex flex-row gap-4">
