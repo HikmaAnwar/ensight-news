@@ -43,7 +43,7 @@ export function ArticleSection({ article }: ArticleSectionProps) {
           arrangements. While these sources remain important pillars, mounting
           concerns about national debt sustainability and a desire for greater
           fiscal autonomy are prompting officials to seriously consider options
-          like robust public-private partnerships (PPPs), specialized纷 domestic
+          like robust public-private partnerships (PPPs), specialized domestic
           and international infrastructure bonds, and potentially tapping into
           climate-linked finance mechanisms such as green bonds for eligible
           renewable energy or sustainable transport projects.
@@ -60,11 +60,16 @@ export function ArticleSection({ article }: ArticleSectionProps) {
     <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
       <div className="flex-1 min-w-[400px]">
         <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8 max-w-[800px] pl-6">
-          <Title order={1} className="text-primary mb-4 text-5xl font-bold">
+          <Title
+            order={1}
+            className="text-primary mb-4 text-5xl font-bold whitespace-normal tracking-wide word-spacing-2 leading-tight"
+          >
             {displayArticle.title}
           </Title>
           <Group className="text-muted mb-6 inline-flex flex-row gap-4">
-            <Text className="whitespace-nowrap">{displayArticle.category}</Text>
+            <Text className="whitespace-nowrap text-red-600 bg-red-900 px-2 py-1 rounded">
+              {displayArticle.category}
+            </Text>
             <Text className="whitespace-nowrap">
               By {displayArticle.author}
             </Text>
