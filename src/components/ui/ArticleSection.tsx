@@ -67,7 +67,7 @@ export function ArticleSection({ article }: ArticleSectionProps) {
             {displayArticle.title}
           </Title>
           <Group className="text-muted mb-6 inline-flex flex-row gap-4">
-            <Text className="whitespace-nowrap text-red-600 bg-red-900 px-2 py-1 rounded">
+            <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
               {displayArticle.category}
             </Text>
             <Text className="whitespace-nowrap">
