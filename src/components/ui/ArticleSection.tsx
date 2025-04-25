@@ -85,9 +85,9 @@ export function ArticleSection({ article }: ArticleSectionProps) {
           {displayArticle.content}
         </Card>
         <AuthorBio
-          name="John Abebe"
-          bio="John Abebe is a senior analyst at Ensight, specializing in African infrastructure and economic policy."
-          image="/images/author-placeholder.png"
+          name="About John Abebe"
+          bio="John Abebe is Ensight's lead analyst covering the Horn of Africa. He specializes in macroeconomics, infrastructure finance, and the dynamics of regional economic integration."
+          image="/images/author-placeholder.jpg"
         />
         <RelatedArticles />
         <ReadingSettings />

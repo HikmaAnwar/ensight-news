@@ -13,7 +13,7 @@ export function AuthorBio({
 }: AuthorBioProps) {
   return (
     <Card
-      className="bg-surface border border-border shadow-card p-6 mt-8"
+      className="bg-surface border border-border shadow-card p-6 mt-8 rounded-3xl"
       radius="md"
     >
       <Group gap="lg" align="flex-start">
