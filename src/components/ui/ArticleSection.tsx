@@ -1,4 +1,3 @@
-// components/ui/ArticleSection.tsx
 import { Card, Title, Text, Image, Group } from "@mantine/core";
 import { Sidebar } from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
@@ -30,10 +29,8 @@ export function ArticleSection({ article }: ArticleSectionProps) {
             entering its final operational phases...
           </strong>
         </Text>
-        {/* Add more content as per your HTML */}
         <GraphPlaceholder />
         <InlineCTA />
-        {/* Add toggle content */}
       </>
     ),
   };
@@ -42,8 +39,8 @@ export function ArticleSection({ article }: ArticleSectionProps) {
 
   return (
     <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
-      <div className="flex-1 min-w-[300px]">
-        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8">
+      <div className="flex-1 min-w-[350px]">
+        <Card className="bg-background border border-border shadow-md rounded-3xl p-6 mb-8 max-w-[700px]">
           <Title order={1} className="text-primary mb-4">
             {displayArticle.title}
           </Title>
