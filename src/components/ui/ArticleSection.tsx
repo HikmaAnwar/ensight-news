@@ -28,7 +28,7 @@ export function ArticleSection({ article }: ArticleSectionProps) {
             ADDIS ABABA – With the Grand Ethiopian Renaissance Dam (GERD)
             entering its final operational phases and a continued national drive
             for major infrastructure upgrades—spanning transport networks,
-            energy grids, and industrial parks—Ethiopia's government is actively
+            energy grids, and industrial parks Ethiopias government is actively
             investigating alternative financing mechanisms. The goal is to
             sustainably manage debt levels while attracting diverse capital
             inflows essential for growth.
