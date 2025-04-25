@@ -5,8 +5,8 @@ export default async function Sidebar() {
   const articles = await getPopularArticles();
 
   return (
-    <aside className="w-full md:w-80">
-      <Card className="bg-background border border-border shadow-card p-6 rounded-3xl">
+    <aside className="w-full md:w-96">
+      <Card className="bg-background border border-border shadow-card p-6 rounded-2xl">
         <Text className="text-primary font-bold text-xl mb-4">
           Popular This Week
         </Text>
