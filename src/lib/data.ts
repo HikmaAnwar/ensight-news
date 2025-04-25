@@ -1,4 +1,3 @@
-// lib/data.ts
 import { Article, SubscriptionPlan } from "./types";
 
 export const getArticleBySlug = async (
@@ -15,10 +14,49 @@ export const getArticleBySlug = async (
       date: "May 15, 2025",
       readTime: "8 min read",
       image: "/images/gerd-placeholder.png",
-      content: <div>{/* Article content */}</div>,
+      content:
+        "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
+    },
+    {
+      slug: "ai-startups-2025",
+      title: "AI Startups: The Next Big Thing in 2025",
+      category: "Featured",
+      author: "Sarah Tsegaye",
+      date: "May 10, 2025",
+      readTime: "4 min read",
+      image: "/images/ai-startups.png",
+      content: "Explore the rise of AI startups and their impact in 2025...",
     },
   ];
   return articles.find((a) => a.slug === slug) || null;
+};
+
+export const getPopularArticles = async (): Promise<Article[]> => {
+  // Replace with CMS or database fetch for popular articles
+  return [
+    {
+      slug: "ethiopia-financing-models-gerd",
+      title:
+        "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
+      category: "Economy",
+      author: "John Abebe",
+      date: "May 15, 2025",
+      readTime: "8 min read",
+      image: "/images/gerd-placeholder.png",
+      content:
+        "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
+    },
+    {
+      slug: "ai-startups-2025",
+      title: "AI Startups: The Next Big Thing in 2025",
+      category: "Featured",
+      author: "Sarah Tsegaye",
+      date: "May 10, 2025",
+      readTime: "4 min read",
+      image: "/images/ai-startups.png",
+      content: "Explore the rise of AI startups and their impact in 2025...",
+    },
+  ];
 };
 
 export const subscriptionPlans: SubscriptionPlan[] = [

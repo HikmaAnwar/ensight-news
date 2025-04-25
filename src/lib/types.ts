@@ -7,7 +7,7 @@ export interface Article {
   date: string;
   readTime: string;
   image: string;
-  content: React.ReactNode;
+  content: string;
 }
 
 export interface SubscriptionPlan {

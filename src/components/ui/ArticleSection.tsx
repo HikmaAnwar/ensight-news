@@ -1,5 +1,5 @@
 import { Card, Title, Text, Image, Group } from "@mantine/core";
-import { Sidebar } from "@/components/ui/Sidebar";
+import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { AuthorBio } from "@/components/ui/AuthorBio";
 import { RelatedArticles } from "@/components/ui/RelatedArticles";
