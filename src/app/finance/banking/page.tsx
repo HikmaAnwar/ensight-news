@@ -1,3 +1,4 @@
+// src/app/finance/banking/page.tsx
 import { Container } from "@mantine/core";
 import { ArticleSection } from "@/components/ui/ArticleSection";
 
@@ -35,15 +36,13 @@ const breadcrumbItems = [
 
 export default function BankingPage() {
   return (
-    <div>
-      <Container size="lg">
-        <ArticleSection
-          section="Finance"
-          subtype="Banking"
-          articles={articles}
-          breadcrumbItems={breadcrumbItems}
-        />
-      </Container>
-    </div>
+    <Container size="lg" className="py-8">
+      <ArticleSection
+        section="Finance"
+        subtype="Banking"
+        articles={articles}
+        breadcrumbItems={breadcrumbItems}
+      />
+    </Container>
   );
 }

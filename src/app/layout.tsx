@@ -28,9 +28,9 @@ export default function RootLayout({
             Skip to Main Content
           </a>
           <Header />
-          <main id="main-content" className="px-20">
-            {children}
-            <section className="py-12">
+          <main id="main-content" className="bg-surface">
+            <div className="px-20">{children}</div>
+            <section className="py-12 w-full bg-background">
               <div className="max-w-[1200px] mx-auto px-4">
                 <SubscriptionPlans />
                 <TrustedBy />
