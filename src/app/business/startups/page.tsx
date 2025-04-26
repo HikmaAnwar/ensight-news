@@ -35,7 +35,7 @@ const breadcrumbItems = [
 
 export default function StartupsPage() {
   return (
-    <div className="bg-background">
+    <div>
       <Container size="lg">
         <ArticleSection
           section="Business"

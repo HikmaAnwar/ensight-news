@@ -35,7 +35,7 @@ const breadcrumbItems = [
 
 export default function BankingPage() {
   return (
-    <div className="bg-background">
+    <div>
       <Container size="lg">
         <ArticleSection
           section="Finance"

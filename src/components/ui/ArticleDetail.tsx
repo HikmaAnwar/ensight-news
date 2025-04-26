@@ -92,7 +92,9 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
         <RelatedArticles />
         <ReadingSettings />
       </div>
-      <Sidebar />
+      <div className="w-[300px]">
+        <Sidebar />
+      </div>
     </section>
   );
 }

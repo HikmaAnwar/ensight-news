@@ -6,7 +6,7 @@ export default async function Sidebar() {
 
   return (
     <aside className="w-full md:w-96">
-      <Card className="bg-background border border-border shadow-card p-6 rounded-2xl">
+      <Card className="bg-background border border-border shadow-card p-6 mt-12 rounded-2xl">
         <Text className="text-primary font-bold text-xl mb-4">
           Popular This Week
         </Text>
