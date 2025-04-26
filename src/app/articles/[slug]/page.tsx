@@ -1,5 +1,5 @@
 // app/articles/[slug]/page.tsx
-import { ArticleSection } from "@/components/ui/ArticleSection";
+import { ArticleSection } from "@/components/ui/ArticleDetail";
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/lib/data";
 

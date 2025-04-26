@@ -1,98 +1,110 @@
-import { Card, Title, Text, Image, Group } from "@mantine/core";
-import Sidebar from "@/components/ui/Sidebar";
-import { SocialShare } from "@/components/ui/SocialShare";
-import { AuthorBio } from "@/components/ui/AuthorBio";
-import { RelatedArticles } from "@/components/ui/RelatedArticles";
-import { GraphPlaceholder } from "@/components/ui/GraphPlaceholder";
-import { InlineCTA } from "@/components/ui/InlineCTA";
-import { ReadingSettings } from "@/components/ui/ReadingSettings";
-import { Article } from "@/lib/types";
+import { Card, Title, Text, Image, Group, Badge } from "@mantine/core";
+import { BreadcrumbsNav } from "./BreadcrumbsNav";
 
-interface ArticleSectionProps {
-  article?: Article;
+interface Article {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+  author: string;
+  readTime: string;
+  isPremium?: boolean;
 }
 
-export function ArticleSection({ article }: ArticleSectionProps) {
-  const defaultArticle = {
-    title:
-      "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
-    category: "Economy",
-    author: "John Abebe",
-    date: "May 15, 2025",
-    readTime: "8 min read",
-    image: "/images/gerd-placeholder.jpg",
-    content: (
-      <>
-        <Text className="mb-4 text-primary">
-          <strong>
-            ADDIS ABABA – With the Grand Ethiopian Renaissance Dam (GERD)
-            entering its final operational phases and a continued national drive
-            for major infrastructure upgrades—spanning transport networks,
-            energy grids, and industrial parks Ethiopias government is actively
-            investigating alternative financing mechanisms. The goal is to
-            sustainably manage debt levels while attracting diverse capital
-            inflows essential for growth.
-          </strong>
-        </Text>
-        <br />
-        <Text className="mb-4 text-primary">
-          The colossal scale of projects like the GERD, combined with critical
-          investments needed in roads, rail, and digital infrastructure to
-          bolster the Homegrown Economic Reform Agenda, necessitates a strategic
-          shift beyond traditional concessional loans and bilateral financing
-          arrangements. While these sources remain important pillars, mounting
-          concerns about national debt sustainability and a desire for greater
-          fiscal autonomy are prompting officials to seriously consider options
-          like robust public-private partnerships (PPPs), specialized domestic
-          and international infrastructure bonds, and potentially tapping into
-          climate-linked finance mechanisms such as green bonds for eligible
-          renewable energy or sustainable transport projects.
-        </Text>
-        <GraphPlaceholder />
-        <InlineCTA />
-      </>
-    ),
-  };
+interface ArticleSectionProps {
+  section: string;
+  subtype: string;
+  articles: Article[];
+  breadcrumbItems: { label: string; href: string }[];
+}
 
-  const displayArticle = article || defaultArticle;
-
+export function ArticleSection({
+  section,
+  subtype,
+  articles,
+  breadcrumbItems,
+}: ArticleSectionProps) {
   return (
-    <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
-      <div className="flex-1 min-w-[400px]">
-        <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8 max-w-[800px] pl-6">
-          <Title
-            order={1}
-            className="text-primary mb-4 text-5xl font-bold whitespace-normal tracking-wide word-spacing-2 leading-tight"
-          >
-            {displayArticle.title}
-          </Title>
-          <Group className="text-muted mb-6 inline-flex flex-row gap-4">
-            <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
-              {displayArticle.category}
-            </Text>
-            <Text className="whitespace-nowrap">
-              By {displayArticle.author}
-            </Text>
-            <Text className="whitespace-nowrap">{displayArticle.date}</Text>
-            <Text className="whitespace-nowrap">{displayArticle.readTime}</Text>
-          </Group>
-          <SocialShare />
-          <Image
-            src={displayArticle.image}
-            alt="Grand Ethiopian Renaissance Dam"
-            className="my-6"
-          />
-          {displayArticle.content}
-        </Card>
-        <AuthorBio
-          name="About John Abebe"
-          bio="John Abebe is Ensight's lead analyst covering the Horn of Africa. He specializes in macroeconomics, infrastructure finance, and the dynamics of regional economic integration."
-          image="/images/author-placeholder.jpg"
-        />
-        <RelatedArticles />
-        <ReadingSettings />
+    <section className="py-12">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <BreadcrumbsNav items={breadcrumbItems} />
+
+        <Title
+          order={1}
+          className="text-text-primary mt-4 mb-2"
+          style={{ color: "#1a365d" }}
+        >
+          {section} - {subtype}
+        </Title>
+        <Text className="text-text-muted mb-8" style={{ color: "#6b7280" }}>
+          Showing {articles.length} articles
+        </Text>
+
+        <div className="flex flex-row gap-6 overflow-x-auto pb-4">
+          {articles.map((article) => (
+            <Card
+              key={article.id}
+              className="bg-surface border border-border shadow-card flex flex-col flex-shrink-0"
+              radius="md"
+              style={{ width: "300px" }}
+            >
+              <div className="relative">
+                <Image
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full h-[150px] object-cover rounded-t-md"
+                  fallbackSrc="/images/placeholder-image.jpg"
+                />
+                {article.isPremium && (
+                  <Badge
+                    className="absolute top-2 right-2"
+                    color="blue"
+                    variant="filled"
+                    style={{ backgroundColor: "#1e40af", color: "#ffffff" }}
+                  >
+                    PREMIUM
+                  </Badge>
+                )}
+              </div>
+              <div className="p-4 flex flex-col flex-1">
+                <Badge
+                  variant="outline"
+                  color="blue"
+                  className="mb-2"
+                  style={{ borderColor: "#1e40af", color: "#1e40af" }}
+                >
+                  {article.category}
+                </Badge>
+                <Title
+                  order={4}
+                  className="mb-2 line-clamp-2"
+                  style={{ color: "#1e40af" }}
+                >
+                  {article.title}
+                </Title>
+                <Text className="text-text-muted text-sm mb-4 line-clamp-1 flex-1">
+                  {article.description}
+                </Text>
+                <Group gap="xs" className="mt-auto">
+                  <Image
+                    src={`/images/authors/${article.author
+                      .toLowerCase()
+                      .replace(" ", "-")}.jpg`}
+                    alt={article.author}
+                    className="w-6 h-6 rounded-full"
+                    fallbackSrc="/images/placeholder-author.jpg"
+                  />
+                  <Text className="text-text-muted text-sm">
+                    {article.author} • {article.readTime}
+                  </Text>
+                </Group>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
-      <Sidebar />
     </section>
   );
 }

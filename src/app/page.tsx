@@ -1,16 +1,18 @@
-// app/page.tsx
+import { Container } from "@mantine/core";
+import { ArticleDetail } from "@/components/ui/ArticleDetail";
 import { HeroSection } from "@/components/ui/HeroSection";
-import { ArticleSection } from "@/components/ui/ArticleSection";
 import { SubscriptionPlans } from "@/components/ui/SubscriptionPlans";
 import { TrustedBy } from "@/components/ui/TrustedBy";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="bg-surface">
-      <HeroSection />
-      <ArticleSection />
-      <SubscriptionPlans />
-      <TrustedBy />
+    <div className="bg-background">
+      <Container size="lg">
+        <HeroSection />
+        <ArticleDetail />
+        <SubscriptionPlans />
+        <TrustedBy />
+      </Container>
     </div>
   );
 }
