@@ -1,3 +1,4 @@
+// src/components/ArticleDetail.tsx
 import { Card, Title, Text, Image, Group } from "@mantine/core";
 import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
@@ -6,14 +7,23 @@ import { RelatedArticles } from "@/components/ui/RelatedArticles";
 import { GraphPlaceholder } from "@/components/ui/GraphPlaceholder";
 import { InlineCTA } from "@/components/ui/InlineCTA";
 import { ReadingSettings } from "@/components/ui/ReadingSettings";
-import { Article } from "@/lib/types";
+
+interface Article {
+  title: string;
+  category: string;
+  author: string;
+  date: string;
+  readTime: string;
+  image: string;
+  content: JSX.Element;
+}
 
 interface ArticleDetailProps {
   article?: Article;
 }
 
 export function ArticleDetail({ article }: ArticleDetailProps) {
-  const defaultArticle = {
+  const defaultArticle: Article = {
     title:
       "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
     category: "Economy",
@@ -57,43 +67,49 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
   const displayArticle = article || defaultArticle;
 
   return (
-    <section className="container mx-auto px-4 py-8 md:py-12 flex flex-wrap gap-8">
-      <div className="flex-1 min-w-[400px]">
-        <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8 max-w-[800px] pl-6">
-          <Title
-            order={1}
-            className="text-primary mb-4 text-5xl font-bold whitespace-normal tracking-wide word-spacing-2 leading-tight"
-          >
-            {displayArticle.title}
-          </Title>
-          <Group className="text-muted mb-6 inline-flex flex-row gap-4">
-            <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
-              {displayArticle.category}
-            </Text>
-            <Text className="whitespace-nowrap">
-              By {displayArticle.author}
-            </Text>
-            <Text className="whitespace-nowrap">{displayArticle.date}</Text>
-            <Text className="whitespace-nowrap">{displayArticle.readTime}</Text>
-          </Group>
-          <SocialShare />
-          <Image
-            src={displayArticle.image}
-            alt="Grand Ethiopian Renaissance Dam"
-            className="my-6"
-          />
-          {displayArticle.content}
-        </Card>
-        <AuthorBio
-          name="About John Abebe"
-          bio="John Abebe is Ensight's lead analyst covering the Horn of Africa. He specializes in macroeconomics, infrastructure finance, and the dynamics of regional economic integration."
-          image="/images/author-placeholder.jpg"
-        />
-        <RelatedArticles />
-        <ReadingSettings />
-      </div>
-      <div className="w-[300px]">
-        <Sidebar />
+    <section className="max-w-[1200px] mx-auto px-4 py-12">
+      <div className="-mx-20 px-20">
+        <div className="flex flex-wrap gap-8 items-start">
+          <div className="flex-1 min-w-[400px]">
+            <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8">
+              <Title
+                order={1}
+                className="text-primary mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
+              >
+                {displayArticle.title}
+              </Title>
+              <Group className="text-muted mb-6 inline-flex flex-row gap-4">
+                <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
+                  {displayArticle.category}
+                </Text>
+                <Text className="whitespace-nowrap">
+                  By {displayArticle.author}
+                </Text>
+                <Text className="whitespace-nowrap">{displayArticle.date}</Text>
+                <Text className="whitespace-nowrap">
+                  {displayArticle.readTime}
+                </Text>
+              </Group>
+              <SocialShare />
+              <Image
+                src={displayArticle.image}
+                alt="Grand Ethiopian Renaissance Dam"
+                className="my-6"
+              />
+              {displayArticle.content}
+            </Card>
+            <AuthorBio
+              name="About John Abebe"
+              bio="John Abebe is Ensight's lead analyst covering the Horn of Africa. He specializes in macroeconomics, infrastructure finance, and the dynamics of regional economic integration."
+              image="/images/author-placeholder.jpg"
+            />
+            <RelatedArticles />
+            <ReadingSettings />
+          </div>
+          <div className="w-[300px]">
+            <Sidebar />
+          </div>
+        </div>
       </div>
     </section>
   );
