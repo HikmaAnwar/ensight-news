@@ -1,4 +1,3 @@
-// src/components/ArticleDetail.tsx
 import { Card, Title, Text, Image, Group } from "@mantine/core";
 import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
@@ -69,8 +68,8 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
   return (
     <section className="max-w-[1200px] mx-auto px-4 py-12">
       <div className="-mx-20 px-20">
-        <div className="flex flex-wrap gap-8 items-start">
-          <div className="flex-1 min-w-[400px]">
+        <div className="flex flex-col md:flex-row justify-between items-start">
+          <div className="w-full md:w-[680px]">
             <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8">
               <Title
                 order={1}
@@ -106,7 +105,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
             <RelatedArticles />
             <ReadingSettings />
           </div>
-          <div className="w-[300px]">
+          <div className="w-[480px] mt-8 md:mt-0">
             <Sidebar />
           </div>
         </div>

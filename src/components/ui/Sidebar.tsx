@@ -1,4 +1,3 @@
-// src/components/ui/Sidebar.tsx
 import { Card, Text, Group, Divider } from "@mantine/core";
 import { getPopularArticles } from "@/lib/data";
 
@@ -13,7 +12,7 @@ export default async function Sidebar() {
   const articles: Article[] = await getPopularArticles();
 
   return (
-    <aside className="w-[300px]">
+    <aside className="w-[480px]">
       <Card className="bg-background border border-border shadow-card p-6 rounded-2xl">
         <Text className="text-primary font-bold text-xl mb-4">
           Popular This Week
@@ -32,7 +31,7 @@ export default async function Sidebar() {
                 {article.title}
               </Text>
               <Group className="text-muted mb-6 inline-flex flex-row gap-4 hover:text-red-600">
-                <Text className="text-red-600 whitespace-nowrap px-1OI py-0 rounded">
+                <Text className="text-red-600 whitespace-nowrap px-1 py-0 rounded">
                   {article.category}
                 </Text>
                 <Text className="whitespace-nowrap">|</Text>
