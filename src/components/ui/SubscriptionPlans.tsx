@@ -55,7 +55,7 @@ export function SubscriptionPlans() {
         >
           Choose Your Plan
         </Title>
-        <Text className="text-secondary text-2xl text-center mb-12 max-w-2xl mx-auto">
+        <Text className="text-secondary text-lg text-center mb-12 max-w-2xl mx-auto">
           Select the plan that best suits your needs and start exploring
           actionable business intelligence today.
         </Text>
