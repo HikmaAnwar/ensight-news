@@ -47,15 +47,15 @@ const plans: Plan[] = [
 
 export function SubscriptionPlans() {
   return (
-    <section className="bg-background py-12">
+    <section className="bg-background py-6">
       <div className="max-w-[1200px] mx-auto px-4">
         <Title
           order={2}
-          className="text-primary text-center mb-4 animate-fade-in-up"
+          className="text-primary text-center text-3xl font-semibold mb-4 animate-fade-in-up"
         >
           Choose Your Plan
         </Title>
-        <Text className="text-secondary text-center mb-12 max-w-2xl mx-auto">
+        <Text className="text-secondary text-2xl text-center mb-12 max-w-2xl mx-auto">
           Select the plan that best suits your needs and start exploring
           actionable business intelligence today.
         </Text>
@@ -63,7 +63,7 @@ export function SubscriptionPlans() {
           {plans.map((plan) => (
             <Card
               key={plan.name}
-              className={`border border-border shadow-card p-6 flex flex-col ${
+              className={`border border-border shadow-md rounded-2xl p-6 flex flex-col ${
                 plan.isHighlighted
                   ? "bg-surface-emphasis border-primary-accent"
                   : "bg-surface"
@@ -92,6 +92,8 @@ export function SubscriptionPlans() {
                     : "bg-surface-alt text-primary"
                 } hover:bg-primary-accent hover:text-light`}
                 fullWidth
+                rounded
+                variant="filled"
               >
                 Select Plan
               </SharedButton>
