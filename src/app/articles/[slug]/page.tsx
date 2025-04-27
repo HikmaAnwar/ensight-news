@@ -1,5 +1,5 @@
 // app/articles/[slug]/page.tsx
-import { ArticleSection } from "@/components/ui/ArticleDetail";
+import { ArticleDetail } from "@/components/ui/ArticleDetail";
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/lib/data";
 
@@ -19,5 +19,5 @@ export default async function ArticlePage({
     notFound();
   }
 
-  return <ArticleSection article={article} />;
+  return <ArticleDetail article={article} />;
 }

@@ -28,10 +28,10 @@ export function ArticleSection({
   breadcrumbItems,
 }: ArticleSectionProps) {
   return (
-    <section className="max-w-[1200px] mx-auto px-4 py-12">
+    <section className="w-full max-w-[1200px] mx-auto py-12">
       <div className="-mx-20 px-20">
-        <div className="flex flex-col md:flex-row justify-between items-start">
-          <div className="w-full md:w-[680px]">
+        <div className="flex flex-col sm:flex-row justify-between items-start space-x-0 sm:space-x-8">
+          <div className="w-full sm:w-[680px] min-w-0">
             <BreadcrumbsNav items={breadcrumbItems} />
             <Title
               order={1}
@@ -105,7 +105,7 @@ export function ArticleSection({
               ))}
             </div>
           </div>
-          <div className="w-[480px] mt-8 md:mt-0">
+          <div className="w-full sm:w-[480px] mt-8 sm:mt-0">
             <Sidebar />
           </div>
         </div>
