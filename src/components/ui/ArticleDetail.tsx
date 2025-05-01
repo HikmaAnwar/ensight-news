@@ -1,11 +1,9 @@
 import { Card, Title, Text, Image, Group } from "@mantine/core";
 import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
-import { AuthorBio } from "@/components/ui/AuthorBio";
 import { RelatedArticles } from "@/components/ui/RelatedArticles";
 import { GraphPlaceholder } from "@/components/ui/GraphPlaceholder";
 import { InlineCTA } from "@/components/ui/InlineCTA";
-import { ReadingSettings } from "@/components/ui/ReadingSettings";
 
 interface Article {
   title: string;
