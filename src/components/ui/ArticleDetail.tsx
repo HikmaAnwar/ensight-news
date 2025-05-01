@@ -14,7 +14,8 @@ interface Article {
   date: string;
   readTime: string;
   image: string;
-  content: JSX.Element;
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: any;
 }
 
 interface ArticleDetailProps {
