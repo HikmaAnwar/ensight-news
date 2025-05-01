@@ -131,16 +131,10 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
               </div>
               {displayArticle.content}
             </Card>
-            <AuthorBio
-              name="About John Abebe"
-              bio="John Abebe is Ensight's lead analyst covering the Horn of Africa. He specializes in macroeconomics, infrastructure finance, and the dynamics of regional economic integration."
-              image="/images/author-placeholder.jpg"
-            />
-            <RelatedArticles />
-            <ReadingSettings />
           </div>
           <div className="w-full sm:w-[480px] mt-8 sm:mt-0">
             <Sidebar />
+            <RelatedArticles />
           </div>
         </div>
       </div>
