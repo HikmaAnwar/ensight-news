@@ -32,7 +32,7 @@ const socialLinks = [
 export function SocialShare() {
   return (
     <Group gap="md" className="mb-4 flex">
-      <Text className="text-white" size="sm">
+      <Text className="text-blueblack-white" size="sm">
         Share:
       </Text>
       {socialLinks.map((link) => (
@@ -44,8 +44,11 @@ export function SocialShare() {
             radius="xl"
             className="flex"
           >
-            <link.icon className="text-white mr-2 inline-block" size={16} />
-            <Text className="text-white inline" size="xs">
+            <link.icon
+              className="text-blueblack-white mr-2 inline-block"
+              size={16}
+            />
+            <Text className="text-blueblack-white inline" size="xs">
               {link.name}
             </Text>
           </ActionIcon>

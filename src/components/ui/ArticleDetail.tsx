@@ -73,7 +73,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
             <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8">
               <Title
                 order={1}
-                className="text-primary mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
+                className="text-blueblack-white mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
               >
                 {displayArticle.title}
               </Title>
