@@ -12,6 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { useTheme } from "@/lib/theme";
 import { SharedButton } from "@/components/ui/SharedButton";
+import Image from "next/image";
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
@@ -94,7 +95,13 @@ export function Header() {
     <header className="sticky top-0 z-50 md:px-20 bg-[#1E3A5F] shadow-sm">
       <div className="container mx-auto px-6 py-3 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-white">
-          EN<span className="text-[#D93A3A]">sight</span>
+          <Image
+            src="/images/new-red-logo.png"
+            alt="Ensight Logo"
+            className="h-12"
+            width={150}
+            height={55}
+          />
         </Link>
 
         {/* Desktop Nav */}

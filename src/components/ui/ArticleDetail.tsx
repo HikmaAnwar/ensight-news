@@ -101,7 +101,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                 />
                 <div className="absolute top-7 left-7">
                   <Image
-                    src="/images/logo.png"
+                    src="/images/logo-red.png"
                     alt="Ensight Logo"
                     className="h-8"
                   />
@@ -111,6 +111,13 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                   style={{
                     background:
                       "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                  }}
+                />
+                <div
+                  className="absolute top-0 left-0 w-full h-1/3"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7))",
                   }}
                 />
                 <div className="absolute bottom-4 left-4">
