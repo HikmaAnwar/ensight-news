@@ -9,7 +9,7 @@ const articles = [
     title: "Ethiopia's Coffee Market: Trends and Opportunities",
     description:
       "An in-depth analysis of the coffee market in Ethiopia, exploring current trends and future opportunities.",
-    image: "/images/coffee-market.jpg",
+    image: "/images/news.jpg",
     href: "/business/markets/ethiopia-coffee-market",
     author: "Amina Tesfaye",
     readTime: "10 min",
@@ -20,7 +20,7 @@ const articles = [
     title: "The Rise of E-commerce in Ethiopia",
     description:
       "Exploring the growth of e-commerce in Ethiopia and its impact on traditional retail.",
-    image: "/images/ecommerce-rise.jpg",
+    image: "/images/news.jpg",
     href: "/business/markets/rise-ecommerce-ethiopia",
     author: "Samuel Abebe",
     readTime: "8 min",

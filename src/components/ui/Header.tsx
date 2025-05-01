@@ -166,7 +166,7 @@ export function Header() {
           />
           <SharedButton
             variant="filled"
-            className="bg-[#D93A3A] text-white hover:bg-[#B32F2F] transition-colors"
+            className="bg-[#D93A3A] text-white hover:bg-[#B32F2F] transition-colors rounded-2xl"
           >
             Subscribe
           </SharedButton>

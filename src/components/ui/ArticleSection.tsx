@@ -1,6 +1,7 @@
 import { Card, Title, Text, Image, Group, Badge } from "@mantine/core";
 import { BreadcrumbsNav } from "./BreadcrumbsNav";
 import Sidebar from "./Sidebar";
+import { RelatedArticles } from "./RelatedArticles";
 
 interface Article {
   id: string;
@@ -79,12 +80,12 @@ export function ArticleSection({
                     </Badge>
                     <Title
                       order={4}
-                      className="mb-2 line-clamp-2"
+                      className="mb-2 line-clamp-2 font-bold"
                       style={{ color: "#1e40af" }}
                     >
                       {article.title}
                     </Title>
-                    <Text className="text-text-muted text-sm mb-4 line-clamp-1 flex-1">
+                    <Text className="text-primary text-sm mb-4 line-clamp-1 flex-1 ">
                       {article.description}
                     </Text>
                     <Group gap="xs" className="mt-auto">
@@ -93,7 +94,7 @@ export function ArticleSection({
                           .toLowerCase()
                           .replace(" ", "-")}.jpg`}
                         alt={article.author}
-                        className="w-6 h-6 rounded-full"
+                        className="w-6 h-12 rounded-full"
                         fallbackSrc="/images/placeholder-author.jpg"
                       />
                       <Text className="text-text-muted text-sm">
@@ -107,6 +108,7 @@ export function ArticleSection({
           </div>
           <div className="w-full sm:w-[480px] mt-8 sm:mt-0">
             <Sidebar />
+            <RelatedArticles />
           </div>
         </div>
       </div>
