@@ -6,82 +6,51 @@ import {
   IconMail,
 } from "@tabler/icons-react";
 
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: IconBrandLinkedin,
+  },
+  {
+    name: "Twitter",
+    href: "https://twitter.com",
+    icon: IconBrandTwitter,
+  },
+  {
+    name: "Facebook",
+    href: "https://facebook.com",
+    icon: IconBrandFacebook,
+  },
+  {
+    name: "Email",
+    href: "mailto:example@example.com",
+    icon: IconMail,
+  },
+];
+
 export function SocialShare() {
   return (
-    <Group
-      gap="md"
-      className="mb-4"
-      style={{
-        flexDirection: "row",
-        flexWrap: "nowrap",
-        alignItems: "center",
-        overflowX: "auto", // Scroll if too wide
-        minWidth: 0, // Prevent overflow
-      }}
-    >
-      <Text className="text-white" size="sm" style={{ flexShrink: 0 }}>
+    <Group gap="md" className="mb-4 flex">
+      <Text className="text-white" size="sm">
         Share:
       </Text>
-      <Group gap="xs" style={{ flexShrink: 0, alignItems: "center" }}>
-        <ActionIcon
-          component="a"
-          href="https://linkedin.com"
-          variant="filled"
-          size="md"
-          radius="xl"
-          className="bg-gray-200"
-        >
-          <IconBrandLinkedin className="text-white" size={16} />
-        </ActionIcon>
-        <Text className="text-white" size="xs">
-          LinkedIn
-        </Text>
-      </Group>
-      <Group gap="xs" style={{ flexShrink: 0, alignItems: "center" }}>
-        <ActionIcon
-          component="a"
-          href="https://twitter.com"
-          variant="filled"
-          size="md"
-          radius="xl"
-          className="bg-gray-200"
-        >
-          <IconBrandTwitter className="text-white" size={16} />
-        </ActionIcon>
-        <Text className="text-white" size="xs">
-          Twitter
-        </Text>
-      </Group>
-      <Group gap="xs" style={{ flexShrink: 0, alignItems: "center" }}>
-        <ActionIcon
-          component="a"
-          href="https://facebook.com"
-          variant="filled"
-          size="md"
-          radius="xl"
-          className="bg-gray-200"
-        >
-          <IconBrandFacebook className="text-white" size={16} />
-        </ActionIcon>
-        <Text className="text-white" size="xs">
-          Facebook
-        </Text>
-      </Group>
-      <Group gap="xs" style={{ flexShrink: 0, alignItems: "center" }}>
-        <ActionIcon
-          component="a"
-          href="mailto:example@example.com"
-          variant="filled"
-          size="md"
-          radius="xl"
-          className="bg-gray-200"
-        >
-          <IconMail className="text-white" size={16} />
-        </ActionIcon>
-        <Text className="text-white" size="xs">
-          Email
-        </Text>
-      </Group>
+      {socialLinks.map((link) => (
+        <Group key={link.name} gap="xs" className="flex items-center mx-4">
+          <ActionIcon
+            component="a"
+            href={link.href}
+            variant="filled"
+            radius="xl"
+            className="flex"
+          >
+            <link.icon className="text-white mr-2 inline-block" size={16} />
+            <Text className="text-white inline" size="xs">
+              {link.name}
+            </Text>
+          </ActionIcon>
+        </Group>
+      ))}
     </Group>
   );
 }

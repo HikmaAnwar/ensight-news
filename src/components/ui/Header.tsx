@@ -1,4 +1,3 @@
-// src/components/ui/Header.tsx
 "use client";
 
 import { useState, useRef } from "react";
@@ -44,12 +43,23 @@ export function Header() {
     {
       label: "Economy",
       href: "/economy",
-      submenu: [],
+      submenu: [
+        { label: "Policies", href: "/economy/policies" },
+        { label: "Trade", href: "/economy/trade" },
+        { label: "Development", href: "/economy/development" },
+        { label: "Inflation", href: "/economy/inflation" },
+        { label: "Growth", href: "/economy/growth" },
+        { label: "Jobs", href: "/economy/jobs" },
+      ],
     },
     {
-      label: "Technology",
+      label: "Tech and Science",
       href: "/technology",
-      submenu: [],
+      submenu: [
+        { label: "Innovation", href: "/technology/innovation" },
+        { label: "Digital", href: "/technology/digital" },
+        { label: "Research", href: "/technology/research" },
+      ],
     },
     {
       label: "Corporate",
