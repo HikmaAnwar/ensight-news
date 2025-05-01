@@ -1,4 +1,3 @@
-// src/app/finance/banking/page.tsx
 import { Container } from "@mantine/core";
 import { ArticleSection } from "@/components/ui/ArticleSection";
 
