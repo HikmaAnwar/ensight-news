@@ -91,11 +91,37 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
                 </Text>
               </Group>
               <SocialShare />
-              <Image
-                src={displayArticle.image}
-                alt="Grand Ethiopian Renaissance Dam"
-                className="my-6"
-              />
+              <div className="relative my-6">
+                <Image
+                  src={displayArticle.image}
+                  alt="Grand Ethiopian Renaissance Dam"
+                  className="rounded-lg"
+                  height="400"
+                  width="680"
+                />
+                <div className="absolute top-7 left-7">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Ensight Logo"
+                    className="h-8"
+                  />
+                </div>
+                <div
+                  className="absolute bottom-0 left-0 w-full h-1/3"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                  }}
+                />
+                <div className="absolute bottom-4 left-4">
+                  <Text
+                    className="text-white text-[28px] font-extrabold"
+                    style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+                  >
+                    {displayArticle.title}
+                  </Text>
+                </div>
+              </div>
               {displayArticle.content}
             </Card>
             <AuthorBio
