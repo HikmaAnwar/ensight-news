@@ -32,14 +32,14 @@ export function ArticleSection({
     <section className="w-full  py-12">
       <div className="flex flex-col sm:flex-row items-start space-x-0 sm:space-x-8">
         <div className="w-full sm:flex-1 sm:max-w-[680px] min-w-0">
-          <BreadcrumbsNav items={breadcrumbItems} />
+          <BreadcrumbsNav items={breadcrumbItems} className="font-semibold" />
           <Title
             order={1}
-            className="text-primary text-3xl font-bold mt-4 mb-2"
+            className="text-blueblack-white font-serif text-3xl font-bold mt-4 mb-2"
           >
             {section} - {subtype}
           </Title>
-          <Text className="text-muted mb-8 text-xl">
+          <Text className="text-muted font-serif mb-8 text-xl">
             Showing {articles.length} articles
           </Text>
           <div
@@ -76,19 +76,17 @@ export function ArticleSection({
                   <Badge
                     variant="outline"
                     color="blue"
-                    className="mb-2"
-                    style={{ borderColor: "#1e40af", color: "#1e40af" }}
+                    className="mb-2 text-blueblack-white font-serif"
                   >
                     {article.category}
                   </Badge>
                   <Title
                     order={4}
-                    className="mb-2 line-clamp-2 font-bold"
-                    style={{ color: "#1e40af" }}
+                    className="mb-2 line-clamp-2 font-bold text-blueblack-white font-serif"
                   >
                     {article.title}
                   </Title>
-                  <Text className="text-primary text-sm mb-4 line-clamp-1 flex-1 ">
+                  <Text className="text-primary font-serif text-sm mb-4 line-clamp-1 flex-1 ">
                     {article.description}
                   </Text>
                   <Group gap="xs" className="mt-auto">
@@ -100,7 +98,7 @@ export function ArticleSection({
                       className="w-6 h-12 rounded-full"
                       fallbackSrc="/images/placeholder-author.jpg"
                     />
-                    <Text className="text-text-muted text-sm">
+                    <Text className="text-blueblack-white font-serif text-sm">
                       {article.author} • {article.readTime}
                     </Text>
                   </Group>

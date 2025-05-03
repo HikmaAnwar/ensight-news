@@ -50,7 +50,10 @@ const relatedArticles: Article[] = [
 export function RelatedArticles() {
   return (
     <div className="mt-8 w-full">
-      <Title order={3} className="text-primary mb-4 text-xl font-semibold">
+      <Title
+        order={3}
+        className="text-blueblack-white mb-4 text-xl font-semibold"
+      >
         Related Articles
       </Title>
       <hr className="border-t border-blueblack-white mb-6" />
@@ -65,9 +68,10 @@ export function RelatedArticles() {
               <Image
                 src={article.image}
                 alt={article.title}
-                className="w-full h-[150px] object-cover rounded-t-md"
+                className="w-full h-[160px] sm:h-[180px] lg:h-[200px] object-cover rounded-t-md"
                 fallbackSrc="/images/placeholder-image.jpg"
               />
+
               {article.isPremium && (
                 <Badge
                   className="absolute top-2 right-2"
@@ -83,19 +87,18 @@ export function RelatedArticles() {
               <Badge
                 variant="outline"
                 color="blue"
-                className="mb-2"
-                style={{ borderColor: "#1e40af", color: "#1e40af" }}
+                className="mb-2 text-blueblack-white font-serif"
+                style={{ borderColor: "#1e40af" }}
               >
                 {article.category}
               </Badge>
               <Title
                 order={4}
-                className="mb-2 line-clamp-2"
-                style={{ color: "#1e40af" }}
+                className="mb-2 line-clamp-2 text-blueblack-white font-bold font-serif"
               >
                 {article.title}
               </Title>
-              <Text className="text-text-muted text-sm mb-4 line-clamp-1 flex-1">
+              <Text className="text-primary font-serif text-sm mb-4 line-clamp-1 flex-1">
                 {article.description}
               </Text>
               <Group gap="xs" className="mt-auto">
@@ -107,7 +110,7 @@ export function RelatedArticles() {
                   className="w-6 h-6 rounded-full"
                   fallbackSrc="/images/placeholder-author.jpg"
                 />
-                <Text className="text-text-muted text-sm">
+                <Text className="text-text-muted text-blueblack-white font-serif text-sm">
                   {article.author} • {article.readTime}
                 </Text>
               </Group>
