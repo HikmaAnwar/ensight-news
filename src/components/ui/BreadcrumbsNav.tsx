@@ -1,6 +1,6 @@
-// src/components/ui/BreadcrumbsNav.tsx
 import { Breadcrumbs, Anchor } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
+import Link from "next/link";
 
 interface BreadcrumbItem {
   label: string;
@@ -9,17 +9,19 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsNavProps {
   items: BreadcrumbItem[];
+  className?: string;
 }
 
-export function BreadcrumbsNav({ items }: BreadcrumbsNavProps) {
+export function BreadcrumbsNav({ items, className }: BreadcrumbsNavProps) {
   return (
     <Breadcrumbs
       separator={<IconChevronRight size={16} className="text-[#6B7280]" />}
-      className="flex flex-row items-center gap-2"
+      className={`flex flex-row items-center gap-2 ${className || ""}`}
     >
       {items.map((item, index) => (
         <Anchor
           key={item.href}
+          component={Link}
           href={item.href}
           className={
             index === items.length - 1

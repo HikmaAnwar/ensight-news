@@ -65,7 +65,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
   const displayArticle = article || defaultArticle;
 
   return (
-    <section className="w-full max-w-[1200px] mx-auto py-12">
+    <section className="w-full max-w-[1200px] mx-auto py-12 bg-black ">
       <div className="-mx-20 px-20">
         <div className="flex flex-col sm:flex-row justify-between items-start space-x-0 sm:space-x-8">
           <div className="w-full sm:w-[680px] min-w-0">

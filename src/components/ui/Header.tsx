@@ -164,12 +164,14 @@ export function Header() {
             size={20}
             className="mx-3 text-white hover:text-[#D93A3A] cursor-pointer transition-colors"
           />
-          <SharedButton
-            variant="filled"
-            className="bg-[#D93A3A] text-white hover:bg-[#B32F2F] transition-colors rounded-2xl"
-          >
-            Subscribe
-          </SharedButton>
+          <Link href="/subscribe">
+            <SharedButton
+              variant="filled"
+              className="bg-[#D93A3A] text-white hover:bg-[#B32F2F] transition-colors rounded-2xl"
+            >
+              Subscribe
+            </SharedButton>
+          </Link>
         </Group>
 
         {/* Mobile Nav Toggle */}
@@ -220,12 +222,14 @@ export function Header() {
                 <IconSun size={20} />
               )}
             </ActionIcon>
-            <SharedButton
-              variant="filled"
-              className="w-full bg-[#D93A3A] text-white hover:bg-[#B32F2F] transition-colors"
-            >
-              Subscribe
-            </SharedButton>
+            <Link href="/subscribe">
+              <SharedButton
+                variant="filled"
+                className="w-full bg-[#D93A3A] text-white hover:bg-[#B32F2F] transition-colors"
+              >
+                Subscribe
+              </SharedButton>
+            </Link>
           </div>
         </div>
       )}
