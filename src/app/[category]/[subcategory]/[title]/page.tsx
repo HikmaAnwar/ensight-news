@@ -181,7 +181,7 @@ export default async function ReadingPage({
           <div className="flex-1 text-primary font-serif leading-relaxed">
             {article.content.split(". ").slice(0, 2).join(". ") + "."}
           </div>
-          <div className="flex-1 pl-6">
+          <div className="flex-1 ">
             <Image
               src={article.image}
               alt={article.title}
