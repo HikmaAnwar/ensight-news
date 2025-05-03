@@ -32,7 +32,7 @@ const socialLinks = [
 export function SocialShare() {
   return (
     <Group gap="md" className="mb-4 flex">
-      <Text className="text-blueblack-white" size="sm">
+      <Text className="text-blueblack-white font-serif" size="sm">
         Share:
       </Text>
       {socialLinks.map((link) => (

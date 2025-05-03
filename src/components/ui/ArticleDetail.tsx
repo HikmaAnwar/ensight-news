@@ -2,8 +2,6 @@ import { Card, Title, Text, Image, Group } from "@mantine/core";
 import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { RelatedArticles } from "@/components/ui/RelatedArticles";
-import { GraphPlaceholder } from "@/components/ui/GraphPlaceholder";
-import { InlineCTA } from "@/components/ui/InlineCTA";
 
 interface Article {
   title: string;
@@ -56,8 +54,6 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
           climate-linked finance mechanisms such as green bonds for eligible
           renewable energy or sustainable transport projects.
         </Text>
-        <GraphPlaceholder />
-        <InlineCTA />
       </>
     ),
   };
@@ -71,11 +67,11 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
           <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8">
             <Title
               order={1}
-              className="text-blueblack-white mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
+              className="text-blueblack-white font-serif mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
             >
               {displayArticle.title}
             </Title>
-            <Group className="text-muted mb-6 inline-flex flex-row gap-4">
+            <Group className="text-muted font-serif mb-6 inline-flex flex-row gap-4">
               <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
                 {displayArticle.category}
               </Text>
@@ -119,7 +115,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
               />
               <div className="absolute bottom-4 left-4">
                 <Text
-                  className="text-white text-[28px] font-extrabold"
+                  className="text-white font-serif text-[28px] font-extrabold"
                   style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
                 >
                   {displayArticle.title}
