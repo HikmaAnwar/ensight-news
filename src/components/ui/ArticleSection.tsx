@@ -42,19 +42,23 @@ export function ArticleSection({
           <Text className="text-muted mb-8 text-xl">
             Showing {articles.length} articles
           </Text>
-          <div className="flex flex-row gap-6 overflow-x-auto pb-4">
+          <div
+            className="grid gap-6"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+            }}
+          >
             {articles.map((article) => (
               <Card
                 key={article.id}
                 className="bg-background border border-border rounded-xl flex flex-col flex-shrink-0"
                 radius="md"
-                style={{ width: "300px" }}
               >
                 <div className="relative">
                   <Image
                     src={article.image}
                     alt={article.title}
-                    className="w-full h-[150px] object-cover rounded-t-md"
+                    className="w-full h-[160px] sm:h-[180px] lg:h-[200px] object-cover rounded-t-md"
                     fallbackSrc="/images/placeholder-image.jpg"
                   />
                   {article.isPremium && (
