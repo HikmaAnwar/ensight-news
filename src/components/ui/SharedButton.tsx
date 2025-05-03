@@ -12,6 +12,7 @@ interface SharedButtonProps extends ButtonProps {
     | string;
   rounded?: boolean;
   type?: "submit" | "button" | "reset"; // Add type prop for form buttons
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const SharedButton = forwardRef<HTMLButtonElement, SharedButtonProps>(

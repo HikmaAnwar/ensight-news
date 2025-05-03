@@ -61,7 +61,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
   const displayArticle = article || defaultArticle;
 
   return (
-    <section className="w-full py-12">
+    <section id="article-detail" className="w-full py-12">
       <div className="flex flex-col sm:flex-row items-start space-x-0 sm:space-x-8">
         <div className="w-full sm:flex-1 sm:max-w-[680px] min-w-0">
           <Title
