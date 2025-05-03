@@ -12,6 +12,7 @@ interface Article {
   date: string;
   readTime: string;
   image: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any;
 }
 
