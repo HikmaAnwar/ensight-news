@@ -12,7 +12,6 @@ interface Article {
   date: string;
   readTime: string;
   image: string;
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any;
 }
 
@@ -65,75 +64,73 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
   const displayArticle = article || defaultArticle;
 
   return (
-    <section className="w-full max-w-[1200px] mx-auto py-12 bg-black ">
-      <div className="-mx-20 px-20">
-        <div className="flex flex-col sm:flex-row justify-between items-start space-x-0 sm:space-x-8">
-          <div className="w-full sm:w-[680px] min-w-0">
-            <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8">
-              <Title
-                order={1}
-                className="text-blueblack-white mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
-              >
-                {displayArticle.title}
-              </Title>
-              <Group className="text-muted mb-6 inline-flex flex-row gap-4">
-                <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
-                  {displayArticle.category}
-                </Text>
-                <Text className="whitespace-nowrap">
-                  By {displayArticle.author}
-                </Text>
-                <Text className="whitespace-nowrap">{displayArticle.date}</Text>
-                <Text className="whitespace-nowrap">
-                  {displayArticle.readTime}
-                </Text>
-              </Group>
-              <SocialShare />
-              <div className="relative my-6">
+    <section className="w-full py-12">
+      <div className="flex flex-col sm:flex-row items-start space-x-0 sm:space-x-8">
+        <div className="w-full sm:flex-1 sm:max-w-[680px] min-w-0">
+          <Card className="bg-background border border-border shadow-md rounded-2xl p-6 mb-8">
+            <Title
+              order={1}
+              className="text-blueblack-white mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
+            >
+              {displayArticle.title}
+            </Title>
+            <Group className="text-muted mb-6 inline-flex flex-row gap-4">
+              <Text className="whitespace-nowrap text-red-600 bg-red-900 px-1 py-0 rounded">
+                {displayArticle.category}
+              </Text>
+              <Text className="whitespace-nowrap">
+                By {displayArticle.author}
+              </Text>
+              <Text className="whitespace-nowrap">{displayArticle.date}</Text>
+              <Text className="whitespace-nowrap">
+                {displayArticle.readTime}
+              </Text>
+            </Group>
+            <SocialShare />
+            <div className="relative my-6">
+              <Image
+                src={displayArticle.image}
+                alt="Grand Ethiopian Renaissance Dam"
+                className="rounded-lg"
+                height="400"
+                width="680"
+              />
+              <div className="absolute top-7 left-7">
                 <Image
-                  src={displayArticle.image}
-                  alt="Grand Ethiopian Renaissance Dam"
-                  className="rounded-lg"
-                  height="400"
-                  width="680"
+                  src="/images/logo-red.png"
+                  alt="Ensight Logo"
+                  className="h-8"
                 />
-                <div className="absolute top-7 left-7">
-                  <Image
-                    src="/images/logo-red.png"
-                    alt="Ensight Logo"
-                    className="h-8"
-                  />
-                </div>
-                <div
-                  className="absolute bottom-0 left-0 w-full h-1/3"
-                  style={{
-                    background:
-                      "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
-                  }}
-                />
-                <div
-                  className="absolute top-0 left-0 w-full h-1/3"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7))",
-                  }}
-                />
-                <div className="absolute bottom-4 left-4">
-                  <Text
-                    className="text-white text-[28px] font-extrabold"
-                    style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
-                  >
-                    {displayArticle.title}
-                  </Text>
-                </div>
               </div>
-              {displayArticle.content}
-            </Card>
-          </div>
-          <div className="w-full sm:w-[480px] mt-8 sm:mt-0">
-            <Sidebar />
-            <RelatedArticles />
-          </div>
+              <div
+                className="absolute bottom-0 left-0 w-full h-1/3"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                }}
+              />
+              <div
+                className="absolute top-0 left-0 w-full h-1/3"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7))",
+                }}
+              />
+              <div className="absolute bottom-4 left-4">
+                <Text
+                  className="text-white text-[28px] font-extrabold"
+                  style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+                >
+                  {displayArticle.title}
+                </Text>
+              </div>
+            </div>
+            {displayArticle.content}
+          </Card>
+        </div>
+        <div className="w-full sm:w-[480px] mt-8 sm:mt-0 sm:ml-auto">
+          <Sidebar />
+          <RelatedArticles />
         </div>
       </div>
     </section>
