@@ -1,4 +1,5 @@
 // lib/types.ts
+
 export interface Article {
   slug: string;
   title: string;
@@ -8,6 +9,8 @@ export interface Article {
   readTime: string;
   image: string;
   content: string;
+  description: string;
+  isPremium?: boolean;
 }
 
 export interface SubscriptionPlan {

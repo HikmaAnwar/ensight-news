@@ -1,5 +1,6 @@
 import { Container } from "@mantine/core";
 import { ArticleSection } from "@/components/ui/ArticleSection";
+import { createUrlFriendlyTitle } from "@/lib/utils"; // you can move your function there for shared use
 
 const articles = [
   {
@@ -10,7 +11,9 @@ const articles = [
     description:
       "An in-depth analysis of the coffee market in Ethiopia, exploring current trends and future opportunities.",
     image: "/images/news.jpg",
-    href: "/business/markets/ethiopia-coffee-market",
+    href: `/business/markets/${createUrlFriendlyTitle(
+      "Ethiopia's Coffee Market: Trends and Opportunities"
+    )}`,
     author: "Amina Tesfaye",
     readTime: "10 min",
   },

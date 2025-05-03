@@ -14,6 +14,8 @@ export const getArticleBySlug = async (
       date: "May 15, 2025",
       readTime: "8 min read",
       image: "/images/gerd-placeholder.png",
+      description:
+        "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
       content:
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
     },
@@ -25,6 +27,8 @@ export const getArticleBySlug = async (
       date: "May 10, 2025",
       readTime: "4 min read",
       image: "/images/ai-startups.png",
+      description:
+        "Explore the rise of AI startups and their impact in 2025...",
       content: "Explore the rise of AI startups and their impact in 2025...",
     },
   ];
@@ -43,6 +47,8 @@ export const getPopularArticles = async (): Promise<Article[]> => {
       date: "May 15, 2025",
       readTime: "8 min read",
       image: "/images/gerd-placeholder.png",
+      description:
+        "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
       content:
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
     },
@@ -54,6 +60,8 @@ export const getPopularArticles = async (): Promise<Article[]> => {
       date: "May 10, 2025",
       readTime: "4 min read",
       image: "/images/ai-startups.png",
+      description:
+        "Explore the rise of AI startups and their impact in 2025...",
       content: "Explore the rise of AI startups and their impact in 2025...",
     },
   ];
