@@ -41,7 +41,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
           </strong>
         </Text>
         <br />
-        <Text className="mb-4 text-primary">
+        <Text className="mb-4 text-primary font-serif">
           The colossal scale of projects like the GERD, combined with critical
           investments needed in roads, rail, and digital infrastructure to
           bolster the Homegrown Economic Reform Agenda, necessitates a strategic
