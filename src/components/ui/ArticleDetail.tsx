@@ -2,7 +2,6 @@ import { Title, Text, Image, Group } from "@mantine/core";
 import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { RelatedArticles } from "@/components/ui/RelatedArticles";
-import { InlineCTA } from "./InlineCTA";
 
 interface Article {
   title: string;
