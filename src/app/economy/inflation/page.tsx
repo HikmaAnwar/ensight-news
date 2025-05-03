@@ -30,7 +30,7 @@ const articles = [
 const breadcrumbItems = [
   { label: "Home", href: "/" },
   { label: "Economy", href: "/economy" },
-  { label: "Infl medicalation", href: "/economy/inflation" },
+  { label: "Inflation", href: "/economy/inflation" },
 ];
 
 export default function InflationPage() {

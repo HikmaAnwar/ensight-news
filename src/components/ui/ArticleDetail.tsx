@@ -67,7 +67,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
         <div className="w-full sm:flex-1 sm:max-w-[680px] min-w-0">
           <Title
             order={1}
-            className="text-blueblack-white font-serif mb-4 text-5xl font-bold whitespace-normal tracking-wide leading-tight"
+            className="text-blueblack-white font-serif mb-4 text-4xl font-bold whitespace-normal tracking-wide leading-tight"
           >
             {displayArticle.title}
           </Title>
