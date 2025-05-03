@@ -16,7 +16,9 @@ export function BreadcrumbsNav({ items, className }: BreadcrumbsNavProps) {
   return (
     <Breadcrumbs
       separator={<IconChevronRight size={16} className="text-[#6B7280]" />}
-      className={`flex flex-row items-center gap-2 ${className || ""}`}
+      className={`top-[90px] left-20 w-full z-10 flex flex-row items-center gap-2 ${
+        className || ""
+      }`}
     >
       {items.map((item, index) => (
         <Anchor
@@ -26,7 +28,7 @@ export function BreadcrumbsNav({ items, className }: BreadcrumbsNavProps) {
           className={
             index === items.length - 1
               ? "text-[#D93A3A] font-medium"
-              : "text-[#1E40AF] hover:text-[#D93A3A] transition-colors"
+              : "text-blueblack-white hover:text-[#D93A3A] transition-colors"
           }
         >
           {item.label}
