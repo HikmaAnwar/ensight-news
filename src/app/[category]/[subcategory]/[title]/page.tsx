@@ -93,7 +93,7 @@ export async function generateStaticParams() {
       author: "Yared Lemma",
       date: "2025-05-01",
       readTime: "9 min",
-      image: "/images/economic-policies.jpg",
+      image: "/images/news.jpg",
       content: "A new book about economic policies and reforms is coming soon!",
       description:
         "Exploring the latest economic policy reforms shaping Ethiopia's future.",
@@ -105,7 +105,7 @@ export async function generateStaticParams() {
       author: "Selamawit Gebremedhin",
       date: "2025-05-01",
       readTime: "6 min",
-      image: "/images/monetary-policy.jpg",
+      image: "/images/news.jpg",
       content:
         "An analysis of how monetary policies are influencing Ethiopia's economic landscape.",
       description:
@@ -119,7 +119,7 @@ export async function generateStaticParams() {
       author: "Tsedey Kebede",
       date: "2025-05-03",
       readTime: "7 min",
-      image: "/images/logo.png",
+      image: "/images/frehiwot.jpg",
       content:
         "Ethiopia's coffee market is booming as global demand for specialty coffee increases...",
       description:
@@ -151,10 +151,12 @@ export default async function ReadingPage({
 }: {
   params: { category: string; subcategory: string; title: string };
 }) {
+  const { category, subcategory, title } = await params;
+
   const article = await getArticleByTitleAndCategory(
-    params.category,
-    params.subcategory,
-    params.title
+    category,
+    subcategory,
+    title
   );
 
   if (!article) {
@@ -162,35 +164,43 @@ export default async function ReadingPage({
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="flex items-center justify-center min-h-screen p-6">
       <div className="max-w-5xl w-full p-8">
+        {/* Title */}
         <h1 className="text-4xl font-bold text-blueblack-white font-serif text-center mb-4">
           {article.title}
         </h1>
+
+        {/* Subtitle */}
         <div className="text-lg text-primary font-serif text-center mb-6">
           {parseCategory(article.category).mainCategory}
         </div>
+
+        {/* First Description with Image */}
         <div className="flex flex-col md:flex-row gap-6 mb-6">
           <div className="flex-1 text-primary font-serif leading-relaxed">
             {article.content.split(". ").slice(0, 2).join(". ") + "."}
           </div>
-          <div className="flex-1">
+          <div className="flex-1 pl-6">
             <Image
               src={article.image}
               alt={article.title}
-              className="w-[680px] h-[400px] object-cover rounded-md pl-8"
+              className="object-cover rounded-md"
               width={680}
               height={400}
             />
           </div>
         </div>
 
+        {/* Full Content */}
         <div className="text-primary font-serif leading-relaxed mb-6">
           {article.content}
         </div>
+
+        {/* CTA Section */}
         <div className="text-center">
-          <p className="text-primary font-serif mb-4">
-            Be the first to know about our latests news! Sign up below to
+          <p className="text-blueblack-white font-semibold font-serif mb-4">
+            Be the first to know about our latest news! Sign up below to
             register your interest:
           </p>
           <div className="flex justify-center gap-4">
@@ -199,8 +209,8 @@ export default async function ReadingPage({
               placeholder="Your email address"
               className="w-full max-w-xs p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button className="bg-red-800 font-serif text-white px-4 py-2 rounded-md hover:bg-red-950 transition">
-              subscribe
+            <button className="bg-red-800 font-serif text-white px-4 py-2 rounded-md hover:bg-red-900 transition">
+              Subscribe
             </button>
           </div>
         </div>
