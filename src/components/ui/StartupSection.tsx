@@ -75,8 +75,9 @@ export function StartupSection() {
                 variant="filled"
                 color="primary-accent"
                 size="xs"
-                component="a"
-                href={startup.href}
+                onClick={() => {
+                  window.location.href = startup.href;
+                }}
               >
                 Learn More
               </SharedButton>
