@@ -17,6 +17,7 @@ const articles: Article[] = [
   {
     id: "1",
     category: "ECONOMY | POLICIES",
+    slug: "ethiopias-economic-policies-a-new-era-of-reform",
     title: "Ethiopia's Economic Policies: A New Era of Reform",
     description:
       "Exploring the latest economic policy reforms shaping Ethiopia's future.",
@@ -27,6 +28,7 @@ const articles: Article[] = [
   {
     id: "2",
     category: "ECONOMY | POLICIES",
+    slug: "impact-of-monetary-policy-on-ethiopias-economy",
     title: "Impact of Monetary Policy on Ethiopia's Economy",
     description:
       "An analysis of how monetary policies are influencing Ethiopia's economic landscape.",
