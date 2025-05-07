@@ -1,14 +1,13 @@
-// lib/types.ts
-
 export interface Article {
-  slug: string;
+  id?: string;
+  slug?: string;
   title: string;
   category: string;
   author: string;
-  date: string;
+  date?: string;
   readTime: string;
   image: string;
-  content: string;
+  content?: string;
   description: string;
   isPremium?: boolean;
 }

@@ -5,7 +5,7 @@ import { createUrlFriendlyTitle } from "@/lib/utils"; // you can move your funct
 const articles = [
   {
     id: "1",
-
+    slug: "ethiopia-coffee-market-trends-opportunities",
     category: "BUSINESS | MARKETS",
     title: "Ethiopia's Coffee Market: Trends and Opportunities",
     description:
@@ -19,6 +19,7 @@ const articles = [
   },
   {
     id: "2",
+    slug: "ethiopia-financing-models-gerd",
     category: "BUSINESS | MARKETS",
     title: "The Rise of E-commerce in Ethiopia",
     description:

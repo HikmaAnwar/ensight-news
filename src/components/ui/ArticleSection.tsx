@@ -12,16 +12,14 @@ interface ArticleSectionProps {
   breadcrumbItems: { label: string; href: string }[];
 }
 
-// Helper function to create a URL-friendly title
 const createUrlFriendlyTitle = (title: string) => {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/[^a-z0-9\s-]/g, "")
     .trim()
-    .replace(/\s+/g, "-"); // Replace spaces with hyphens
+    .replace(/\s+/g, "-");
 };
 
-// Helper function to parse category into main category and subcategory
 const parseCategory = (
   category: string
 ): { mainCategory: string; subcategory: string } => {
@@ -68,7 +66,11 @@ export function ArticleSection({
               const linkPath = `/${mainCategory}/${subcategory}/${urlFriendlyTitle}`;
 
               return (
-                <Link href={linkPath} key={article.slug || article.id} passHref>
+                <Link
+                  href={linkPath}
+                  key={article?.slug || article?.id}
+                  passHref
+                >
                   <Card
                     className="bg-background border border-border rounded-xl flex flex-col flex-shrink-0 cursor-pointer hover:shadow-lg transition-shadow"
                     radius="md"

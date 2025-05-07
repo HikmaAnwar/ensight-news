@@ -87,6 +87,7 @@ async function getArticleByTitleAndCategory(
 export async function generateStaticParams() {
   const articles: Article[] = [
     {
+      id: "1",
       slug: "ethiopias-economic-policies-a-new-era-of-reform",
       title: "Ethiopia's Economic Policies: A New Era of Reform",
       category: "ECONOMY | POLICIES",
@@ -99,6 +100,7 @@ export async function generateStaticParams() {
         "Exploring the latest economic policy reforms shaping Ethiopia's future.",
     },
     {
+      id: "2",
       slug: "impact-of-monetary-policy-on-ethiopias-economy",
       title: "Impact of Monetary Policy on Ethiopia's Economy",
       category: "ECONOMY | POLICIES",
@@ -113,6 +115,7 @@ export async function generateStaticParams() {
       isPremium: true,
     },
     {
+      id: "3",
       slug: "ethiopias-coffee-market-trends-and-opportunities",
       title: "Ethiopias Coffee Market Trends And Opportunities",
       category: "BUSINESS | MARKETS",
@@ -179,7 +182,9 @@ export default async function ReadingPage({
         {/* First Description with Image */}
         <div className="flex flex-col md:flex-row gap-6 mb-6">
           <div className="flex-1 text-primary font-serif leading-relaxed">
-            {article.content.split(". ").slice(0, 2).join(". ") + "."}
+            {article.content
+              ? article?.content.split(". ").slice(0, 2).join(". ") + "."
+              : ""}
           </div>
           <div className="flex-1 ">
             <Image
