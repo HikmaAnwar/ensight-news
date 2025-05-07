@@ -52,6 +52,7 @@ const articles: Article[] = [
       "A look into Ethiopia's dynamic coffee market and future opportunities.",
   },
 ];
+
 async function getArticleByTitleAndCategory(
   category: string,
   subcategory: string,
@@ -62,11 +63,23 @@ async function getArticleByTitleAndCategory(
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+
+  const normalizeTitle = (str: string) =>
+    str
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, "")
+      .trim();
+
   const fullCategory = `${category.toUpperCase()} | ${subcategory.toUpperCase()}`;
-  const article = articles.find(
-    (article) =>
-      article.category === fullCategory && article.title === formattedTitle
-  );
+  const article = articles.find((article) => {
+    const normalizedArticleTitle = normalizeTitle(article.title);
+    const normalizedInputTitle = normalizeTitle(formattedTitle);
+    return (
+      article.category === fullCategory &&
+      normalizedArticleTitle === normalizedInputTitle
+    );
+  });
+
   if (!article) {
     throw new Error(
       `Article with title ${formattedTitle} in category ${fullCategory} not found`
@@ -74,6 +87,7 @@ async function getArticleByTitleAndCategory(
   }
   return article;
 }
+
 export async function generateStaticParams() {
   return articles.map((article) => {
     const { mainCategory, subcategory } = parseCategory(article.category);
@@ -85,6 +99,7 @@ export async function generateStaticParams() {
     };
   });
 }
+
 const createUrlFriendlyTitle = (title: string) => {
   return title
     .toLowerCase()
