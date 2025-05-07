@@ -4,12 +4,6 @@ import { ArticleDetail } from "@/components/ui/ArticleDetail";
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/lib/data";
 
-export interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
 // Optional — If you ever use generateMetadata:
 /*
 export async function generateMetadata({ params }: PageProps) {
@@ -24,8 +18,13 @@ export async function generateStaticParams() {
   return [{ slug: "ethiopia-financing-models-gerd" }];
 }
 
-export default async function ArticlePage({ params }: PageProps) {
-  const article = await getArticleBySlug(params.slug);
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();
