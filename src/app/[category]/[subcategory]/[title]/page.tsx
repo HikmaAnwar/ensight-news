@@ -88,6 +88,27 @@ export async function generateStaticParams() {
   const articles: Article[] = [
     {
       id: "1",
+      category: "ECONOMY | POLICIES",
+      title: "Ethiopia's Economic Policies: A New Era of Reform",
+      description:
+        "Exploring the latest economic policy reforms shaping Ethiopia's future.",
+      image: "/images/economic-policies.jpg",
+      author: "Yared Lemma",
+      readTime: "9 min",
+    },
+    {
+      id: "2",
+      category: "ECONOMY | POLICIES",
+      title: "Impact of Monetary Policy on Ethiopia's Economy",
+      description:
+        "An analysis of how monetary policies are influencing Ethiopia's economic landscape.",
+      image: "/images/monetary-policy.jpg",
+      author: "Selamawit Gebremedhin",
+      readTime: "6 min",
+      isPremium: true,
+    },
+    {
+      id: "1",
       slug: "ethiopias-economic-policies-a-new-era-of-reform",
       title: "Ethiopia's Economic Policies: A New Era of Reform",
       category: "ECONOMY | POLICIES",
