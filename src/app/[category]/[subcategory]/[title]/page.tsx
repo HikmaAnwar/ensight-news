@@ -2,6 +2,8 @@ import React from "react";
 import { Article } from "../../../../lib/types";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { BreadcrumbsNav } from "@/components/ui/BreadcrumbsNav";
+
 const parseCategory = (
   category: string
 ): { mainCategory: string; subcategory: string } => {
@@ -107,6 +109,7 @@ const createUrlFriendlyTitle = (title: string) => {
     .trim()
     .replace(/\s+/g, "-");
 };
+
 export default async function ReadingPage({
   params,
 }: {
@@ -118,58 +121,95 @@ export default async function ReadingPage({
     subcategory,
     title
   );
+
   if (!article) {
     notFound();
   }
+
+  const { mainCategory, subcategory: subcat } = parseCategory(article.category);
+  const urlFriendlyTitle = createUrlFriendlyTitle(article.title);
+  const linkPath = `/${mainCategory}/${subcat}/${urlFriendlyTitle}`;
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: mainCategory, href: `` },
+    { label: subcat, href: `/${mainCategory}/${subcat}` },
+    { label: article.title, href: linkPath },
+  ];
+
   return (
-    <div className="flex items-center justify-center min-h-screen p-6">
-      <div className="max-w-5xl w-full p-8">
-        {}
-        <h1 className="text-4xl font-bold text-blueblack-white font-serif text-center mb-4">
-          {article.title}
-        </h1>
-        {}
-        <div className="text-lg text-primary font-serif text-center mb-6">
-          {parseCategory(article.category).mainCategory}
-        </div>
-        <div className="flex flex-col md:flex-row gap-6 mb-6">
-          <div className="flex-1 text-primary font-serif leading-relaxed">
-            {article.content
-              ? article?.content.split(". ").slice(0, 2).join(". ") + "."
-              : ""}
+    <div className="min-h-screen">
+      <BreadcrumbsNav items={breadcrumbItems} className="font-semibold mt-10" />
+      <main className="max-w-5xl mx-auto px-6 py-6">
+        <article className="p-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-blueblack-white font-serif text-center mb-6">
+            {article.title}
+          </h1>
+          <div className="flex justify-center items-center gap-4 text-primary text-sm mb-8">
+            <span>By {article.author}</span>
+            <span>•</span>
+            <span>{article.readTime}</span>
+            {article.date && (
+              <>
+                <span>•</span>
+                <span>{new Date(article.date).toLocaleDateString()}</span>
+              </>
+            )}
           </div>
-          <div className="flex-1 ">
+          <div className="relative w-full h-96 mb-8">
             <Image
               src={article.image}
               alt={article.title}
-              className="object-cover rounded-md"
-              width={680}
-              height={400}
+              fill
+              className="object-cover rounded-lg"
+              priority
             />
           </div>
-        </div>
-        {}
-        <div className="text-primary font-serif leading-relaxed mb-6">
-          {article.content}
-        </div>
-        {}
-        <div className="text-center">
-          <p className="text-blueblack-white font-semibold font-serif mb-4">
+          <div className="prose prose-lg max-w-none text-primary font-serif leading-relaxed mb-8">
+            {article.description && (
+              <p className="text-xl italic text-primary mb-6">
+                {article.description}
+              </p>
+            )}
+            {article.content ? (
+              //eslint-disable-next-line
+              article.content.split("\n").map((paragraph: any, index: any) => (
+                <p key={index} className="mb-4">
+                  {paragraph}
+                </p>
+              ))
+            ) : (
+              <p>{article.description}</p>
+            )}
+          </div>
+          {article.isPremium && (
+            <div className="bg-yellow-100 text-yellow-800 p-4 rounded-md mb-8">
+              <p className="font-semibold">
+                This is a premium article. Subscribe to access exclusive
+                content.
+              </p>
+            </div>
+          )}
+        </article>
+        <section className="mt-12 text-center">
+          <h2 className="text-2xl font-semibold text-blueblack-white font-serif mb-4">
+            Stay Updated with Our Newsletter
+          </h2>
+          <p className="text-primary mb-6">
             Be the first to know about our latest news! Sign up below to
             register your interest:
           </p>
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 max-w-md mx-auto">
             <input
               type="email"
               placeholder="Your email address"
-              className="w-full max-w-xs p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 text-primary"
             />
-            <button className="bg-red-800 font-serif text-white px-4 py-2 rounded-md hover:bg-red-900 transition">
+            <button className="bg-[#D93A3A] text-white px-6 py-3 rounded-lg hover:bg-[#D93A3A] cursor-pointer transition font-serif">
               Subscribe
             </button>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 }
