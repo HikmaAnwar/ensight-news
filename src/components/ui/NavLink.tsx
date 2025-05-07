@@ -31,7 +31,8 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
               className={`text-text-secondary transition-colors ${
                 isActive ? "text-primary-accent" : "hover:text-primary-accent"
               }`}
-              ref={ref}
+              //eslint-disable-next-line
+              ref={ref as any}
               {...props}
             >
               {label}
