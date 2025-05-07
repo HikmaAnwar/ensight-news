@@ -149,7 +149,7 @@ const createUrlFriendlyTitle = (title: string) => {
 export default async function ReadingPage({
   params,
 }: {
-  params: { category: string; subcategory: string; title: string };
+  params: Promise<{ category: string; subcategory: string; title: string }>;
 }) {
   const { category, subcategory, title } = await params;
 
