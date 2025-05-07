@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { Burger, Group, ActionIcon } from "@mantine/core";
+import { Burger, Group, ActionIcon, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconSun,
@@ -24,7 +24,6 @@ export function Header() {
   const navItems = [
     {
       label: "Business",
-      href: "/business",
       submenu: [
         { label: "Startups", href: "/business/startups" },
         { label: "Markets", href: "/business/markets" },
@@ -33,7 +32,6 @@ export function Header() {
     },
     {
       label: "Finance",
-      href: "/finance",
       submenu: [
         { label: "Banking", href: "/finance/banking" },
         { label: "Investment", href: "/finance/investment" },
@@ -43,7 +41,6 @@ export function Header() {
     },
     {
       label: "Economy",
-      href: "/economy",
       submenu: [
         { label: "Policies", href: "/economy/policies" },
         { label: "Trade", href: "/economy/trade" },
@@ -55,7 +52,6 @@ export function Header() {
     },
     {
       label: "Tech and Science",
-      href: "/technology",
       submenu: [
         { label: "Innovation", href: "/technology/innovation" },
         { label: "Digital", href: "/technology/digital" },
@@ -114,7 +110,7 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <div className="flex items-center space-x-1 text-white font-medium hover:text-[#D93A3A] relative px-2 py-1 cursor-pointer transition-colors">
-                <Link href={item.href}>{item.label}</Link>
+                <Text>{item.label}</Text>
                 {item.submenu?.length > 0 && (
                   <IconChevronDown
                     size={16}
@@ -188,17 +184,14 @@ export function Header() {
         <div className="md:hidden bg-[#1E3A5F] px-6 py-4 space-y-2">
           {navItems.map((item) => (
             <div key={item.label}>
-              <Link
-                href={item.href}
-                className="block text-white py-1 hover:text-[#D93A3A] transition-colors"
-              >
+              <Text className="block text-white py-1 hover:text-[#D93A3A] transition-colors">
                 {item.label}
                 {item.badge && (
                   <span className="ml-2 text-xs bg-[#D93A3A] text-white rounded px-1 py-0.5">
                     {item.badge}
                   </span>
                 )}
-              </Link>
+              </Text>
               {item.submenu?.map((sub) => (
                 <Link
                   key={sub.label}
