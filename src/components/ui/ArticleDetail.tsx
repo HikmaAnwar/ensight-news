@@ -2,17 +2,7 @@ import { Title, Text, Image, Group } from "@mantine/core";
 import Sidebar from "@/components/ui/Sidebar";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { RelatedArticles } from "@/components/ui/RelatedArticles";
-
-interface Article {
-  title: string;
-  category: string;
-  author: string;
-  date: string;
-  readTime: string;
-  image: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content: any;
-}
+import { Article } from "@/lib/types";
 
 interface ArticleDetailProps {
   article?: Article;
@@ -24,6 +14,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
       "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
     category: "Economy",
     author: "John Abebe",
+    description: "",
     date: "May 15, 2025",
     readTime: "8 min read",
     image: "/images/frehiwot.jpg",

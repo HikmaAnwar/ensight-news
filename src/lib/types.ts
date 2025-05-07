@@ -7,7 +7,8 @@ export interface Article {
   date?: string;
   readTime: string;
   image: string;
-  content?: string;
+  //eslint-disable-next-line
+  content?: any;
   description: string;
   isPremium?: boolean;
 }

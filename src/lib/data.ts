@@ -6,6 +6,7 @@ export const getArticleBySlug = async (
   // Replace with CMS or database fetch
   const articles: Article[] = [
     {
+      id: "1",
       slug: "ethiopia-financing-models-gerd",
       title:
         "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
@@ -20,6 +21,7 @@ export const getArticleBySlug = async (
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
     },
     {
+      id: "2",
       slug: "ai-startups-2025",
       title: "AI Startups: The Next Big Thing in 2025",
       category: "Featured",
