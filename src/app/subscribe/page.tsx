@@ -10,7 +10,7 @@ const breadcrumbItems = [
 
 export default function SubscribePage() {
   return (
-    <div className="w-full bg-background">
+    <div className="w-full">
       <section className="py-12">
         <div className="max-w-[1200px] mx-auto px-4">
           <BreadcrumbsNav items={breadcrumbItems} className="mb-8" />

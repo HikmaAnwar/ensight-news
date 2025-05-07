@@ -47,7 +47,7 @@ const plans: Plan[] = [
 
 export function SubscriptionPlans() {
   return (
-    <section className="bg-background py-6">
+    <section className=" py-6">
       <div className="max-w-[1200px] mx-auto px-4">
         <Title
           order={2}
