@@ -1,12 +1,6 @@
 import { Card, Text, Group, Divider } from "@mantine/core";
 import { getPopularArticles } from "@/lib/data";
-
-interface Article {
-  slug: string;
-  title: string;
-  category: string;
-  readTime: string;
-}
+import { Article } from "@/lib/types";
 
 export default async function Sidebar() {
   const articles: Article[] = await getPopularArticles();

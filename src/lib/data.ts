@@ -3,7 +3,6 @@ import { Article, SubscriptionPlan } from "./types";
 export const getArticleBySlug = async (
   slug: string
 ): Promise<Article | null> => {
-  // Replace with CMS or database fetch
   const articles: Article[] = [
     {
       id: "1",
@@ -38,7 +37,6 @@ export const getArticleBySlug = async (
 };
 
 export const getPopularArticles = async (): Promise<Article[]> => {
-  // Replace with CMS or database fetch for popular articles
   return [
     {
       slug: "ethiopia-financing-models-gerd",
@@ -85,5 +83,4 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     buttonText: "Continue Free",
     buttonLink: "#main-content",
   },
-  // Add Individual and Enterprise plans
 ];
