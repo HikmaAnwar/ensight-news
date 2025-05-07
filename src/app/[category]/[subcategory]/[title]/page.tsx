@@ -45,7 +45,7 @@ const articles: Article[] = [
     author: "Tsedey Kebede",
     date: "2025-05-03",
     readTime: "7 min",
-    image: "/images/frehiwot.jpg",
+    image: "/images/Frehiwot.jpg",
     content:
       "Ethiopia's coffee market is booming as global demand for specialty coffee increases...",
     description:
