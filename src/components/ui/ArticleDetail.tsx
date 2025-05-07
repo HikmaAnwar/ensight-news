@@ -17,7 +17,7 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
     description: "",
     date: "May 15, 2025",
     readTime: "8 min read",
-    image: "/images/frehiwot.jpg",
+    image: "/images/Frehiwot.jpg",
     content: (
       <>
         <Text className="mb-4 text-primary">
