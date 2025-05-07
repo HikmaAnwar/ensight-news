@@ -29,7 +29,7 @@ const articles = [
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
-  { label: "Economy", href: "/economy" },
+  { label: "Economy", href: "" },
   { label: "Jobs", href: "/economy/jobs" },
 ];
 
