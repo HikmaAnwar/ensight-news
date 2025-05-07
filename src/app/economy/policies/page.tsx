@@ -25,34 +25,6 @@ const articles = [
     readTime: "6 min",
     isPremium: true,
   },
-  {
-    id: "1",
-    slug: "ethiopias-economic-policies-a-new-era-of-reform",
-    title: "Ethiopia's Economic Policies: A New Era of Reform",
-    category: "ECONOMY | POLICIES",
-    author: "Yared Lemma",
-    date: "2025-05-01",
-    readTime: "9 min",
-    image: "/images/news.jpg",
-    content: "A new book about economic policies and reforms is coming soon!",
-    description:
-      "Exploring the latest economic policy reforms shaping Ethiopia's future.",
-  },
-  {
-    id: "2",
-    slug: "impact-of-monetary-policy-on-ethiopias-economy",
-    title: "Impact of Monetary Policy on Ethiopia's Economy",
-    category: "ECONOMY | POLICIES",
-    author: "Selamawit Gebremedhin",
-    date: "2025-05-01",
-    readTime: "6 min",
-    image: "/images/news.jpg",
-    content:
-      "An analysis of how monetary policies are influencing Ethiopia's economic landscape.",
-    description:
-      "An analysis of how monetary policies are influencing Ethiopia's economic landscape.",
-    isPremium: true,
-  },
 ];
 
 const breadcrumbItems = [
