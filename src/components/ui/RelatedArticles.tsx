@@ -1,51 +1,6 @@
 import { Card, Title, Text, Image, Group, Badge } from "@mantine/core";
-
-interface Article {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  image: string;
-  href: string;
-  author: string;
-  readTime: string;
-  isPremium?: boolean;
-}
-
-const relatedArticles: Article[] = [
-  {
-    id: "1",
-    category: "Technology",
-    title: "The Future of AI",
-    description: "Exploring advancements in artificial intelligence.",
-    image: "/images/logo-red.png",
-    href: "/articles/ai-future",
-    author: "John Doe",
-    readTime: "5 min",
-    isPremium: true,
-  },
-  {
-    id: "2",
-    category: "Science",
-    title: "Quantum Computing Basics",
-    description: "An introduction to quantum computing concepts.",
-    image: "/images/logo-red.png",
-    href: "/articles/quantum-computing",
-    author: "Jane Smith",
-    readTime: "4 min",
-  },
-  {
-    id: "3",
-    category: "Innovation",
-    title: "Next-Gen Robotics",
-    description: "How robotics are transforming industries.",
-    image: "/images/author-placeholder.jpg",
-    href: "/articles/robotics",
-    author: "Alex Johnson",
-    readTime: "6 min",
-    isPremium: true,
-  },
-];
+import { relatedArticles } from "@/lib/data";
+import { Article } from "@/lib/types";
 
 export function RelatedArticles() {
   return (
@@ -58,7 +13,7 @@ export function RelatedArticles() {
       </Title>
       <hr className="border-t border-blueblack-white mb-6" />
       <div className="flex flex-col gap-6 w-full">
-        {relatedArticles.map((article) => (
+        {relatedArticles.map((article: Article) => (
           <Card
             key={article.id}
             className="bg-background border border-border rounded-xl flex flex-col w-full"

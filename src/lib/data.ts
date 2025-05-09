@@ -84,3 +84,35 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     buttonLink: "#main-content",
   },
 ];
+
+export const relatedArticles: Article[] = [
+  {
+    id: "1",
+    category: "Technology",
+    title: "The Future of AI",
+    description: "Exploring advancements in artificial intelligence.",
+    image: "/images/logo-red.png",
+    author: "John Doe",
+    readTime: "5 min",
+    isPremium: true,
+  },
+  {
+    id: "2",
+    category: "Science",
+    title: "Quantum Computing Basics",
+    description: "An introduction to quantum computing concepts.",
+    image: "/images/logo-red.png",
+    author: "Jane Smith",
+    readTime: "4 min",
+  },
+  {
+    id: "3",
+    category: "Innovation",
+    title: "Next-Gen Robotics",
+    description: "How robotics are transforming industries.",
+    image: "/images/author-placeholder.jpg",
+    author: "Alex Johnson",
+    readTime: "6 min",
+    isPremium: true,
+  },
+];
