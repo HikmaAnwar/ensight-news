@@ -46,17 +46,17 @@ export function ArticleSection({
   });
 
   return (
-    <section className="w-full py-12">
-      <div className="flex flex-col sm:flex-row items-start space-x-0 sm:space-x-8">
-        <div className="w-full sm:flex-1 sm:max-w-[680px] min-w-0">
+    <section className="w-full py-6 md:py-12">
+      <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="w-full min-w-0">
           <BreadcrumbsNav items={breadcrumbItems} className="font-semibold" />
           <Title
             order={1}
-            className="text-blueblack-white font-serif text-3xl font-bold mt-4 mb-2"
+            className="text-blueblack-white font-serif text-2xl md:text-3xl font-bold mt-4 mb-2"
           >
             {section} - {subtype}
           </Title>
-          <Text className="text-muted font-serif mb-8 text-xl">
+          <Text className="text-muted font-serif mb-6 md:mb-8 text-lg md:text-xl">
             Showing {filteredArticles.length} articles
           </Text>
           <div
@@ -82,7 +82,7 @@ export function ArticleSection({
             })}
           </div>
         </div>
-        <div className="w-full sm:w-[480px] mt-8 sm:mt-0 sm:ml-auto">
+        <div className="w-full md:w-[480px] md:mt-0">
           <Sidebar />
           <RelatedArticles />
         </div>
