@@ -1,27 +1,5 @@
 import { Title, Text, Image, Paper } from "@mantine/core";
-
-const trustedPartners = [
-  {
-    name: "Global Corp",
-    logo: "/images/global-corp-logo.png",
-  },
-  {
-    name: "Africa Insights",
-    logo: "/images/africa-insights-logo.png",
-  },
-  {
-    name: "Eco Solutions",
-    logo: "/images/eco-solutions-logo.png",
-  },
-  {
-    name: "Tech Innovators",
-    logo: "/images/tech-innovators-logo.png",
-  },
-  {
-    name: "Finance Group",
-    logo: "/images/finance-group-logo.png",
-  },
-];
+import { trustedPartners } from "@/lib/data";
 
 export function TrustedBy() {
   return (

@@ -1,45 +1,7 @@
-// src/components/ui/StartupSection.tsx
 import { Card, Title, Text, Image } from "@mantine/core";
 import { SharedButton } from "./SharedButton";
-
-interface Startup {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  href: string;
-}
-
-const startups: Startup[] = [
-  {
-    id: "1",
-    name: "PayStack",
-    description: "Simplifying payments across Africa.",
-    image: "/images/paystack-logo.png",
-    href: "/business/startups/paystack",
-  },
-  {
-    id: "2",
-    name: "Flutterwave",
-    description: "Seamless payment solutions for businesses.",
-    image: "/images/flutterwave-logo.png",
-    href: "/business/startups/flutterwave",
-  },
-  {
-    id: "3",
-    name: "Andela",
-    description: "Connecting African tech talent globally.",
-    image: "/images/andela-logo.png",
-    href: "/business/startups/andela",
-  },
-  {
-    id: "4",
-    name: "Chipper Cash",
-    description: "Cross-border money transfers made easy.",
-    image: "/images/chipper-cash-logo.png",
-    href: "/business/startups/chipper-cash",
-  },
-];
+import { Startup } from "@/lib/types";
+import { startups } from "@/lib/data";
 
 export function StartupSection() {
   return (
@@ -49,7 +11,7 @@ export function StartupSection() {
           Featured Startups
         </Title>
         <div className="flex flex-row gap-6 overflow-x-auto pb-4">
-          {startups.map((startup) => (
+          {startups.map((startup: Startup) => (
             <Card
               key={startup.id}
               className="bg-surface border border-border shadow-card p-4 flex flex-col items-center flex-shrink-0"

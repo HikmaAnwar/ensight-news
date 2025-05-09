@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Text, Group, Anchor } from "@mantine/core";
+import { Text, Anchor } from "@mantine/core";
+import { Footermenus } from "@/lib/data";
 
 export function Footer() {
   return (
@@ -15,93 +16,27 @@ export function Footer() {
               sectors.
             </Text>
           </div>
-          <div>
-            <h4 className="text-primary font-serif font-semibold mb-4">
-              Explore
-            </h4>
-            <ul className="space-y-2">
-              <li>
-                <Anchor
-                  component={Link}
-                  href="/business"
-                  className="text-secondary font-serif hover:text-primary-accent"
-                >
-                  Business
-                </Anchor>
-              </li>
-              <li>
-                <Anchor
-                  component={Link}
-                  href="/finance"
-                  className="text-secondary font-serif hover:text-primary-accent"
-                >
-                  Finance
-                </Anchor>
-              </li>
-              <li>
-                <Anchor
-                  component={Link}
-                  href="/infrastructure"
-                  className="text-secondary font-serif hover:text-primary-accent"
-                >
-                  Infrastructure
-                </Anchor>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-primary font-serif font-semibold mb-4">
-              Resources
-            </h4>
-            <ul className="space-y-2">
-              <li>
-                <Anchor
-                  component={Link}
-                  href="/about"
-                  className="text-secondary font-serif hover:text-primary-accent"
-                >
-                  About Us
-                </Anchor>
-              </li>
-              <li>
-                <Anchor
-                  component={Link}
-                  href="/contact"
-                  className="text-secondary font-serif hover:text-primary-accent"
-                >
-                  Contact
-                </Anchor>
-              </li>
-              <li>
-                <Anchor
-                  component={Link}
-                  href="/privacy"
-                  className="text-secondary font-serif hover:text-primary-accent"
-                >
-                  Privacy Policy
-                </Anchor>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-primary font-semibold font-serif mb-4">
-              Connect
-            </h4>
-            <Group gap="xs">
-              <Anchor
-                href="https://twitter.com"
-                className="text-muted font-serif hover:text-primary-accent"
-              >
-                Twitter
-              </Anchor>
-              <Anchor
-                href="https://linkedin.com"
-                className="text-muted font-serif hover:text-primary-accent"
-              >
-                LinkedIn
-              </Anchor>
-            </Group>
-          </div>
+
+          {Footermenus.map((menu) => (
+            <div key={menu.title}>
+              <h4 className="text-primary font-serif font-semibold mb-4">
+                {menu.title}
+              </h4>
+              <ul className="space-y-2">
+                {menu.items.map((item) => (
+                  <li key={item.label}>
+                    <Anchor
+                      component={Link}
+                      href={item.href}
+                      className="text-secondary font-serif hover:text-primary-accent"
+                    >
+                      {item.label}
+                    </Anchor>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div className="mt-8 border-t border-border pt-4 text-center">
           <Text className="text-muted font-serif text-sm">

@@ -1,49 +1,7 @@
 import { Card, Title, Text } from "@mantine/core";
 import { SharedButton } from "@/components/ui/SharedButton";
-
-interface Plan {
-  name: string;
-  price: string;
-  description: string;
-  features: string[];
-  isHighlighted?: boolean;
-}
-
-const plans: Plan[] = [
-  {
-    name: "Free",
-    price: "$0/month",
-    description: "Get started with basic access to Ensight’s insights.",
-    features: [
-      "Access to weekly newsletters",
-      "Limited article access",
-      "Community forum access",
-    ],
-  },
-  {
-    name: "Standard",
-    price: "$15/month",
-    description: "Unlock more insights for professionals.",
-    features: [
-      "Full article access",
-      "Weekly newsletters",
-      "Exclusive reports",
-      "Priority support",
-    ],
-    isHighlighted: true,
-  },
-  {
-    name: "Premium",
-    price: "$30/month",
-    description: "Comprehensive access for industry leaders.",
-    features: [
-      "All Standard features",
-      "Real-time data dashboards",
-      "Personalized insights",
-      "Dedicated account manager",
-    ],
-  },
-];
+import { plans } from "@/lib/data";
+import { Plan } from "@/lib/types";
 
 export function SubscriptionPlans() {
   return (
@@ -60,7 +18,7 @@ export function SubscriptionPlans() {
           actionable business intelligence today.
         </Text>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {plans.map((plan) => (
+          {plans.map((plan: Plan) => (
             <Card
               key={plan.name}
               className={`border border-border shadow-md rounded-2xl p-6 flex flex-col ${

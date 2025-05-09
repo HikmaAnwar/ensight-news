@@ -13,68 +13,14 @@ import {
 import { useTheme } from "@/lib/theme";
 import { SharedButton } from "@/components/ui/SharedButton";
 import Image from "next/image";
+import { navItems } from "@/lib/data";
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme, toggleColorScheme } = useTheme();
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   const hoverTimeoutRef = useRef<any>(null);
-
-  const navItems = [
-    {
-      label: "Business",
-      submenu: [
-        { label: "Startups", href: "/business/startups" },
-        { label: "Markets", href: "/business/markets" },
-        { label: "Policy & Regulation", href: "/business/policy-regulation" },
-      ],
-    },
-    {
-      label: "Finance",
-      submenu: [
-        { label: "Banking", href: "/finance/banking" },
-        { label: "Investment", href: "/finance/investment" },
-        { label: "Fintech", href: "/finance/fintech" },
-        { label: "Capital Markets", href: "/finance/capital-markets" },
-      ],
-    },
-    {
-      label: "Economy",
-      submenu: [
-        { label: "Policies", href: "/economy/policies" },
-        { label: "Trade", href: "/economy/trade" },
-        { label: "Development", href: "/economy/development" },
-        { label: "Inflation", href: "/economy/inflation" },
-        { label: "Growth", href: "/economy/growth" },
-        { label: "Jobs", href: "/economy/jobs" },
-      ],
-    },
-    {
-      label: "Tech and Science",
-      submenu: [
-        { label: "Innovation", href: "/technology/innovation" },
-        { label: "Digital", href: "/technology/digital" },
-        { label: "Research", href: "/technology/research" },
-      ],
-    },
-    {
-      label: "Corporate",
-      href: "/corporate",
-      submenu: [],
-    },
-    {
-      label: "Analysis",
-      href: "/analysis",
-      submenu: [],
-      badge: "WEEKLY",
-    },
-    {
-      label: "Resources",
-      href: "/resources",
-      submenu: [],
-    },
-  ];
 
   const handleMouseEnter = (label: string) => {
     clearTimeout(hoverTimeoutRef.current);
@@ -84,7 +30,7 @@ export function Header() {
   const handleMouseLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredMenu(null);
-    }, 200); // Slight delay to allow clicks
+    }, 200);
   };
 
   return (
@@ -100,7 +46,6 @@ export function Header() {
           />
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6 relative">
           {navItems.map((item) => (
             <div
@@ -143,7 +88,6 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Right Icons */}
         <Group className="hidden md:flex items-center gap-2">
           <ActionIcon
             onClick={() => toggleColorScheme()}
@@ -170,7 +114,6 @@ export function Header() {
           </Link>
         </Group>
 
-        {/* Mobile Nav Toggle */}
         <Burger
           opened={opened}
           onClick={toggle}
@@ -179,7 +122,6 @@ export function Header() {
         />
       </div>
 
-      {/* Mobile Nav Dropdown */}
       {opened && (
         <div className="md:hidden bg-[#1E3A5F] px-6 py-4 space-y-2">
           {navItems.map((item) => (

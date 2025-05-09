@@ -23,3 +23,19 @@ export interface SubscriptionPlan {
   buttonLink: string;
   highlighted?: boolean;
 }
+
+export interface Startup {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  href: string;
+}
+
+export interface Plan {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  isHighlighted?: boolean;
+}
