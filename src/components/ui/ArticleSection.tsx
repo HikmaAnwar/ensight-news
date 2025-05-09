@@ -47,8 +47,8 @@ export function ArticleSection({
 
   return (
     <section className="w-full py-6 md:py-12">
-      <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="w-full min-w-0">
+      <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-50">
+        <div className="w-full">
           <BreadcrumbsNav items={breadcrumbItems} className="font-semibold" />
           <Title
             order={1}
@@ -62,7 +62,7 @@ export function ArticleSection({
           <div
             className="grid gap-6"
             style={{
-              gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
             }}
           >
             {filteredArticles.map((article) => {
