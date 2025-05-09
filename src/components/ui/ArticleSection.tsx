@@ -1,14 +1,14 @@
-import { Card, Title, Text, Image, Group, Badge } from "@mantine/core";
+import { Title, Text } from "@mantine/core";
 import { BreadcrumbsNav } from "./BreadcrumbsNav";
 import Sidebar from "./Sidebar";
 import { RelatedArticles } from "./RelatedArticles";
-import Link from "next/link";
 import { Article } from "@/lib/types";
+import { articles } from "@/lib/data";
+import { ArticleCard } from "./ArticleCard";
 
 interface ArticleSectionProps {
   section: string;
   subtype: string;
-  articles: Article[];
   breadcrumbItems: { label: string; href: string }[];
 }
 
@@ -35,9 +35,16 @@ const parseCategory = (
 export function ArticleSection({
   section,
   subtype,
-  articles,
   breadcrumbItems,
 }: ArticleSectionProps) {
+  const filteredArticles = articles.filter((article: Article) => {
+    const { mainCategory, subcategory } = parseCategory(article.category);
+    return (
+      mainCategory.toLowerCase() === section.toLowerCase() &&
+      subcategory.toLowerCase() === subtype.toLowerCase()
+    );
+  });
+
   return (
     <section className="w-full py-12">
       <div className="flex flex-col sm:flex-row items-start space-x-0 sm:space-x-8">
@@ -50,7 +57,7 @@ export function ArticleSection({
             {section} - {subtype}
           </Title>
           <Text className="text-muted font-serif mb-8 text-xl">
-            Showing {articles.length} articles
+            Showing {filteredArticles.length} articles
           </Text>
           <div
             className="grid gap-6"
@@ -58,7 +65,7 @@ export function ArticleSection({
               gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
             }}
           >
-            {articles.map((article) => {
+            {filteredArticles.map((article) => {
               const { mainCategory, subcategory } = parseCategory(
                 article.category
               );
@@ -66,72 +73,11 @@ export function ArticleSection({
               const linkPath = `/${mainCategory}/${subcategory}/${urlFriendlyTitle}`;
 
               return (
-                <Link
-                  href={linkPath}
+                <ArticleCard
                   key={article?.slug || article?.id}
-                  passHref
-                >
-                  <Card
-                    className="bg-background border border-border rounded-xl flex flex-col flex-shrink-0 cursor-pointer hover:shadow-lg transition-shadow"
-                    radius="md"
-                  >
-                    <div className="relative">
-                      <Image
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-[160px] sm:h-[180px] lg:h-[200px] object-cover rounded-t-md"
-                        fallbackSrc="/images/placeholder-image.jpg"
-                      />
-                      {article.isPremium && (
-                        <Badge
-                          className="absolute top-2 right-2"
-                          color="blue"
-                          variant="filled"
-                          style={{
-                            backgroundColor: "#1e40af",
-                            color: "#ffffff",
-                          }}
-                        >
-                          PREMIUM
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="p-4 flex flex-col flex-1">
-                      <Badge
-                        variant="outline"
-                        color="blue"
-                        className="mb-2 text-blueblack-white font-serif"
-                      >
-                        {mainCategory}
-                      </Badge>
-                      <Title
-                        order={4}
-                        className="mb-2 line-clamp-2 font-bold text-blueblack-white font-serif"
-                      >
-                        {article.title}
-                      </Title>
-                      <Text className="text-primary font-serif text-sm mb-4 line-clamp-1 flex-1">
-                        {article.description ||
-                          article.content?.slice(0, 100) ||
-                          "No content available"}
-                        ...
-                      </Text>
-                      <Group gap="xs" className="mt-auto">
-                        <Image
-                          src={`/images/authors/${article.author
-                            .toLowerCase()
-                            .replace(" ", "-")}.jpg`}
-                          alt={article.author}
-                          className="w-6 h-12 rounded-full"
-                          fallbackSrc="/images/placeholder-author.jpg"
-                        />
-                        <Text className="text-blueblack-white font-serif text-sm">
-                          {article.author} • {article.readTime}
-                        </Text>
-                      </Group>
-                    </div>
-                  </Card>
-                </Link>
+                  article={article}
+                  linkPath={linkPath}
+                />
               );
             })}
           </div>

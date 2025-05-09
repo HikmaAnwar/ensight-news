@@ -1,29 +1,6 @@
 import { Container } from "@mantine/core";
 import { ArticleSection } from "@/components/ui/ArticleSection";
-
-const articles = [
-  {
-    id: "1",
-    category: "TECH AND SCIENCE | DIGITAL",
-    title: "Digital Transformation in Ethiopia: Progress and Potential",
-    description: "Examining Ethiopia's journey towards a digital economy.",
-    image: "/images/digital-transformation.jpg",
-    href: "/tech-and-science/digital/transformation-progress",
-    author: "Mesfin Belay",
-    readTime: "9 min",
-  },
-  {
-    id: "2",
-    category: "TECH AND SCIENCE | DIGITAL",
-    title: "E-Commerce Boom in Ethiopia: Opportunities for Growth",
-    description: "How e-commerce is reshaping Ethiopia's business landscape.",
-    image: "/images/ecommerce-boom.jpg",
-    href: "/tech-and-science/digital/ecommerce-growth",
-    author: "Kalkidan Yohannes",
-    readTime: "7 min",
-    isPremium: true,
-  },
-];
+import { articles } from "@/lib/data";
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
