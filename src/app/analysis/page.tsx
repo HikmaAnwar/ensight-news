@@ -5,7 +5,7 @@ import {
   IconShare,
   IconClock,
   IconUsers,
-  IconStar,
+  IconBook,
   IconCalendar,
 } from "@tabler/icons-react";
 import Image from "next/image";
@@ -28,7 +28,7 @@ export default function WeeklyAnalysis() {
     },
     {
       label: "Premium",
-      icon: <IconStar size={14} className="inline-block mr-2 -mt-1" />,
+      icon: <IconBook size={14} className="inline-block mr-2 -mt-1" />,
     },
   ];
 
@@ -137,7 +137,7 @@ export default function WeeklyAnalysis() {
           />
         </div>
 
-        <div className="prose max-w-none">
+        <div className="prose max-w-none mb-10">
           <Title order={2} className="text-xl font-bold text-gray-900 mb-3">
             Introduction
           </Title>
