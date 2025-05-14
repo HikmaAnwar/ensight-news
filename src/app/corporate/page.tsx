@@ -216,7 +216,7 @@ const Corporate = () => {
               Company Milestones
             </Title>
             <ul className="space-y-2 list-none">
-              <li className="flex items-start">
+              <li className="flex items-start mt-4">
                 <IconCalendar className="w-5 h-5 mt-1 mr-2 text-blue-900" />
                 <div>
                   <strong className="text-gray-800">Founded:</strong> 2018
