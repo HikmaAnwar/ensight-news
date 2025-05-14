@@ -105,10 +105,13 @@ export function Header() {
               <IconSun size={20} />
             )}
           </ActionIcon>
-          <IconUserCircle
-            size={20}
-            className="mx-3 text-white hover:text-[#D93A3A] cursor-pointer transition-colors"
-          />
+
+          <Link href="/profile">
+            <IconUserCircle
+              size={20}
+              className="mx-3 text-white hover:text-[#D93A3A] cursor-pointer transition-colors"
+            />
+          </Link>
           <Link href="/subscribe">
             <SharedButton
               variant="filled"
