@@ -190,20 +190,20 @@ const Corporate = () => {
             <Paper
               shadow="sm"
               radius="md"
-              className="p-5 mt-6 text-center bg-white border border-gray-200"
+              className="p-5 mt-6 text-center bg-white border border-primary-accent rounded-lg"
             >
-              <Text className="mb-1 text-sm text-gray-600">
+              <Text className="mb-2 text-sm text-gray-600">
                 Key Technology Partner:
               </Text>
-              <Text className="font-bold text-blue-900">
+              <Text className="mb-2 font-bold text-blue-900">
                 Agri-Optimize Suite
               </Text>
-              <Text className="mb-3 text-xs text-gray-600">
+              <Text className="mb-7 text-xs text-gray-600">
                 by Global Insight Systems
               </Text>
               <Button
                 component="a"
-                className="p-3 text-white bg-red-500 hover:bg-red-600 rounded-md"
+                className="p-3 text-sm cursor-pointer text-white bg-red-500 hover:bg-red-600 rounded-md"
               >
                 Unlock Agricultural Intelligence
               </Button>
