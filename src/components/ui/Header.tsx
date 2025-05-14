@@ -35,7 +35,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 md:px-20 bg-[#1E3A5F] shadow-sm">
-      <div className="container mx-auto px-6 py-3 flex items-center justify-between">
+      <div className="container flex items-center justify-between px-6 py-3 mx-auto">
         <Link href="/" className="text-2xl font-bold text-white">
           <Image
             src="/images/new-red-logo.png"
@@ -46,7 +46,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden md:flex space-x-6 relative">
+        <nav className="relative hidden space-x-6 md:flex">
           {navItems.map((item) => (
             <div
               key={item.label}
@@ -55,7 +55,12 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <div className="flex items-center space-x-1 text-white font-medium hover:text-[#D93A3A] relative px-2 py-1 cursor-pointer transition-colors">
-                <Text>{item.label}</Text>
+                <Link
+                  href={item.href ? item.href : "#"}
+                  className="flex items-center space-x-1"
+                >
+                  {item.label}
+                </Link>
                 {item.submenu?.length > 0 && (
                   <IconChevronDown
                     size={16}
@@ -88,7 +93,7 @@ export function Header() {
           ))}
         </nav>
 
-        <Group className="hidden md:flex items-center gap-2">
+        <Group className="items-center hidden gap-2 md:flex">
           <ActionIcon
             onClick={() => toggleColorScheme()}
             aria-label="Toggle Theme"
@@ -117,7 +122,7 @@ export function Header() {
         <Burger
           opened={opened}
           onClick={toggle}
-          className="md:hidden text-white"
+          className="text-white md:hidden"
           aria-label="Toggle Menu"
         />
       </div>

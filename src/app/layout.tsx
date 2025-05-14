@@ -2,6 +2,7 @@ import "./globals.css";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import "@mantine/carousel/styles.css";
 
 export const metadata = {
   title: "Ensight - Business Intelligence",
