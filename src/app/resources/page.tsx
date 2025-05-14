@@ -58,14 +58,12 @@ export default function resources() {
         </div>
       </section>
 
-      {/* Section 2: Our Latest Reports */}
       <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             Our Latest Reports
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Report 1 */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <Image
                 src="https://via.placeholder.com/400x200?text=Silhouette+Feet"
@@ -90,7 +88,7 @@ export default function resources() {
                 </button>
               </div>
             </div>
-            {/* Report 2 */}
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <Image
                 src="https://via.placeholder.com/400x200?text=Coastal+Scene"
@@ -115,7 +113,7 @@ export default function resources() {
                 </button>
               </div>
             </div>
-            {/* Report 3 */}
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <Image
                 src="https://via.placeholder.com/400x200?text=Deer+Landscape"
@@ -144,7 +142,6 @@ export default function resources() {
         </div>
       </section>
 
-      {/* Section 3: Data & Ensights */}
       <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">
@@ -168,7 +165,7 @@ export default function resources() {
                 View Data
               </button>
             </div>
-            {/* Card 2 */}
+
             <div className="bg-blue-50 rounded-lg p-6">
               <div className="text-2xl mb-2">💡</div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -185,7 +182,7 @@ export default function resources() {
                 Read Ensight
               </button>
             </div>
-            {/* Card 3 */}
+
             <div className="bg-blue-50 rounded-lg p-6">
               <div className="text-2xl mb-2">📜</div>
               <h3 className="text-lg font-semibold text-gray-900">
@@ -204,7 +201,6 @@ export default function resources() {
             </div>
           </div>
 
-          {/* Date Hub & Archive */}
           <div className="mt-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
               Date Hub & Archive
