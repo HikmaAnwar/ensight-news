@@ -44,7 +44,7 @@ export default function WeeklyAnalysis() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Container size="md" className="py-6">
         <Group gap="xs" className="mb-2 flex flex-wrap">
           {badges.slice(0, 2).map((badge, index) => (
@@ -53,7 +53,7 @@ export default function WeeklyAnalysis() {
               variant={index === 0 ? "light" : "filled"}
               size="sm"
               radius="md"
-              className={`text-sm text-blue-700 rounded-xl ${
+              className={`text-sm text-blueblack-white rounded-xl ${
                 badge.label === "PREMIUM"
                   ? "bg-blue-700 text-white px-3 ml-3"
                   : ""
@@ -66,15 +66,13 @@ export default function WeeklyAnalysis() {
 
         <Title
           order={1}
-          className="text-3xl font-bold text-gray-900 mb-2 leading-tight"
+          className="text-3xl font-bold text-primary-accent mb-2 leading-tight"
         >
           Weekly Economic Briefing:{" "}
-          <span className="text-red-600">
-            Inflation Trends and Monetary Policy
-          </span>
+          <span>Inflation Trends and Monetary Policy</span>
         </Title>
 
-        <Text c="dimmed" className="text-base text-gray-600 mb-4">
+        <Text c="dimmed" className="text-base text-blueblack-white mb-4">
           Expert analysis of the latest inflation data and its implications for
           Ethiopian businesses.
         </Text>
@@ -88,10 +86,10 @@ export default function WeeklyAnalysis() {
             className="rounded-full object-cover my-auto"
           />
           <div className="flex flex-col ml-4">
-            <h1 className="text-sm text-black font-semibold mb-1">
+            <h1 className="text-sm text-blueblack-white font-semibold mb-1">
               Dr. Abebe Worku
             </h1>
-            <div className="flex items-center gap-3 text-sm text-gray-700">
+            <div className="flex items-center gap-3 text-sm text-blueblack-white">
               <span>April 15, 2025</span>
               <span>• 15 min read</span>
             </div>
@@ -103,7 +101,7 @@ export default function WeeklyAnalysis() {
             <Badge
               key={index}
               variant="outline"
-              className={`border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer rounded-xl mr-2 px-3 ${
+              className={`border border-gray-300 text-blueblack-white hover:bg-gray-100 cursor-pointer rounded-xl mr-2 px-3 ${
                 badge.label === "Premium"
                   ? "border-orange-500 text-orange-500"
                   : ""
@@ -121,34 +119,38 @@ export default function WeeklyAnalysis() {
               key={index}
               leftSection={button.icon}
               variant="outline"
-              className="border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer rounded-sm mr-2 px-3 py-1"
+              className="border border-gray-300 text-blueblack-white hover:bg-gray-100 cursor-pointer rounded-sm mr-2 px-3 py-1"
             >
               {button.label}
             </Button>
           ))}
         </Group>
 
-        <div className="relative w-full h-80 mb-6 rounded-lg overflow-hidden">
+        <div className="relative mb-6 rounded-lg overflow-hidden">
           <Image
             src="/images/Frehiwot.jpg"
             alt="Featured Image"
-            fill
-            className="object-cover"
+            width={600}
+            height={200}
+            className="w-full h-150 rounded-lg"
           />
         </div>
 
         <div className="prose max-w-none mb-10">
-          <Title order={2} className="text-xl font-bold text-gray-900 mb-3">
+          <Title
+            order={2}
+            className="text-xl font-bold text-blueblack-white mb-3"
+          >
             Introduction
           </Title>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             Ethiopia has been experiencing significant economic growth over the
             past decade, emerging as one of Africa’s fastest-growing economies.
             The government’s ambitious economic reforms have played a crucial
             role in driving this growth, focusing on liberalizing key sectors
             and attracting foreign investment.
           </Text>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             One of the most notable aspects of these reforms has been the
             opening up of previously state-dominated sectors such as
             telecommunications and banking. This shift marks a departure from
@@ -160,7 +162,7 @@ export default function WeeklyAnalysis() {
           <Title order={2} className="text-xl font-bold text-red-600 mb-3">
             Key Reform Areas
           </Title>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             The privatization of state-owned enterprises has been a centerpiece
             of the reform agenda. The partial privatization of Ethio Telecom and
             the issuance of new telecom licenses to foreign operators represent
@@ -170,7 +172,7 @@ export default function WeeklyAnalysis() {
           <Title order={2} className="text-xl font-bold text-red-600 mb-3">
             Investment Environment
           </Title>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             The investment climate has improved considerably, with the
             government simplifying business registration procedures and
             establishing industrial parks to attract manufacturers. These
@@ -178,7 +180,7 @@ export default function WeeklyAnalysis() {
             textiles and apparel, leveraging Ethiopia’s large workforce and
             competitive labor costs.
           </Text>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             Foreign direct investment (FDI) has responded positively to these
             changes, with significant inflows into manufacturing, agriculture,
             and increasingly, technology and services. Chinese, Turkish, and
@@ -189,7 +191,7 @@ export default function WeeklyAnalysis() {
           <Title order={2} className="text-xl font-bold text-red-600 mb-3">
             Challenges and Outlook
           </Title>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             Despite these positive developments, challenges remain.
             Infrastructure bottlenecks, particularly in transportation and
             energy, continue to affect business operations. The foreign exchange
@@ -197,13 +199,13 @@ export default function WeeklyAnalysis() {
             and companies with foreign currency needs.{" "}
             <a href="#">Read our infrastructure report.</a>
           </Text>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             Political stability is another crucial factor for sustained economic
             growth. The government’s ability to maintain peace and security will
             be essential for investor confidence and the continued
             implementation of reforms.
           </Text>
-          <Text className="text-base text-gray-800 mb-4 leading-relaxed">
+          <Text className="text-base text-blueblack-white mb-4 leading-relaxed">
             Looking ahead, Ethiopia’s economic prospects remain promising. The
             country’s large consumer market, strategic location, and ongoing
             reform momentum position it well for sustained growth in Ethiopia.
