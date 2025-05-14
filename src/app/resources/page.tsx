@@ -38,7 +38,7 @@ export default function resources() {
                 />
               </div>
               <div className="md:w-1/2 p-4 bg-blue-50 flex flex-col justify-center">
-                <span className="inline-block bg-yellow-400 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded mb-1 whitespace-nowrap">
+                <span className="inline-block bg-yellow-400 w-30 text-center text-gray-900 text-xs font-semibold px-2 py-0.5 rounded mb-1 whitespace-nowrap">
                   SPECIAL REPORT
                 </span>
                 <h3 className="text-lg font-bold text-gray-900 mb-1">
