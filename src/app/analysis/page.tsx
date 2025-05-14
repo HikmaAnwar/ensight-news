@@ -1,16 +1,35 @@
 "use client";
 import { Container, Title, Text, Badge, Group, Button } from "@mantine/core";
-import { IconBookmark, IconShare } from "@tabler/icons-react";
+import {
+  IconBookmark,
+  IconShare,
+  IconClock,
+  IconUsers,
+  IconStar,
+  IconCalendar,
+} from "@tabler/icons-react";
 import Image from "next/image";
 
 export default function WeeklyAnalysis() {
   const badges = [
     { label: "ANALYSIS | WEEKLY SESSIONS" },
     { label: "PREMIUM" },
-    { label: "MAY 10, 2025" },
-    { label: "5 min read" },
-    { label: "1.2K readers" },
-    { label: "Premium" },
+    {
+      label: "MAY 10, 2025",
+      icon: <IconCalendar size={14} className="inline-block mr-2 -mt-1" />,
+    },
+    {
+      label: "5 min read",
+      icon: <IconClock size={14} className="inline-block mr-2 -mt-1" />,
+    },
+    {
+      label: "1.2K readers",
+      icon: <IconUsers size={14} className="inline-block mr-2 -mt-1" />,
+    },
+    {
+      label: "Premium",
+      icon: <IconStar size={14} className="inline-block mr-2 -mt-1" />,
+    },
   ];
 
   const buttons = [
@@ -31,11 +50,14 @@ export default function WeeklyAnalysis() {
           {badges.slice(0, 2).map((badge, index) => (
             <Badge
               key={index}
-              color={index === 0 ? "blue" : "orange"}
               variant={index === 0 ? "light" : "filled"}
               size="sm"
               radius="md"
-              className="uppercase tracking-wide"
+              className={`text-sm text-blue-700 rounded-xl ${
+                badge.label === "PREMIUM"
+                  ? "bg-blue-700 text-white px-3 ml-3"
+                  : ""
+              }`}
             >
               {badge.label}
             </Badge>
@@ -57,30 +79,37 @@ export default function WeeklyAnalysis() {
           Ethiopian businesses.
         </Text>
 
-        <Group gap="sm" className="mb-4">
+        <Group className="flex items-start my-7">
           <Image
-            src="/author-placeholder.jpg"
+            src="/images/Frehiwot.jpg"
             alt="Author"
-            width={32}
-            height={32}
-            className="rounded-full"
+            width={48}
+            height={48}
+            className="rounded-full object-cover my-auto"
           />
-          <Text className="text-sm text-gray-700">
-            Dr. Abebe Worku • April 15, 2025 • 15 min read
-          </Text>
+          <div className="flex flex-col ml-4">
+            <h1 className="text-sm text-black font-semibold mb-1">
+              Dr. Abebe Worku
+            </h1>
+            <div className="flex items-center gap-3 text-sm text-gray-700">
+              <span>April 15, 2025</span>
+              <span>• 15 min read</span>
+            </div>
+          </div>
         </Group>
 
-        <Group gap="xs" className="mb-4 flex flex-wrap">
+        <Group gap="xs" className="my-10 flex flex-wrap">
           {badges.slice(2).map((badge, index) => (
             <Badge
               key={index}
               variant="outline"
               className={`border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer rounded-xl mr-2 px-3 ${
                 badge.label === "Premium"
-                  ? "border border-orange-500 text-orange-500"
+                  ? "border-orange-500 text-orange-500"
                   : ""
               }`}
             >
+              {badge.icon && badge.icon}
               {badge.label}
             </Badge>
           ))}
@@ -92,7 +121,7 @@ export default function WeeklyAnalysis() {
               key={index}
               leftSection={button.icon}
               variant="outline"
-              className="border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer rounded-xl mr-2 px-3"
+              className="border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer rounded-sm mr-2 px-3 py-1"
             >
               {button.label}
             </Button>
