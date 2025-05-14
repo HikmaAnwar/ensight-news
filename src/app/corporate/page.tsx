@@ -19,7 +19,7 @@ const Corporate = () => {
         <Image
           src="https://picsum.photos/seed/ethiopiaLushFarm/1200/500"
           alt="Lush Ethiopian coffee plantation"
-          className="object-cover w-full h-full"
+          className="object-cover rounded-md w-full h-full"
         />
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white bg-gradient-to-t from-black/85 to-transparent">
           <Title order={1} className="text-4xl font-bold text-shadow-md">
