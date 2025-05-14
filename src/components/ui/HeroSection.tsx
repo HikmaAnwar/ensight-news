@@ -15,7 +15,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="flex items-center h-screen pt-24 text-left border-b bg-surface border-border">
+    <section className="flex items-center h-screen  text-left border-b bg-surface border-border">
       <div className="container grid items-center grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-2">
         <div>
           <span className="inline-block px-5 py-2 mb-6 font-serif text-sm font-bold rounded-full bg-primary-accent text-light">
