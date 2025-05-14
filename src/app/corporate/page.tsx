@@ -135,7 +135,6 @@ const Corporate = () => {
           </Text>
         </div>
 
-        {/* Sidebar */}
         <div className="lg:w-1/4 space-y-6 flex flex-col">
           <Paper
             shadow="sm"
