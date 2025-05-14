@@ -37,9 +37,9 @@ const Corporate = () => {
       </div>
 
       {/* Main Content and Sidebar Layout */}
-      <div className="flex flex-col lg:flex-row p-6 gap-6">
+      <div className="flex flex-col lg:flex-row p-6 gap-6 min-h-full">
         {/* Main Content */}
-        <div className="lg:w-3/4">
+        <div className="lg:w-3/4 pr-16 space-y-6">
           <Text className="mb-6 text-lg italic border-l-4 border-green-500 pl-4 text-gray-800 leading-relaxed">
             In the heart of Ethiopia’s fertile highlands, a quiet revolution is
             blossoming. GreenPath Organics, founded by visionary entrepreneur
@@ -63,7 +63,7 @@ const Corporate = () => {
             <Image
               src="https://picsum.photos/seed/liyaWorkingField/800/450"
               alt="Liya Mekonnen working in a vibrant field with local farmers"
-              className="object-cover w-full h-auto"
+              className="object-cover w-full h-auto rounded-lg"
             />
             <Text className="p-4 text-sm italic text-center text-gray-600 bg-gray-50">
               Liya Mekonnen (center) collaborating with local farmers, a core
@@ -136,11 +136,11 @@ const Corporate = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="lg:w-1/4 space-y-6">
+        <div className="lg:w-1/4 space-y-6 flex flex-col">
           <Paper
             shadow="sm"
-            radius="md"
-            className="p-6 border bg-blue-50 border-gray-200"
+            radius="lg"
+            className="p-6 border bg-blue-50 border-gray-200 flex-grow"
           >
             <Image
               src="https://picsum.photos/seed/liyaPortrait/140/140"
