@@ -13,7 +13,7 @@ import {
 
 const Corporate = () => {
   return (
-    <Card shadow="none" radius="none" className="p-0 bg-white">
+    <Card radius="none" className="p-0 rounded-lg mb-6 bg-white shadow-lg">
       {/* Header Image Section */}
       <div className="relative h-[500px] overflow-hidden">
         <Image
