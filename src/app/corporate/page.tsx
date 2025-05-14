@@ -13,7 +13,7 @@ import {
 
 const Corporate = () => {
   return (
-    <Card radius="none" className="p-0 rounded-lg mb-6 shadow-lg">
+    <Card radius="none" className="p-0 pt-4 rounded-lg mb-6 shadow-lg">
       <div className="relative h-[500px] overflow-hidden">
         <Image
           src="https://picsum.photos/seed/ethiopiaLushFarm/1200/500"
