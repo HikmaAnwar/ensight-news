@@ -126,17 +126,25 @@ export default function WeeklyAnalysis() {
           ))}
         </Group>
 
-        <div className="relative mb-6 rounded-lg overflow-hidden">
-          <Image
-            src="/images/Frehiwot.jpg"
-            alt="Featured Image"
-            width={600}
-            height={200}
-            className="w-full h-150 rounded-lg"
-          />
+        <div className="w-2/3 mb-6">
+          <div className="relative rounded-lg overflow-hidden">
+            <Image
+              src="/images/Frehiwot.jpg"
+              alt="Featured Image"
+              width={400}
+              height={150}
+              className="w-full h-100 rounded-lg"
+            />
+          </div>
+          <div className="w-1/2">
+            <Text className="text-sm text-blueblack-white mt-2 italic">
+              Featured image: Economic trends in Ethiopia, showcasing recent
+              developments.
+            </Text>
+          </div>
         </div>
 
-        <div className="prose max-w-none mb-10">
+        <div className="prose max-w-none w-2/3 mb-10">
           <Title
             order={2}
             className="text-xl font-bold text-blueblack-white mb-3"
