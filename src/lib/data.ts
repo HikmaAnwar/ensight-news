@@ -629,6 +629,50 @@ export const plans: Plan[] = [
   },
 ];
 
+export const recentAnalysis = [
+  {
+    id: "1",
+    category: "TECH AND SCIENCE | DIGITAL",
+    title: "Digital Transformation in Ethiopia: Progress and Potential",
+    description: "Examining Ethiopia's journey towards a digital economy.",
+    image: "/images/digital-transformation.jpg",
+    href: "/tech-and-science/digital/transformation-progress",
+    author: "Mesfin Belay",
+    date: "May 15, 2025",
+    readTime: "9 min",
+    slug: "digital-transformation-in-ethiopia-progress-and-potential",
+    content: "",
+  },
+  {
+    id: "2",
+    category: "TECH AND SCIENCE | DIGITAL",
+    title: "E-Commerce Boom in Ethiopia: Opportunities for Growth",
+    description: "How e-commerce is reshaping Ethiopia's business landscape.",
+    image: "/images/ecommerce-boom.jpg",
+    href: "/tech-and-science/digital/ecommerce-growth",
+    author: "Kalkidan Yohannes",
+    date: "May 8, 2025",
+    readTime: "7 min",
+    isPremium: true,
+    slug: "e-commerce-boom-in-ethiopia-opportunities-for-growth",
+    content: "",
+  },
+  {
+    id: "3",
+    category: "TECH AND SCIENCE | INNOVATION",
+    title: "Ethiopia's Innovation Ecosystem: Startups and Beyond",
+    description:
+      "A look at how Ethiopia is fostering innovation through startups and tech hubs.",
+    image: "/images/innovation-ecosystem.jpg",
+    href: "/tech-and-science/innovation/startup-ecosystem",
+    author: "Tsegaye Girma",
+    date: "May 1, 2025",
+    readTime: "7 min",
+    slug: "ethiopias-innovation-ecosystem-startups-and-beyond",
+    content: "",
+  },
+];
+
 export const trustedPartners = [
   {
     name: "Global Corp",
