@@ -1,9 +1,14 @@
 import { IconBook } from "@tabler/icons-react";
-import Link from "next/link";
 import Image from "next/image";
 import { recentAnalysis } from "@/lib/data";
 
-export default function RecentArticles() {
+interface RecentArticlesProps {
+  onArticleSelect: (article: (typeof recentAnalysis)[number]) => void;
+}
+
+export default function RecentArticles({
+  onArticleSelect,
+}: RecentArticlesProps) {
   return (
     <div className="w-full">
       <h3
@@ -16,8 +21,9 @@ export default function RecentArticles() {
         {recentAnalysis.map((article) => (
           <div
             key={article.id}
-            className="border bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] transition rounded-md shadow-sm p-4"
+            className="border bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] transition rounded-md shadow-sm p-4 cursor-pointer"
             style={{ borderColor: "var(--color-border)" }}
+            onClick={() => onArticleSelect(article)}
           >
             <div className="mb-3">
               <Image
@@ -51,14 +57,12 @@ export default function RecentArticles() {
                 </span>
               )}
             </div>
-            <Link href={article.href}>
-              <p
-                className="text-base font-semibold mb-1 hover:text-[var(--color-primary-accent)]"
-                style={{ color: "var(--color-blueblack-white)" }}
-              >
-                {article.title}
-              </p>
-            </Link>
+            <p
+              className="text-base font-semibold mb-1 hover:text-[var(--color-primary-accent)]"
+              style={{ color: "var(--color-blueblack-white)" }}
+            >
+              {article.title}
+            </p>
             <p
               className="text-sm mb-2"
               style={{ color: "var(--color-blueblack-white)" }}

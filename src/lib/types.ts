@@ -11,6 +11,9 @@ export interface Article {
   content?: any;
   description: string;
   isPremium?: boolean;
+  section?: string;
+  index?: number;
+  caption?: string;
 }
 
 export interface SubscriptionPlan {
