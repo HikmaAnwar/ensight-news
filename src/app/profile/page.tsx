@@ -1,14 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Tabs,
-  Switch,
-  Text,
-  Title,
-  Group,
-  Badge,
-  Container,
-} from "@mantine/core";
+import { Tabs, Switch, Text, Title, Badge, Container } from "@mantine/core";
 import { IconSettings, IconBookmark, IconHistory } from "@tabler/icons-react";
 const tabItems = [
   {
