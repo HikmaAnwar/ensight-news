@@ -1,6 +1,5 @@
 import { Container } from "@mantine/core";
 import { ArticleSection } from "@/components/ui/ArticleSection";
-import { articles } from "@/lib/data";
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
@@ -14,7 +13,6 @@ export default function InnovationPage() {
       <ArticleSection
         section="Tech and Science"
         subtype="Innovation"
-        articles={articles}
         breadcrumbItems={breadcrumbItems}
       />
     </Container>
