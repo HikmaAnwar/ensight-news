@@ -102,7 +102,7 @@ export default function Resources() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div
               className="rounded-lg shadow-md overflow-hidden"
-              style={{ backgroundColor: "var(--color-surface)" }}
+              style={{ backgroundColor: "var(--color-background)" }}
             >
               <Image
                 src="https://via.placeholder.com/400x200?text=Silhouette+Feet"
@@ -142,7 +142,7 @@ export default function Resources() {
 
             <div
               className="rounded-lg shadow-md overflow-hidden"
-              style={{ backgroundColor: "var(--color-surface)" }}
+              style={{ backgroundColor: "var(--color-background)" }}
             >
               <Image
                 src="https://via.placeholder.com/400x200?text=Coastal+Scene"
@@ -182,7 +182,7 @@ export default function Resources() {
 
             <div
               className="rounded-lg shadow-md overflow-hidden"
-              style={{ backgroundColor: "var(--color-surface)" }}
+              style={{ backgroundColor: "var(--color-background)" }}
             >
               <Image
                 src="https://via.placeholder.com/400x200?text=Deer+Landscape"
@@ -342,7 +342,7 @@ export default function Resources() {
             <div className="space-y-4">
               <div
                 className="flex items-center justify-between p-4 rounded-lg shadow-md"
-                style={{ backgroundColor: "var(--color-surface)" }}
+                style={{ backgroundColor: "var(--color-background)" }}
               >
                 <div>
                   <span
@@ -369,7 +369,7 @@ export default function Resources() {
               </div>
               <div
                 className="flex items-center justify-between p-4 rounded-lg shadow-md"
-                style={{ backgroundColor: "var(--color-surface)" }}
+                style={{ backgroundColor: "var(--color-background)" }}
               >
                 <div>
                   <span
@@ -396,7 +396,7 @@ export default function Resources() {
               </div>
               <div
                 className="flex items-center justify-between p-4 rounded-lg shadow-md"
-                style={{ backgroundColor: "var(--color-surface)" }}
+                style={{ backgroundColor: "var(--color-background)" }}
               >
                 <div>
                   <span
