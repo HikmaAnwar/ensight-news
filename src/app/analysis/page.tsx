@@ -59,13 +59,15 @@ export default function WeeklyAnalysis() {
       className="min-h-screen"
       style={{ backgroundColor: "var(--color-surface)" }}
     >
-      <div className="px-2 sm:px-3 lg:px-4 py-6">
-        <AnalysisArticleContent
-          selectedArticle={selectedArticle}
-          badges={badges}
-          buttons={buttons}
-        />
-        <div className="w-1/4 pr-0">
+      <div className="px-2 sm:px-3 lg:px-4 py-6 flex flex-col lg:flex-row gap-6">
+        <div className="lg:w-3/4">
+          <AnalysisArticleContent
+            selectedArticle={selectedArticle}
+            badges={badges}
+            buttons={buttons}
+          />
+        </div>
+        <div className="lg:w-1/4">
           <RecentArticles onArticleSelect={handleArticleSelect} />
         </div>
       </div>
