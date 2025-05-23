@@ -18,6 +18,9 @@ export const getArticleBySlug = async (
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
       content:
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
+      href: "/ethiopia-financing-models-gerd",
+      isPremium: false,
+      caption: "Ethiopia Explores New Financing Models for GERD Completion",
     },
     {
       id: "2",
@@ -31,6 +34,9 @@ export const getArticleBySlug = async (
       description:
         "Explore the rise of AI startups and their impact in 2025...",
       content: "Explore the rise of AI startups and their impact in 2025...",
+      href: "/ai-startups-2025",
+      isPremium: false,
+      caption: "AI Startups: The Next Big Thing in 2025",
     },
   ];
   return articles.find((a) => a.slug === slug) || null;
@@ -39,6 +45,7 @@ export const getArticleBySlug = async (
 export const getPopularArticles = async (): Promise<Article[]> => {
   return [
     {
+      id: "1",
       slug: "ethiopia-financing-models-gerd",
       title:
         "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
@@ -51,8 +58,12 @@ export const getPopularArticles = async (): Promise<Article[]> => {
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
       content:
         "This article explores Ethiopia's innovative financing models for the Grand Ethiopian Renaissance Dam (GERD) and other infrastructure projects...",
+      href: "/ethiopia-financing-models-gerd",
+      isPremium: false,
+      caption: "Ethiopia Explores New Financing Models for GERD Completion",
     },
     {
+      id: "2",
       slug: "ai-startups-2025",
       title: "AI Startups: The Next Big Thing in 2025",
       category: "Featured",
@@ -63,6 +74,9 @@ export const getPopularArticles = async (): Promise<Article[]> => {
       description:
         "Explore the rise of AI startups and their impact in 2025...",
       content: "Explore the rise of AI startups and their impact in 2025...",
+      href: "/ai-startups-2025",
+      isPremium: false,
+      caption: "AI Startups: The Next Big Thing in 2025",
     },
   ];
 };
@@ -540,6 +554,12 @@ export const relatedArticles: Article[] = [
     author: "John Doe",
     readTime: "5 min",
     isPremium: true,
+    slug: "the-future-of-ai",
+    date: "2025-05-01",
+    content:
+      "In this article, we explore the future of AI and its implications.",
+    href: "/articles/the-future-of-ai",
+    caption: "The Future of AI",
   },
   {
     id: "2",
@@ -549,6 +569,13 @@ export const relatedArticles: Article[] = [
     image: "/images/logo-red.png",
     author: "Jane Smith",
     readTime: "4 min",
+    isPremium: false,
+    slug: "quantum-computing-basics",
+    date: "2025-05-02",
+    content:
+      "This article provides a basic understanding of quantum computing.",
+    href: "/articles/quantum-computing-basics",
+    caption: "Quantum Computing Basics",
   },
   {
     id: "3",
@@ -559,6 +586,12 @@ export const relatedArticles: Article[] = [
     author: "Alex Johnson",
     readTime: "6 min",
     isPremium: true,
+    slug: "next-gen-robotics",
+    date: "2025-05-03",
+    content:
+      "This article discusses the advancements in robotics and their applications.",
+    href: "/articles/next-gen-robotics",
+    caption: "Next-Gen Robotics",
   },
 ];
 
@@ -640,8 +673,10 @@ export const recentAnalysis = [
     author: "Mesfin Belay",
     date: "May 15, 2025",
     readTime: "9 min",
+    isPremium: false,
     slug: "digital-transformation-in-ethiopia-progress-and-potential",
     content: "",
+    caption: "Digital Transformation in Ethiopia",
   },
   {
     id: "2",
@@ -656,6 +691,7 @@ export const recentAnalysis = [
     isPremium: true,
     slug: "e-commerce-boom-in-ethiopia-opportunities-for-growth",
     content: "",
+    caption: "E-Commerce Boom in Ethiopia",
   },
   {
     id: "3",
@@ -667,9 +703,11 @@ export const recentAnalysis = [
     href: "/tech-and-science/innovation/startup-ecosystem",
     author: "Tsegaye Girma",
     date: "May 1, 2025",
+    isPremium: false,
     readTime: "7 min",
     slug: "ethiopias-innovation-ecosystem-startups-and-beyond",
     content: "",
+    caption: "Ethiopia's Innovation Ecosystem",
   },
 ];
 

@@ -14,14 +14,11 @@ import RecentArticles from "@/components/ui/RecentArticles";
 import { recentAnalysis } from "@/lib/data";
 import { Article } from "@/lib/types";
 
-// Helper function to get the latest article (assuming recentAnalysis is sorted by date, newest first)
 const getLatestArticle = () => recentAnalysis[0] || {};
 
 export default function WeeklyAnalysis() {
-  // Initialize state with the latest article
   const [selectedArticle, setSelectedArticle] = useState(getLatestArticle());
 
-  // Badges for the selected article
   const badges = [
     { label: selectedArticle.category || "ANALYSIS | WEEKLY SESSIONS" },
     { label: selectedArticle.isPremium ? "PREMIUM" : "FREE" },
@@ -54,7 +51,6 @@ export default function WeeklyAnalysis() {
     },
   ];
 
-  // Handle article selection from RecentArticles
   const handleArticleSelect = (article: Article) => {
     setSelectedArticle(article);
   };

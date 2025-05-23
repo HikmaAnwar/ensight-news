@@ -20,7 +20,7 @@ export default function RecentArticles({
       <div className="space-y-4">
         {recentAnalysis.map((article) => (
           <div
-            key={article.id}
+            key={article?.id}
             className="border bg-[var(--color-surface)] hover:bg-[var(--color-surface-alt)] transition rounded-md shadow-sm p-4 cursor-pointer"
             style={{ borderColor: "var(--color-border)" }}
             onClick={() => onArticleSelect(article)}

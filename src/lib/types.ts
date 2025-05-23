@@ -1,19 +1,18 @@
 export interface Article {
-  id?: string;
-  slug?: string;
+  id: string | "";
+  slug: string | "";
   title: string;
   category: string;
   author: string;
-  date?: string;
+  date: string | "";
   readTime: string;
   image: string;
+  href: string | "";
   //eslint-disable-next-line
-  content?: any;
+  content: any | string | "";
   description: string;
-  isPremium?: boolean;
-  section?: string;
-  index?: number;
-  caption?: string;
+  isPremium: boolean;
+  caption: string | "";
 }
 
 export interface SubscriptionPlan {
