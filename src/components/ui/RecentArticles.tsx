@@ -12,7 +12,7 @@ export default function RecentArticles({
   return (
     <div className="w-full">
       <h3
-        className="text-lg font-bold mb-4"
+        className="text-2xl font-bold mb-4"
         style={{ color: "var(--color-blueblack-white)" }}
       >
         Recent Weekly Analysis
