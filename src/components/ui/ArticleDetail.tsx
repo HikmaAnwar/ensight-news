@@ -10,6 +10,8 @@ interface ArticleDetailProps {
 
 export function ArticleDetail({ article }: ArticleDetailProps) {
   const defaultArticle: Article = {
+    id: "1",
+    slug: "ethiopia-explores-new-financing-models-for-gerd-completion-and-infrastructure-push",
     title:
       "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
     category: "Economy",
@@ -18,6 +20,10 @@ export function ArticleDetail({ article }: ArticleDetailProps) {
     date: "May 15, 2025",
     readTime: "8 min read",
     image: "/images/Frehiwot.jpg",
+    isPremium: false,
+    href: "/ethiopia/economy/ethiopia-explores-new-financing-models-for-gerd-completion-and-infrastructure-push",
+    caption:
+      "Ethiopia's Grand Ethiopian Renaissance Dam (GERD) is a symbol of national pride and economic ambition.",
     content: (
       <>
         <Text className="mb-4 text-primary">

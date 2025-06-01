@@ -2,7 +2,7 @@ import { Title, Text } from "@mantine/core";
 import { BreadcrumbsNav } from "./BreadcrumbsNav";
 import Sidebar from "./Sidebar";
 import { RelatedArticles } from "./RelatedArticles";
-import { Article } from "@/lib/types";
+
 import { articles } from "@/lib/data";
 import { ArticleCard } from "./ArticleCard";
 
@@ -37,7 +37,7 @@ export function ArticleSection({
   subtype,
   breadcrumbItems,
 }: ArticleSectionProps) {
-  const filteredArticles = articles.filter((article: Article) => {
+  const filteredArticles = articles.filter((article) => {
     const { mainCategory, subcategory } = parseCategory(article.category);
     return (
       mainCategory.toLowerCase() === section.toLowerCase() &&
