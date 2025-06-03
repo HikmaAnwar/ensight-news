@@ -3,6 +3,7 @@ import { Article } from "../../../../lib/types";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { BreadcrumbsNav } from "@/components/ui/BreadcrumbsNav";
+import { articles } from "@/lib/data";
 
 const parseCategory = (
   category: string
@@ -15,62 +16,6 @@ const parseCategory = (
     subcategory: subcategory.toLowerCase(),
   };
 };
-const articles: Article[] = [
-  {
-    id: "1",
-    category: "ECONOMY | POLICIES",
-    slug: "ethiopias-economic-policies-a-new-era-of-reform",
-    title: "Ethiopia's Economic Policies: A New Era of Reform",
-    description:
-      "Exploring the latest economic policy reforms shaping Ethiopia's future.",
-    image: "/images/economic-policies.jpg",
-    author: "Yared Lemma",
-    readTime: "9 min",
-    date: "2025-05-01",
-    content:
-      "Ethiopia's economic policies are undergoing significant changes as the government aims to boost growth and attract foreign investment...",
-    isPremium: false,
-    href: "/ethiopia/economy/ethiopias-economic-policies-a-new-era-of-reform",
-    caption:
-      "Featured image: Ethiopia's economic landscape, showcasing the latest reforms and policies.",
-  },
-  {
-    id: "2",
-    category: "ECONOMY | POLICIES",
-    slug: "impact-of-monetary-policy-on-ethiopias-economy",
-    title: "Impact of Monetary Policy on Ethiopia's Economy",
-    description:
-      "An analysis of how monetary policies are influencing Ethiopia's economic landscape.",
-    image: "/images/monetary-policy.jpg",
-    author: "Selamawit Gebremedhin",
-    readTime: "6 min",
-    isPremium: true,
-    date: "2025-05-02",
-    content:
-      "The Ethiopian central bank's monetary policy decisions are crucial in shaping the country's economic environment...",
-    href: "/ethiopia/economy/impact-of-monetary-policy-on-ethiopias-economy",
-    caption:
-      "Featured image: The Ethiopian central bank, a key player in shaping monetary policy.",
-  },
-  {
-    id: "3",
-    slug: "ethiopias-coffee-market-trends-and-opportunities",
-    title: "Ethiopias Coffee Market Trends And Opportunities",
-    category: "BUSINESS | MARKETS",
-    author: "Tsedey Kebede",
-    date: "2025-05-03",
-    readTime: "7 min",
-    image: "/images/Frehiwot.jpg",
-    content:
-      "Ethiopia's coffee market is booming as global demand for specialty coffee increases...",
-    description:
-      "A look into Ethiopia's dynamic coffee market and future opportunities.",
-    isPremium: false,
-    href: "/ethiopia/business/ethiopias-coffee-market-trends-and-opportunities",
-    caption:
-      "Featured image: Ethiopian coffee beans, a symbol of the country's rich coffee culture.",
-  },
-];
 
 async function getArticleByTitleAndCategory(
   category: string,
