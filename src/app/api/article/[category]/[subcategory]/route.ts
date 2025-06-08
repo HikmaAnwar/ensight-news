@@ -3,7 +3,7 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  context: { params: { category: string; subcategory: string } }
+  context: { params: Promise<{ category: string; subcategory: string }> }
 ) {
   const { category, subcategory } = context.params;
 
