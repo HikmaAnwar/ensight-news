@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { RouteHandlerContext } from "next/dist/server/web/types";
 import { BASE_URL } from "@/lib/constants";
 
 interface Params {
-  params: {
+context: RouteHandlerContext<{
     user_id: string;
   };
 }
 
 // GET user profile
-export async function GET(req: NextRequest, { params }: Params) {
+export async function GET(req: NextRequest, Params
+                         ) {
   const { user_id } = params;
 
   try {
