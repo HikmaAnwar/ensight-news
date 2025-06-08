@@ -4,7 +4,7 @@ import { BASE_URL } from "@/lib/constants";
 export async function GET({
   params,
 }: {
-  params: { category: string; subcategory: string };
+  params: Promise<{ category: string; subcategory: string }>;
 }) {
   const { category, subcategory } = params;
 
