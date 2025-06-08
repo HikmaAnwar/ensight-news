@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   context: RouteHandlerContext<{ category: string; }>
 ) {
- const { category, subcategory } = context.params;
+ const { category } = context.params;
 
   try {
     const response = await fetch(`${BASE_URL}/article/${category}`, {
