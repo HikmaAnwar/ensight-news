@@ -27,6 +27,7 @@ export async function GET(
 
     const data = await response.json();
     return NextResponse.json(data, { status: 200 });
+    //eslint-disable-next-line
   } catch (error: any) {
     console.error("Fetch error:", error);
     return NextResponse.json(
