@@ -1,14 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
-export async function GET({ params }: { params: Promise<{ category: string }> }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { category: string } }
+) {
   const { category } = params;
 
-  // const token = req.headers.get("authorization");
   try {
     const response = await fetch(`${BASE_URL}/article/${category}`, {
       headers: {
-        // Authorization: token || "",
+        // Authorization: req.headers.get("authorization") || "",
       },
     });
 
