@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
 interface Params {
-  params: {
+  params: Promise <{
     user_id: string;
-  };
+  }>;
 }
 
 export async function GET(req: NextRequest, { params }: Params) {
