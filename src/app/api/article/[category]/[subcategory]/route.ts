@@ -1,18 +1,21 @@
 import { NextResponse } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
-export async function GET(
-  _req: Request,
-  context: { params: { category: string; subcategory: string } }
-) {
-  const { category, subcategory } = context.params;
+export async function GET({
+  params,
+}: {
+  params: Promise<{ category: string; subcategory: string }>;
+}) {
+  const resolvedParams = await params;
+  const { category, subcategory } = resolvedParams;
 
+  // const token = req.headers.get("authorization");
   try {
     const response = await fetch(
       `${BASE_URL}/article/${category}/${subcategory}`,
       {
         headers: {
-          // Authorization: _req.headers.get("authorization") || "",
+          // Authorization: token || "",
         },
       }
     );
