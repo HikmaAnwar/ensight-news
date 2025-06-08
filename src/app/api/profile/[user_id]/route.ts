@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
 interface Params {
-  params: Promise <{
+  params: {
     user_id: string;
-  }>;
+  };
 }
 
+// GET user profile
 export async function GET(req: NextRequest, { params }: Params) {
   const { user_id } = params;
 
@@ -27,7 +28,6 @@ export async function GET(req: NextRequest, { params }: Params) {
     }
 
     const userData = await response.json();
-
     return NextResponse.json(userData, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -40,6 +40,7 @@ export async function GET(req: NextRequest, { params }: Params) {
   }
 }
 
+// PATCH user profile
 export async function PATCH(req: NextRequest, { params }: Params) {
   const { user_id } = params;
 
@@ -71,7 +72,6 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     }
 
     const updatedUserData = await response.json();
-
     return NextResponse.json(updatedUserData, { status: 200 });
   } catch (error) {
     return NextResponse.json(
