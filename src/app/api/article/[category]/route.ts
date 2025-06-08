@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { RouteHandlerContext } from "next/dist/server/web/types";
 import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { category: string } }
+  context: RouteHandlerContext<{ category: string; } }
 ) {
-  const { category } = params;
+ const { category, subcategory } = context.params;
 
   try {
     const response = await fetch(`${BASE_URL}/article/${category}`, {
