@@ -3,19 +3,16 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ category: string; subcategory: string }> }
+  context: { params: { category: string; subcategory: string } }
 ) {
   const { category, subcategory } = context.params;
 
   try {
-    const response = await fetch(
-      `${BASE_URL}/article/${category}/${subcategory}`,
-      {
-        headers: {
-          // Authorization: req.headers.get("authorization") || "",
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/article/${category}/${subcategory}`, {
+      headers: {
+        // Authorization: req.headers.get("authorization") || "",
+      },
+    });
 
     if (!response.ok) {
       const error = await response.json();
