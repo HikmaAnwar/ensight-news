@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
-export async function GET({ params }: { params: { category: string } }) {
+export async function GET({ params }: { params: Promise<{ category: string }> }) {
   const { category } = params;
 
   // const token = req.headers.get("authorization");
