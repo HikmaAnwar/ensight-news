@@ -4,7 +4,7 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  context: RouteHandlerContext<{ category: string; } }
+  context: RouteHandlerContext<{ category: string; }>
 ) {
  const { category, subcategory } = context.params;
 
