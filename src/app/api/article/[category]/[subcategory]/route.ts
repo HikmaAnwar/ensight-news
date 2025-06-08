@@ -3,9 +3,9 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { category: string; subcategory: string } }
+  context: { params: { category: string; subcategory: string } }
 ) {
-  const { category, subcategory } = params;
+  const { category, subcategory } = context.params;
 
   try {
     const response = await fetch(
@@ -28,6 +28,7 @@ export async function GET(
     const data = await response.json();
     return NextResponse.json(data, { status: 200 });
     //eslint-disable-next-line
+
   } catch (error: any) {
     console.error("Fetch error:", error);
     return NextResponse.json(
