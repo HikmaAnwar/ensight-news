@@ -1,10 +1,11 @@
-import { Group, ActionIcon, Text } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import {
   IconBrandTwitter,
   IconBrandLinkedin,
   IconBrandFacebook,
   IconMail,
 } from "@tabler/icons-react";
+import Link from "next/link";
 
 const socialLinks = [
   {
@@ -31,28 +32,21 @@ const socialLinks = [
 
 export function SocialShare() {
   return (
-    <Group gap="md" className="mb-4 flex">
-      <Text className="text-blueblack-white font-serif" size="sm">
+    <Group gap="md" className="flex mb-4">
+      <Text className="font-serif text-blueblack-white" size="sm">
         Share:
       </Text>
       {socialLinks.map((link) => (
-        <Group key={link.name} gap="xs" className="flex items-center mx-4">
-          <ActionIcon
-            component="a"
-            href={link.href}
-            variant="filled"
-            radius="xl"
-            className="flex"
-          >
-            <link.icon
-              className="text-blueblack-white mr-2 inline-block"
-              size={16}
-            />
-            <Text className="text-blueblack-white inline" size="xs">
-              {link.name}
-            </Text>
-          </ActionIcon>
-        </Group>
+        <Link
+          key={link.name}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-blueblack-white text-surface text-xs px-3 py-1.5 rounded-full no-underline transition"
+        >
+          <link.icon size={16} />
+          {link.name}
+        </Link>
       ))}
     </Group>
   );

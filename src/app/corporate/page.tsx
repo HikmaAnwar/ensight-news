@@ -1,183 +1,227 @@
 "use client";
 
-import { Card, Title, Text, Image, Paper, Button } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Card, Title, Text, Paper, Button, Loader, Box } from "@mantine/core";
 import {
   IconMapPin,
-  IconBriefcase,
   IconTarget,
-  IconTrendingUp,
   IconCalendar,
   IconCheck,
   IconBulb,
+  IconAlertCircle,
 } from "@tabler/icons-react";
+import Image from "next/image";
+import { Article } from "@/lib/types";
 
 const Corporate = () => {
+  const [article, setArticle] = useState({} as Article);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  //eslint-disable-next-line
+  const [authorProfile, setAuthorProfile] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/article/corporate", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch article");
+        }
+        const data = await response.json();
+        if (data.length > 0) {
+          setArticle(data[0]);
+          setLoading(false);
+        } else {
+          setError("No articles found");
+          setLoading(false);
+        }
+        //eslint-disable-next-line
+      } catch (err: any) {
+        console.error("Error fetching article:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticle();
+  }, []);
+
+  useEffect(() => {
+    const fetchAuthorProfile = async (authorId: string) => {
+      const url = `/api/profile/${authorId}`;
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error(`Failed to fetch author profile: ${response.status}`);
+          return null;
+        }
+
+        return await response.json();
+      } catch (err) {
+        console.error("Error fetching author profile:", err);
+        return null;
+      }
+    };
+
+    if (article && article.author) {
+      const authorId = article.author;
+      fetchAuthorProfile(authorId);
+    }
+  }, [article]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader size="lg" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Text size="xl" c="red">
+          <IconAlertCircle className="inline mr-2" />
+          {error}
+        </Text>
+      </div>
+    );
+  }
+
+  if (!article) {
+    return (
+      <Box className="flex items-center justify-center h-screen">
+        <Text size="xl" c="dimmed">
+          No article available at the moment.
+        </Text>
+      </Box>
+    );
+  }
+
   return (
-    <Card radius="none" className="p-0 pt-4 rounded-lg mb-6 shadow-lg">
+    <Card radius="none" className="px-0 py-6 rounded-lg shadow-lg">
       <div className="relative h-[500px] overflow-hidden">
         <Image
-          src="https://picsum.photos/seed/ethiopiaLushFarm/1200/500"
-          alt="Lush Ethiopian coffee plantation"
-          className="object-cover rounded-md w-full h-full"
+          src={article?.image || "/images/new-red-logo.png"}
+          alt={article?.title || "Corporate Article Image"}
+          className="object-cover w-full h-full rounded-md"
+          width={1200}
+          height={500}
         />
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white bg-gradient-to-t from-black/85 to-transparent">
           <Title order={1} className="text-4xl font-bold text-shadow-md">
-            From Local Fields to Global Tables: GreenPath Organics Ethiopian
-            Agri-Revolution
+            {article.title}
           </Title>
           <Text className="mt-2 text-lg font-secondary opacity-90">
             A Special Feature by{" "}
-            <span className="font-bold text-primary-accent">
-              Global Impact Chronicle
-            </span>{" "}
-            | Addis Ababa, Ethiopia
+            <span className="font-bold text-primary-accent">Ensight News</span>{" "}
+            | {article.category}{" "}
           </Text>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row p-6 gap-6 min-h-full">
-        <div className="lg:w-3/4 pr-16 space-y-6">
-          <Text className="mb-6 text-lg italic border-l-4 border-blue pl-4 text-secondary leading-relaxed">
-            In the heart of Ethiopia’s fertile highlands, a quiet revolution is
-            blossoming. GreenPath Organics, founded by visionary entrepreneur
-            Liya Mekonnen, is not just farming; it’s cultivating a future where
-            traditional agriculture meets cutting-edge intelligence,
-            transforming livelihoods and placing Ethiopian specialty produce on
-            the world’s most discerning tables.
-          </Text>
-
-          <Text className="mb-6 text-base text-secondary leading-relaxed">
-            Just five years ago, Liya, an agricultural economist with deep roots
-            in her community, recognized the immense, yet largely untapped,
-            potential of the region’s unique terroir and heirloom crop
-            varieties. The path, however, was fraught with challenges:
-            inconsistent yields, fragmented market access, and the formidable
-            task of navigating complex international organic certification
-            standards.
-          </Text>
+      <div className="flex flex-col min-h-full gap-6 p-6 lg:flex-row">
+        <div className="pr-16 space-y-6 lg:w-3/4">
+          <p className="pl-4 my-6 text-lg italic leading-relaxed border-l-4 border-blue text-secondary">
+            {article.description}
+          </p>
 
           <Paper shadow="sm" radius="md" className="mb-8 overflow-hidden">
             <Image
-              src="https://picsum.photos/seed/liyaWorkingField/800/450"
-              alt="Liya Mekonnen working in a vibrant field with local farmers"
+              src={article.image}
+              width={800}
+              height={600}
+              alt="Article Image"
               className="object-cover w-full h-auto rounded-lg"
             />
             <Text className="p-4 text-sm italic text-center text-secondary bg-surface">
-              Liya Mekonnen (center) collaborating with local farmers, a core
-              principle of GreenPath Organics.
+              {authorProfile
+                ? authorProfile?.firstName + " " + authorProfile?.lastName
+                : "person Name"}
             </Text>
           </Paper>
 
-          <Text className="mb-6 text-base text-secondary leading-relaxed">
-            “We knew we possessed something truly special – our aromatic Sidamo
-            coffee, the nutrient-rich heirloom teff,” Liya recounts, her voice
-            filled with passion. “But translating that inherent quality into
-            sustainable growth and premium market access felt like an
-            insurmountable peak. We were operating on intuition, needing a
-            compass of precision.”
-          </Text>
+          <p className="my-6 text-base leading-relaxed text-secondary">
+            {article.content || "No content available for this article."}
+          </p>
 
           <Paper
             shadow="sm"
             radius="md"
-            className="my-8 p-6 border-l-4 border-blue-light bg-surface-alt"
+            className="p-6 my-8 border-l-4 border-blue-light bg-surface-alt"
           >
-            <Text className="relative pl-10 text-lg italic text-secondary leading-relaxed">
-              <span className="absolute text-6xl left-5 top-1 text-blue-light">
+            <Text className="relative pl-10 text-lg italic leading-relaxed text-secondary">
+              <span className="absolute left-0 text-6xl top-[-10] text-blue-light">
                 “
               </span>
-              The paradigm shift occurred when we embraced data as our most
-              valuable crop. Understanding our soil’s narrative, the climate’s
-              rhythm, and the global consumer’s desires with pinpoint accuracy
-              illuminated our path forward.
+              <span className="absolute left-10 top-1">
+                {article.quote ||
+                  "This is a placeholder quote for the article."}
+              </span>
             </Text>
             <Text className="mt-4 text-sm text-right text-secondary">
-              — Liya Mekonnen, Founder & CEO, GreenPath Organics
+              —{" "}
+              {authorProfile
+                ? authorProfile?.firstName + " " + authorProfile?.lastName
+                : "person Name"}
             </Text>
           </Paper>
 
-          <Text className="mb-6 text-base text-secondary leading-relaxed">
-            The metamorphosis of GreenPath Organics began with the strategic
-            integration of an advanced agricultural intelligence platform. This
-            wasn’t merely about new software; it was about a new mindset. The
-            system enabled meticulous tracking of crop lifecycles, optimization
-            of precious water and nutrient resources, and forecasting harvest
-            yields with unprecedented accuracy. Critically, it unlocked a
-            real-time view into global market dynamics, demand surges, and
-            pricing corridors for organic specialty goods.
-          </Text>
-
-          <Text className="mb-6 text-base text-secondary leading-relaxed">
-            “Suddenly, our farming transcended traditional boundaries; we were
-            practicing precision agriculture,” Liya explains with a confident
-            smile. “For instance, the{" "}
-            <span className="italic font-medium text-blue">
-              Agri-Optimize Suite
-            </span>{" "}
-            from Global Insight Systems was instrumental. Its predictive
-            analytics highlighted a burgeoning European demand for organic white
-            honey. We pivoted our apiary expansion strategy, and today, it’s a
-            star export. This foresight, this ability to anticipate and adapt,
-            was transformative.”
-          </Text>
-
-          <Text className="mb-6 text-base text-secondary leading-relaxed">
-            Today, GreenPath Organics is a beacon of success, exporting its
-            premium produce to over 15 countries, fostering a 300% increase in
-            local employment, and championing fair-trade principles that empower
-            the entire community. Their journey is a powerful testament to
-            visionary leadership synergized with the transformative power of
-            data-driven decision-making, charting a new, prosperous course for
-            Ethiopian agriculture on the global stage.
+          <Text className="mb-6 text-base leading-relaxed text-secondary">
+            {article.description}
           </Text>
         </div>
 
-        <div className="lg:w-1/4 space-y-6 flex flex-col">
+        <div className="flex flex-col space-y-6 lg:w-1/4">
           <Paper
             shadow="sm"
             radius="lg"
-            className="p-6 border bg-surface border-border flex-grow"
+            className="flex-grow p-6 border bg-surface border-border"
           >
             <Image
-              src="https://picsum.photos/seed/liyaPortrait/140/140"
-              alt="Liya Mekonnen"
+              src={authorProfile?.avatar || "/images/new-red-logo.png"}
+              alt="Author Image"
+              width={150}
+              height={150}
               className="w-32 h-32 mx-auto mb-5 rounded-full"
             />
             <Title
               order={3}
               className="pb-2 text-lg border-b-2 text-blue border-blue"
             >
-              Liya Mekonnen
+              {authorProfile
+                ? authorProfile?.firstName + " " + authorProfile?.lastName
+                : "person Name"}
             </Title>
             <Text className="mb-4 text-sm text-secondary">
-              Founder & CEO, GreenPath Organics
+              {authorProfile?.bio || "No biography available for this person."}
             </Text>
             <ul className="space-y-2 list-none">
               <li className="flex items-start">
                 <IconMapPin className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Born:</strong> Addis Ababa, Ethiopia
+                  <strong>Born:</strong> Placeholder
                 </div>
               </li>
-              <li className="flex items-start">
-                <IconBriefcase className="w-5 h-5 mt-1 mr-2 text-blue" />
-                <div className="text-blueblack-white">
-                  <strong>Education:</strong> MSc. Agricultural Economics,
-                  Wageningen University
-                </div>
-              </li>
+
               <li className="flex items-start">
                 <IconTarget className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Mission:</strong> To elevate Ethiopian agriculture
-                  through sustainable innovation and global market connectivity.
-                </div>
-              </li>
-              <li className="flex items-start">
-                <IconTrendingUp className="w-5 h-5 mt-1 mr-2 text-blue" />
-                <div className="text-blueblack-white">
-                  <strong>Impact:</strong> Empowerment of 500+ smallholder
-                  farmers, 70% avg. income increase.
+                  <strong>Mission:</strong> Placeholder
                 </div>
               </li>
             </ul>
@@ -185,20 +229,17 @@ const Corporate = () => {
             <Paper
               shadow="sm"
               radius="md"
-              className="p-5 mt-6 text-center border border-primary-accent rounded-lg"
+              className="p-5 mt-6 text-center border rounded-lg border-primary-accent"
             >
               <Text className="mb-2 text-sm text-secondary">
                 Key Technology Partner:
               </Text>
               <Text className="mb-2 font-bold text-blue">
-                Agri-Optimize Suite
-              </Text>
-              <Text className="mb-7 text-xs text-secondary">
-                by Global Insight Systems
+                Global Insight Systems
               </Text>
               <Button
                 component="a"
-                className="p-3 text-sm cursor-pointer text-white bg-primary-accent hover:bg-red-600 rounded-md"
+                className="p-3 mt-5 text-sm text-white rounded-md cursor-pointer bg-primary-accent hover:bg-red-600"
               >
                 Unlock Agricultural Intelligence
               </Button>
@@ -214,28 +255,25 @@ const Corporate = () => {
               <li className="flex items-start mt-4">
                 <IconCalendar className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Founded:</strong> 2018
+                  <strong>Founded:</strong> Placeholder
                 </div>
               </li>
               <li className="flex items-start">
                 <IconCheck className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Specialties:</strong> Organic Teff, Sidamo Coffee,
-                  White Honey, Specialty Pulses, Avocados
+                  <strong>Specialties:</strong> Placeholder
                 </div>
               </li>
               <li className="flex items-start">
                 <IconCheck className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Certifications:</strong> EU Organic, USDA Organic,
-                  Fair Trade USA, GlobalG.A.P.
+                  <strong>Certifications:</strong> Placeholder
                 </div>
               </li>
               <li className="flex items-start">
                 <IconBulb className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Motto:</strong> “Growing Sustainably, Connecting
-                  Globally.”
+                  <strong>Motto:</strong> Placeholder
                 </div>
               </li>
             </ul>

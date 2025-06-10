@@ -1,48 +1,79 @@
-import { Button, ButtonProps } from "@mantine/core";
 import { forwardRef } from "react";
 
-interface SharedButtonProps extends ButtonProps {
+interface SharedButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "filled" | "outline" | "light" | "subtle" | "default";
-  color?:
-    | "primary-accent"
-    | "surface"
-    | "surface-alt"
-    | "surface-emphasis"
-    | "text-primary"
-    | string;
+  color?: string;
   rounded?: boolean;
-  type?: "submit" | "button" | "reset"; // Add type prop for form buttons
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const SharedButton = forwardRef<HTMLButtonElement, SharedButtonProps>(
   (
     {
       variant = "filled",
-      color = "primary-accent",
+      color = "#FF0A00",
       children,
       className,
       rounded = false,
-      type, // Include type in destructured props
+      type = "button",
+      style,
       ...props
     },
     ref
   ) => {
+    const baseStyles: React.CSSProperties = {
+      padding: "8px 24px", // px-6 py-2
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: "all 0.3s ease",
+      cursor: "pointer",
+      borderRadius: rounded ? "9999px" : "8px",
+      border: "none",
+      fontWeight: 600,
+      fontSize: "1rem",
+      color: variant === "filled" ? "#fff" : color,
+      backgroundColor: variant === "filled" ? color : "transparent",
+      ...(variant === "outline" && {
+        border: `2px solid ${color}`,
+        color: color,
+        backgroundColor: "transparent",
+      }),
+      ...(variant === "light" && {
+        backgroundColor: `${color}22`, // light transparent bg
+        color: color,
+      }),
+      ...(variant === "subtle" && {
+        backgroundColor: "transparent",
+        color: color,
+      }),
+      ...(variant === "default" && {
+        backgroundColor: "#e0e0e0",
+        color: "#333",
+      }),
+    };
+
     return (
-      <Button
-        variant={variant}
-        color={color}
-        radius="md"
-        type={type} // Pass type to Mantine Button
-        className={`px-6 py-2 shadow-lg transition-all hover:shadow-[0_6px_15px_var(--color-shadow)] cursor-pointer ${
-          variant === "filled" ? "text-text-light" : ""
-        } ${rounded ? "rounded-2xl" : ""}
-         ${className || ""}`}
+      <button
+        type={type}
+        className={className}
         ref={ref}
+        style={{
+          ...baseStyles,
+          ...style,
+        }}
+        onMouseEnter={(e) => {
+          if (variant === "filled") {
+            e.currentTarget.style.boxShadow = `0 6px 15px ${color}`;
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (variant === "filled") {
+            e.currentTarget.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+          }
+        }}
         {...props}
       >
         {children}
-      </Button>
+      </button>
     );
   }
 );

@@ -3,6 +3,7 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import "@mantine/carousel/styles.css";
+import "@mantine/core/styles.css";
 
 export const metadata = {
   title: "Ensight - Business Intelligence",
@@ -27,7 +28,7 @@ export default function RootLayout({
           </a>
           <Header />
           <main id="main-content" className="bg-surface">
-            <div className="px-20">{children}</div>
+            <div className="md:px-20">{children}</div>
           </main>
           <Footer />
         </MantineProvider>

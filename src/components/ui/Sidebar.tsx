@@ -1,40 +1,96 @@
-import { Card, Text, Group, Divider } from "@mantine/core";
-import { getPopularArticles } from "@/lib/data";
-import { Article } from "@/lib/types";
+"use client";
 
-export default async function Sidebar() {
-  const articles: Article[] = await getPopularArticles();
+import { useEffect, useState } from "react";
+import { Text, Divider, Loader, Center } from "@mantine/core";
+import { Article } from "@/lib/types";
+import { ArticleCard } from "./ArticleCard";
+
+export default function Sidebar() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        setError(null);
+        const res = await fetch("/api/article/popular");
+
+        if (!res.ok) {
+          throw new Error(
+            `Failed to fetch articles: ${res.status} ${res.statusText}`
+          );
+        }
+
+        const data = await res.json();
+        setArticles(data);
+        //eslint-disable-next-line
+      } catch (err: any) {
+        console.error(err);
+        setError("An unexpected error occurred");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchArticles();
+  }, []);
+  const article = articles[0];
 
   return (
-    <aside className="w-[480px]">
-      <Card className="bg-background border border-border shadow-card p-6 rounded-2xl">
-        <Text className="font-bold font-serif text-blueblack-white text-xl mb-4">
+    <aside>
+      <div
+        style={{
+          backgroundColor: "var(--background)",
+          borderColor: "var(--border)",
+          boxShadow: "var(--shadow-card)",
+        }}
+        className="w-full mx-auto my-4"
+      >
+        <Text
+          mb="md"
+          w={700}
+          className="font-serif text-xl text-blueblack-white"
+          style={{ fontFamily: "serif" }}
+        >
           Popular This Week
         </Text>
-        <Divider className="mb-4 border-t border-gray-300 visible-divider" />
-        {articles.map((article, index) => (
-          <div key={article.slug}>
-            {index > 0 && (
-              <Divider className="my-4 border-t border-gray-300 visible-divider" />
-            )}
-            <a
-              href={`/articles/${article.slug}`}
-              className="no-underline block hover:bg-surface hover:px-2 hover:py-1 hover:rounded-md transition-all duration-200"
+
+        <Divider mb="md" style={{ borderTopColor: "rgba(156, 163, 175, 1)" }} />
+
+        {loading ? (
+          <Center h={100}>
+            <Loader color="blue" />
+          </Center>
+        ) : error ? (
+          <Center h={100}>
+            <Text
+              c="red"
+              className="font-serif"
+              style={{ fontFamily: "serif" }}
             >
-              <Text className="text-blueblack-white font-semibold font-serif hover:text-red-600 hover:underline cursor-pointer transition-colors duration-200">
-                {article.title}
-              </Text>
-              <Group className="text-muted font-serif mb-6 inline-flex flex-row gap-4 hover:text-red-600">
-                <Text className="text-red-600 whitespace-nowrap px-1 py-0 rounded">
-                  {article.category}
-                </Text>
-                <Text className="whitespace-nowrap">|</Text>
-                <Text className="whitespace-nowrap">{article.readTime}</Text>
-              </Group>
-            </a>
+              {error}
+            </Text>
+          </Center>
+        ) : articles.length === 0 ? (
+          <Center h={100}>
+            <Text
+              c="dimmed"
+              className="font-serif"
+              style={{ fontFamily: "serif" }}
+            >
+              No articles found
+            </Text>
+          </Center>
+        ) : (
+          <div key={article.slug}>
+            <ArticleCard
+              key={article.slug || article.id}
+              article={article}
+              linkPath={`/${article.category}/${article.subcategory}/${article.slug}`}
+            />
           </div>
-        ))}
-      </Card>
+        )}
+      </div>
     </aside>
   );
 }

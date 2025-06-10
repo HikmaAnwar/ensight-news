@@ -5,7 +5,7 @@ import { BreadcrumbsNav } from "@/components/ui/BreadcrumbsNav";
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
-  { label: "Subscription", href: "/Subscription" },
+  { label: "Subscribe", href: "/subscribe" },
 ];
 
 export default function SubscribePage() {

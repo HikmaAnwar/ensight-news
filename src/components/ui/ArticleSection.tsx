@@ -1,92 +1,138 @@
-import { Title, Text } from "@mantine/core";
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  Title,
+  Text,
+  Box,
+  Skeleton,
+  SimpleGrid,
+  Container,
+  Stack,
+  Grid,
+} from "@mantine/core";
 import { BreadcrumbsNav } from "./BreadcrumbsNav";
 import Sidebar from "./Sidebar";
 import { RelatedArticles } from "./RelatedArticles";
-
-import { articles } from "@/lib/data";
 import { ArticleCard } from "./ArticleCard";
+import { Article } from "@/lib/types";
 
 interface ArticleSectionProps {
-  section: string;
-  subtype: string;
+  category: string;
+  subcategory: string;
   breadcrumbItems: { label: string; href: string }[];
 }
 
-const createUrlFriendlyTitle = (title: string) => {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-};
-
-const parseCategory = (
-  category: string
-): { mainCategory: string; subcategory: string } => {
-  const [mainCategory, subcategory] = category
-    .split(" | ")
-    .map((part) => part.trim());
-  return {
-    mainCategory: mainCategory.toLowerCase(),
-    subcategory: subcategory.toLowerCase(),
-  };
-};
-
 export function ArticleSection({
-  section,
-  subtype,
+  category,
+  subcategory,
   breadcrumbItems,
 }: ArticleSectionProps) {
-  const filteredArticles = articles.filter((article) => {
-    const { mainCategory, subcategory } = parseCategory(article.category);
-    return (
-      mainCategory.toLowerCase() === section.toLowerCase() &&
-      subcategory.toLowerCase() === subtype.toLowerCase()
-    );
-  });
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchArticles() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(
+          `/api/article/${encodeURIComponent(
+            category.toLowerCase()
+          )}/${encodeURIComponent(subcategory.toLowerCase())}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+            },
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error(`Error fetching articles: ${res.statusText}`);
+        }
+
+        const data: Article[] = await res.json();
+        setArticles(data);
+        //eslint-disable-next-line
+      } catch (err: any) {
+        setError(err.message || "Failed to fetch articles");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchArticles();
+  }, [category, subcategory]);
 
   return (
-    <section className="w-full py-6 md:py-12">
-      <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-50">
-        <div className="w-full">
-          <BreadcrumbsNav items={breadcrumbItems} className="font-semibold" />
-          <Title
-            order={1}
-            className="text-blueblack-white font-serif text-2xl md:text-3xl font-bold mt-4 mb-2"
-          >
-            {section} - {subtype}
-          </Title>
-          <Text className="text-muted font-serif mb-6 md:mb-8 text-lg md:text-xl">
-            Showing {filteredArticles.length} articles
-          </Text>
-          <div
-            className="grid gap-6"
-            style={{
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            }}
-          >
-            {filteredArticles.map((article) => {
-              const { mainCategory, subcategory } = parseCategory(
-                article.category
-              );
-              const urlFriendlyTitle = createUrlFriendlyTitle(article.title);
-              const linkPath = `/${mainCategory}/${subcategory}/${urlFriendlyTitle}`;
+    <Box component="section" py={{ base: 24, md: 20 }}>
+      <Container size="xl">
+        <Grid gutter={50}>
+          <Grid.Col span={{ base: 12, md: 8 }}>
+            <Stack gap="md">
+              <BreadcrumbsNav items={breadcrumbItems} />
 
-              return (
-                <ArticleCard
-                  key={article?.slug || article?.id}
-                  article={article}
-                  linkPath={linkPath}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className="w-full md:w-[480px] md:mt-0">
-          <Sidebar />
-          <RelatedArticles />
-        </div>
-      </div>
-    </section>
+              <Title order={1} fw={500} size={28} c="blueblack-white">
+                {category} - {subcategory}
+              </Title>
+
+              {loading && (
+                <SimpleGrid
+                  cols={{ base: 1, sm: 2, md: 3 }}
+                  spacing="lg"
+                  mt="md"
+                >
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <Skeleton key={i} height={150} radius="md" animate />
+                  ))}
+                </SimpleGrid>
+              )}
+
+              {error && (
+                <Text c="red" mt="md">
+                  {error}
+                </Text>
+              )}
+
+              {!loading && !error && (
+                <>
+                  <Text size="lg" c="dimmed">
+                    Showing {articles.length} articles
+                  </Text>
+                  <SimpleGrid cols={{ base: 1, sm: 2, md: 2 }} spacing="lg">
+                    {articles.map((article) => {
+                      const mainCategory = article.category.toLowerCase();
+                      const subCategory =
+                        article.subcategory?.toLowerCase() || "";
+                      const slug = article.slug || "";
+
+                      const linkPath = `/${mainCategory}/${subCategory}/${slug}`;
+
+                      return (
+                        <ArticleCard
+                          key={article.slug || article.id}
+                          article={article}
+                          linkPath={linkPath}
+                        />
+                      );
+                    })}
+                  </SimpleGrid>
+                </>
+              )}
+            </Stack>
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, md: 4 }}>
+            <Stack gap="lg">
+              <Sidebar />
+              <RelatedArticles />
+            </Stack>
+          </Grid.Col>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

@@ -1,18 +1,23 @@
 export interface Article {
-  id: string | "";
-  slug: string | "";
+  id: string;
+  slug: string;
   title: string;
   category: string;
+  subcategory: string;
   author: string;
-  date: string | "";
+  date: string;
   readTime: string;
   image: string;
-  href: string | "";
-  //eslint-disable-next-line
-  content: any | string | "";
+  href: string;
+  content: string;
   description: string;
   isPremium: boolean;
-  caption: string | "";
+  status: "DRAFT" | "PUBLISHED";
+  caption: string;
+  quote: string;
+  quoteAuthor: string;
+  tag: string;
+  noOfReaders: number;
 }
 
 export interface SubscriptionPlan {
