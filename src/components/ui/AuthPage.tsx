@@ -70,7 +70,7 @@ export default function AuthPage({ isLogin, onSubmit }: AuthPageProps) {
           <div>
             <label
               htmlFor="email"
-              className="block mb-1 font-medium text-surface"
+              className="block mb-1 font-medium text-blueblack-white"
             >
               Email
             </label>
@@ -82,7 +82,7 @@ export default function AuthPage({ isLogin, onSubmit }: AuthPageProps) {
               required
               value={values.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md text-surface"
+              className="w-full px-3 py-2 border rounded-md border-blueblack-white text-gray-800"
             />
             {errors.email && (
               <p className="mt-1 text-sm text-primary-accent">{errors.email}</p>
@@ -92,7 +92,7 @@ export default function AuthPage({ isLogin, onSubmit }: AuthPageProps) {
           <div>
             <label
               htmlFor="password"
-              className="block mb-1 font-medium text-surface"
+              className="block mb-1 font-medium text-blueblack-white"
             >
               Password
             </label>
@@ -104,7 +104,7 @@ export default function AuthPage({ isLogin, onSubmit }: AuthPageProps) {
               required
               value={values.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md text-surface"
+              className="w-full px-3 py-2 border rounded-md border-blueblack-white text-gray-800"
             />
             {errors.password && (
               <p className="mt-1 text-sm text-primary-accent">
