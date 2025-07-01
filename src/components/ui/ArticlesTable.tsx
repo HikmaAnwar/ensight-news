@@ -201,17 +201,9 @@ export default function ArticlesTable({
         title="Add New Article"
         size="xl"
         transitionProps={{ transition: "slide-right", duration: 300 }}
+        closeOnEscape={false}
       >
         <LoadingOverlay visible={loading} />
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <ActionIcon
-            color="gray"
-            onClick={() => setAddOpened(false)}
-            title="Close"
-          >
-            <IconX size={16} />
-          </ActionIcon>
-        </div>
         <AddArticleForm
           onSubmit={handleAddSubmit}
           loading={loading}
@@ -225,6 +217,7 @@ export default function ArticlesTable({
         title="Edit Article"
         size="xl"
         transitionProps={{ transition: "slide-right", duration: 300 }}
+        closeOnEscape={false}
       >
         <LoadingOverlay visible={loading} />
         <div style={{ display: "flex", justifyContent: "flex-end" }}>

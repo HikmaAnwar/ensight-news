@@ -2,6 +2,7 @@ import "./globals.css";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import "@mantine/dates/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/core/styles.css";
 

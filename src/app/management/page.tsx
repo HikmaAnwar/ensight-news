@@ -1,4 +1,3 @@
-// app/management/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -10,8 +9,7 @@ export default function ManagementPage() {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    // Simulate fetching articles
-    const fetchedArticles: Article[] = []; // Replace with actual API call
+    const fetchedArticles: Article[] = [];
     setArticles(fetchedArticles);
   }, []);
 

@@ -45,6 +45,7 @@ export default function AddArticleForm({
   loading,
   onClose,
 }: AddArticleFormProps) {
+  const [token, setToken] = useState<string | null>(null);
   const form = useForm<Article>({
     initialValues: {
       id: uuidv4(),
@@ -77,18 +78,18 @@ export default function AddArticleForm({
       title: (value) =>
         value.length < 3 ? "Title must be at least 3 characters" : null,
       category: (value) => (!value ? "Category is required" : null),
-      author: (value) =>
-        !value
-          ? "Author UUID is required"
-          : /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-              value
-            )
-          ? null
-          : "Invalid UUID format",
+      // author: (value) =>
+      //   !value
+      //     ? "Author UUID is required"
+      //     : /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      //         value
+      //       )
+      //     ? null
+      //     : "Invalid UUID format",
       date: (value) => (!value ? "Publication date is required" : null),
       readTime: (value) => (!value ? "Read time is required" : null),
-      image: (value) => (!value ? "Image URL is required" : null),
-      href: (value) => (!value ? "Article URL is required" : null),
+      // image: (value) => (!value ? "Image URL is required" : null),
+      // href: (value) => (!value ? "Article URL is required" : null),
       content: (value) =>
         value.length < 10 ? "Content must be at least 10 characters" : null,
       description: (value) =>
@@ -128,10 +129,36 @@ export default function AddArticleForm({
     }
   }, [form, form.values.category]);
 
-  const handleSubmit = (values: Article) => {
-    onSubmit(values);
-    form.reset();
-    onClose();
+  useEffect(() => {
+    if (!window) return;
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  const handleSubmit = async (values: Article) => {
+    try {
+      const response = await fetch("/api/article", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      onSubmit(data);
+      form.reset();
+      onClose();
+    } catch (error) {
+      console.error("Error posting article:", error);
+    }
   };
 
   return (
@@ -163,18 +190,12 @@ export default function AddArticleForm({
         disabled={!form.values.category}
         mb="md"
       />
-      <TextInput
-        label="Author UUID"
-        placeholder="Enter author UUID"
-        {...form.getInputProps("author")}
-        mb="md"
-      />
       <DateTimePicker
         label="Publication Date"
         placeholder="Select publication date"
         value={form.values.date ? new Date(form.values.date) : null}
         onChange={(date) =>
-          form.setFieldValue("date", date ? date.toISOString() : "")
+          form.setFieldValue("date", date ? date.toString() : "")
         }
         error={form.errors.date}
         mb="md"
