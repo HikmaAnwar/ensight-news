@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-  Table,
   Button,
   TextInput,
   Select,
@@ -17,11 +16,12 @@ import {
   IconX,
   IconPencil,
   IconTrash,
+  IconRefresh,
 } from "@tabler/icons-react";
-
 import AddArticleForm from "./AddArticleForm";
 import EditArticleForm from "./EditArticleForm";
 import { Article } from "@/lib/types";
+import EntityTable from "@/components/common/EnitityTable";
 
 interface ArticlesTableProps {
   data: Article[];
@@ -33,35 +33,112 @@ const statusColors: Record<"Mute" | "Active Now" | "Deactivated", string> = {
   Deactivated: "gray",
 };
 
-export default function ArticlesTable({ data }: ArticlesTableProps) {
+export default function ArticlesTable({
+  data: initialData,
+}: ArticlesTableProps) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string | null>("All");
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [articles, setArticles] = useState<Article[]>(initialData);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState<string | null>(null);
 
-  const filteredData = data.filter(
+  useEffect(() => {
+    if (!window) return;
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
+    const loadArticles = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/article", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setArticles(data);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadArticles();
+  }, [token]);
+
+  const handleRefresh = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/article", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setArticles(data);
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredData = articles.filter(
     (article) =>
       article.title.toLowerCase().includes(search.toLowerCase()) &&
       (filter === "All" || article.category === filter)
   );
 
-  const rows = filteredData.map((article) => (
-    <Table.Tr key={article.id}>
-      <Table.Td>
+  const columns = [
+    { header: "", accessor: "checkbox" },
+    { header: "Title", accessor: "title" },
+    { header: "Category", accessor: "category" },
+    { header: "Subcategory", accessor: "subcategory" },
+    { header: "Author", accessor: "author" },
+    { header: "Status", accessor: "status" },
+    { header: "Publication Date", accessor: "date" },
+    { header: "Actions", accessor: "actions" },
+  ];
+
+  const renderRow = (article: Article) => (
+    <tr key={article.id}>
+      <td>
         <input type="checkbox" />
-      </Table.Td>
-      <Table.Td>{article.title}</Table.Td>
-      <Table.Td>{article.category}</Table.Td>
-      <Table.Td>{article.subcategory || "-"}</Table.Td>
-      <Table.Td>{article.author}</Table.Td>
-      <Table.Td>
+      </td>
+      <td>{article.title}</td>
+      <td>{article.category}</td>
+      <td>{article.subcategory || "-"}</td>
+      <td>{article.author}</td>
+      <td>
         <Badge color={statusColors[article.isPremium ? "Active Now" : "Mute"]}>
           {article.isPremium ? "Premium" : "Mute"}
         </Badge>
-      </Table.Td>
-      <Table.Td>{new Date(article.date).toLocaleDateString()}</Table.Td>
-      <Table.Td>
+      </td>
+      <td>{new Date(article.date).toLocaleDateString()}</td>
+      <td>
         <Group gap="xs">
           <ActionIcon
             color="blue"
@@ -81,12 +158,13 @@ export default function ArticlesTable({ data }: ArticlesTableProps) {
             <IconTrash size={16} />
           </ActionIcon>
         </Group>
-      </Table.Td>
-    </Table.Tr>
-  ));
+      </td>
+    </tr>
+  );
 
   return (
     <div>
+      {/* Actions */}
       <div className="mt-4 flex justify-between items-center">
         <Group>
           <Button
@@ -96,6 +174,14 @@ export default function ArticlesTable({ data }: ArticlesTableProps) {
             onClick={() => setAddOpened(true)}
           >
             Add new
+          </Button>
+          <Button
+            leftSection={<IconRefresh size={16} />}
+            variant="outline"
+            color="blue"
+            onClick={handleRefresh}
+          >
+            Refresh
           </Button>
           <Select
             placeholder="This Month"
@@ -119,28 +205,13 @@ export default function ArticlesTable({ data }: ArticlesTableProps) {
         </Group>
       </div>
 
-      <Table
-        highlightOnHover
-        withTableBorder
-        withColumnBorders
-        className="mt-4"
-      >
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>
-              <input type="checkbox" />
-            </Table.Th>
-            <Table.Th>Title</Table.Th>
-            <Table.Th>Category</Table.Th>
-            <Table.Th>Subcategory</Table.Th>
-            <Table.Th>Author</Table.Th>
-            <Table.Th>Status</Table.Th>
-            <Table.Th>Publication Date</Table.Th>
-            <Table.Th>Actions</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
+      {/* Entity Table */}
+      <EntityTable
+        columns={columns}
+        data={filteredData}
+        isLoading={loading}
+        renderRow={renderRow}
+      />
 
       <Modal
         opened={addOpened}

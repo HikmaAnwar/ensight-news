@@ -2,11 +2,19 @@ import { NextResponse, NextRequest } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
 export async function GET(request: NextRequest) {
+  const token = request.headers.get("Authorization");
+
+  if (!token) {
+    return NextResponse.json(
+      { message: "Authorization token is required" },
+      { status: 401 }
+    );
+  }
   try {
-    const response = await fetch(`${BASE_URL}/article/`, {
+    const response = await fetch(`${BASE_URL}/article/articles`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: request.headers.get("Authorization") || "",
+        Authorization: token,
       },
     });
 
