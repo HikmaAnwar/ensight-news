@@ -35,15 +35,11 @@ const categories = [
 
 interface EditArticleFormProps {
   article: Article;
-  onSubmit: (values: Article) => void;
-  loading: boolean;
   onClose: () => void;
 }
 
 export default function EditArticleForm({
   article,
-  onSubmit,
-  loading,
   onClose,
 }: EditArticleFormProps) {
   const form = useForm<Article>({
@@ -99,7 +95,7 @@ export default function EditArticleForm({
   }, [form, form.values.category]);
 
   const handleSubmit = (values: Article) => {
-    onSubmit(values);
+    console.log(values);
     onClose();
   };
 
@@ -143,12 +139,7 @@ export default function EditArticleForm({
         placeholder="Select publication date"
         value={form.values.date ? new Date(form.values.date) : null}
         onChange={(date) =>
-          form.setFieldValue(
-            "date",
-            date instanceof Date && !isNaN(date.getTime())
-              ? date.toISOString()
-              : ""
-          )
+          form.setFieldValue("date", date ? date.toString() : "")
         }
         error={form.errors.date}
         mb="md"
@@ -227,9 +218,7 @@ export default function EditArticleForm({
       />
 
       <Group justify="flex-end" mt="lg">
-        <Button type="submit" loading={loading}>
-          Update Article
-        </Button>
+        <Button type="submit">Update Article</Button>
       </Group>
     </form>
   );

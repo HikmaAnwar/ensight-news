@@ -35,16 +35,10 @@ const categories = [
 ];
 
 interface AddArticleFormProps {
-  onSubmit: (values: Article) => void;
-  loading: boolean;
   onClose: () => void;
 }
 
-export default function AddArticleForm({
-  onSubmit,
-  loading,
-  onClose,
-}: AddArticleFormProps) {
+export default function AddArticleForm({ onClose }: AddArticleFormProps) {
   const [token, setToken] = useState<string | null>(null);
   const form = useForm<Article>({
     initialValues: {
@@ -152,8 +146,6 @@ export default function AddArticleForm({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      onSubmit(data);
       form.reset();
       onClose();
     } catch (error) {
@@ -274,9 +266,7 @@ export default function AddArticleForm({
       />
 
       <Group justify="flex-end" mt="lg">
-        <Button type="submit" loading={loading}>
-          Create Article
-        </Button>
+        <Button type="submit">Create Article</Button>
       </Group>
     </form>
   );

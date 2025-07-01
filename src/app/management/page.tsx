@@ -13,20 +13,6 @@ export default function ManagementPage() {
     setArticles(fetchedArticles);
   }, []);
 
-  const handleDelete = async (id: string) => {
-    setArticles(articles.filter((article: Article) => article.id !== id));
-    console.log("Deleting article:", id);
-  };
-
-  const handleUpdate = (updatedArticle: Article) => {
-    setArticles(
-      articles.map((article: Article) =>
-        article.id === updatedArticle.id ? updatedArticle : article
-      )
-    );
-    console.log("Updating article:", updatedArticle);
-  };
-
   return (
     <div>
       <Tabs defaultValue="Articles">
@@ -38,11 +24,7 @@ export default function ManagementPage() {
         </Tabs.List>
 
         <Tabs.Panel value="Articles" pt="xs">
-          <ArticlesTable
-            data={articles}
-            onDelete={handleDelete}
-            onUpdate={handleUpdate}
-          />
+          <ArticlesTable data={articles} />
         </Tabs.Panel>
         {/* Add other panels for User, Resources, and Corporate as needed */}
       </Tabs>

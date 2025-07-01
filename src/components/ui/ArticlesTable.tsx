@@ -10,7 +10,6 @@ import {
   ActionIcon,
   Badge,
   Modal,
-  LoadingOverlay,
 } from "@mantine/core";
 import {
   IconPlus,
@@ -19,7 +18,6 @@ import {
   IconPencil,
   IconTrash,
 } from "@tabler/icons-react";
-import { notifications } from "@mantine/notifications";
 
 import AddArticleForm from "./AddArticleForm";
 import EditArticleForm from "./EditArticleForm";
@@ -27,8 +25,6 @@ import { Article } from "@/lib/types";
 
 interface ArticlesTableProps {
   data: Article[];
-  onDelete: (id: string) => void;
-  onUpdate: (article: Article) => void;
 }
 
 const statusColors: Record<"Mute" | "Active Now" | "Deactivated", string> = {
@@ -37,16 +33,11 @@ const statusColors: Record<"Mute" | "Active Now" | "Deactivated", string> = {
   Deactivated: "gray",
 };
 
-export default function ArticlesTable({
-  data,
-  onDelete,
-  onUpdate,
-}: ArticlesTableProps) {
+export default function ArticlesTable({ data }: ArticlesTableProps) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string | null>("All");
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   const filteredData = data.filter(
@@ -84,7 +75,7 @@ export default function ArticlesTable({
           </ActionIcon>
           <ActionIcon
             color="red"
-            onClick={() => onDelete(article.id)}
+            onClick={() => console.log("Delete article", article.id)}
             title="Delete"
           >
             <IconTrash size={16} />
@@ -93,50 +84,6 @@ export default function ArticlesTable({
       </Table.Td>
     </Table.Tr>
   ));
-
-  const handleAddSubmit = async (values: Article) => {
-    setLoading(true);
-    try {
-      // Simulate API call to save article
-      console.log("New article:", values);
-      notifications.show({
-        title: "Article Created",
-        message: "Article was successfully created",
-        color: "green",
-      });
-      // Optionally refresh the table data here if needed
-    } catch {
-      notifications.show({
-        title: "Error",
-        message: "Failed to create article",
-        color: "red",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleEditSubmit = async (values: Article) => {
-    setLoading(true);
-    try {
-      // Simulate API call to update article
-      console.log("Updated article:", values);
-      notifications.show({
-        title: "Article Updated",
-        message: "Article was successfully updated",
-        color: "green",
-      });
-      onUpdate(values); // Call the update callback
-    } catch {
-      notifications.show({
-        title: "Error",
-        message: "Failed to update article",
-        color: "red",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div>
@@ -203,12 +150,7 @@ export default function ArticlesTable({
         transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
-        <LoadingOverlay visible={loading} />
-        <AddArticleForm
-          onSubmit={handleAddSubmit}
-          loading={loading}
-          onClose={() => setAddOpened(false)}
-        />
+        <AddArticleForm onClose={() => setAddOpened(false)} />
       </Modal>
 
       <Modal
@@ -219,7 +161,6 @@ export default function ArticlesTable({
         transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
-        <LoadingOverlay visible={loading} />
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <ActionIcon
             color="gray"
@@ -232,8 +173,6 @@ export default function ArticlesTable({
         {selectedArticle && (
           <EditArticleForm
             article={selectedArticle}
-            onSubmit={handleEditSubmit}
-            loading={loading}
             onClose={() => setEditOpened(false)}
           />
         )}
