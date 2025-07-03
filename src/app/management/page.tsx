@@ -5,6 +5,8 @@ import { Tabs } from "@mantine/core";
 import ArticlesTable from "../../components/ui/ArticlesTable";
 import UserTable from "../../components/ui/UsersTable";
 import { Article } from "@/lib/types";
+import ResourceTable from "@/components/ui/ResourceTable";
+import CorporateTable from "@/components/ui/CorporateTable";
 
 export default function ManagementPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -30,6 +32,13 @@ export default function ManagementPage() {
         <Tabs.Panel value="User" pt="xs">
           <UserTable data={[]} />
         </Tabs.Panel>
+        <Tabs.Panel value="Resources" pt="xs">
+          <ResourceTable data={[]} />
+        </Tabs.Panel>
+        <Tabs.Panel value="Corporate" pt="xs">
+          <CorporateTable data={[]} />
+        </Tabs.Panel>
+
         {/* Add other panels for User, Resources, and Corporate as needed */}
       </Tabs>
     </div>

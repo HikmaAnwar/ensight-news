@@ -11,40 +11,39 @@ import {
   IconAlertCircle,
 } from "@tabler/icons-react";
 import Image from "next/image";
-import { Article } from "@/lib/types";
+import type { Corporate } from "@/lib/types";
 
 const Corporate = () => {
-  const [article, setArticle] = useState({} as Article);
+  const [article, setArticle] = useState<Corporate | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  //eslint-disable-next-line
-  const [authorProfile, setAuthorProfile] = useState<any>(null);
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/article/corporate", {
+        const response = await fetch("/api/corporate", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
           },
         });
         if (!response.ok) {
-          throw new Error("Failed to fetch article");
+          throw new Error("Failed to fetch corporate article");
         }
         const data = await response.json();
         if (data.length > 0) {
           setArticle(data[0]);
-          setLoading(false);
         } else {
-          setError("No articles found");
-          setLoading(false);
+          setError("No corporate articles found");
         }
-        //eslint-disable-next-line
-      } catch (err: any) {
-        console.error("Error fetching article:", err);
-        setError(err.message);
+      } catch (err: unknown) {
+        console.error("Error fetching corporate article:", err);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }
@@ -52,36 +51,6 @@ const Corporate = () => {
 
     fetchArticle();
   }, []);
-
-  useEffect(() => {
-    const fetchAuthorProfile = async (authorId: string) => {
-      const url = `/api/profile/${authorId}`;
-      try {
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-          },
-        });
-
-        if (!response.ok) {
-          console.error(`Failed to fetch author profile: ${response.status}`);
-          return null;
-        }
-
-        return await response.json();
-      } catch (err) {
-        console.error("Error fetching author profile:", err);
-        return null;
-      }
-    };
-
-    if (article && article.author) {
-      const authorId = article.author;
-      fetchAuthorProfile(authorId);
-    }
-  }, [article]);
 
   if (loading) {
     return (
@@ -106,7 +75,7 @@ const Corporate = () => {
     return (
       <Box className="flex items-center justify-center h-screen">
         <Text size="xl" c="dimmed">
-          No article available at the moment.
+          No corporate article available at the moment.
         </Text>
       </Box>
     );
@@ -116,8 +85,8 @@ const Corporate = () => {
     <Card radius="none" className="px-0 py-6 rounded-lg shadow-lg">
       <div className="relative h-[500px] overflow-hidden">
         <Image
-          src={article?.image || "/images/new-red-logo.png"}
-          alt={article?.title || "Corporate Article Image"}
+          src={article.image || "/images/new-red-logo.png"}
+          alt={article.title || "Corporate Article Image"}
           className="object-cover w-full h-full rounded-md"
           width={1200}
           height={500}
@@ -128,8 +97,7 @@ const Corporate = () => {
           </Title>
           <Text className="mt-2 text-lg font-secondary opacity-90">
             A Special Feature by{" "}
-            <span className="font-bold text-primary-accent">Ensight News</span>{" "}
-            | {article.category}{" "}
+            <span className="font-bold text-primary-accent">Ensight News</span>
           </Text>
         </div>
       </div>
@@ -149,9 +117,7 @@ const Corporate = () => {
               className="object-cover w-full h-auto rounded-lg"
             />
             <Text className="p-4 text-sm italic text-center text-secondary bg-surface">
-              {authorProfile
-                ? authorProfile?.firstName + " " + authorProfile?.lastName
-                : "person Name"}
+              {article.name || "Person Name"}
             </Text>
           </Paper>
 
@@ -174,10 +140,7 @@ const Corporate = () => {
               </span>
             </Text>
             <Text className="mt-4 text-sm text-right text-secondary">
-              —{" "}
-              {authorProfile
-                ? authorProfile?.firstName + " " + authorProfile?.lastName
-                : "person Name"}
+              — {article.name || "Person Name"}
             </Text>
           </Paper>
 
@@ -193,8 +156,8 @@ const Corporate = () => {
             className="flex-grow p-6 border bg-surface border-border"
           >
             <Image
-              src={authorProfile?.avatar || "/images/new-red-logo.png"}
-              alt="Author Image"
+              src={article.profileImage || "/images/new-red-logo.png"}
+              alt="Profile Image"
               width={150}
               height={150}
               className="w-32 h-32 mx-auto mb-5 rounded-full"
@@ -203,29 +166,31 @@ const Corporate = () => {
               order={3}
               className="pb-2 text-lg border-b-2 text-blue border-blue"
             >
-              {authorProfile
-                ? authorProfile?.firstName + " " + authorProfile?.lastName
-                : "person Name"}
+              {article.name || "Person Name"}
             </Title>
             <Text className="mb-4 text-sm text-secondary">
-              {authorProfile?.bio || "No biography available for this person."}
+              {article.role || "No role available"}
             </Text>
             <ul className="space-y-2 list-none">
               <li className="flex items-start">
                 <IconMapPin className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Born:</strong> Placeholder
+                  <strong>Born:</strong> {article.born || "Unknown"}
                 </div>
               </li>
-
               <li className="flex items-start">
                 <IconTarget className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Mission:</strong> Placeholder
+                  <strong>Mission:</strong> {article.mission || "Unknown"}
+                </div>
+              </li>
+              <li className="flex items-start">
+                <IconBulb className="w-5 h-5 mt-1 mr-2 text-blue" />
+                <div className="text-blueblack-white">
+                  <strong>Education:</strong> {article.education || "Unknown"}
                 </div>
               </li>
             </ul>
-
             <Paper
               shadow="sm"
               radius="md"
@@ -244,7 +209,6 @@ const Corporate = () => {
                 Unlock Agricultural Intelligence
               </Button>
             </Paper>
-
             <Title
               order={3}
               className="pb-2 mt-6 text-lg border-b-2 text-blue border-blue"
@@ -255,25 +219,27 @@ const Corporate = () => {
               <li className="flex items-start mt-4">
                 <IconCalendar className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Founded:</strong> Placeholder
+                  <strong>Founded:</strong> {article.founded || "Unknown"}
                 </div>
               </li>
               <li className="flex items-start">
                 <IconCheck className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Specialties:</strong> Placeholder
+                  <strong>Specialties:</strong>{" "}
+                  {article.specialties || "Unknown"}
                 </div>
               </li>
               <li className="flex items-start">
                 <IconCheck className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Certifications:</strong> Placeholder
+                  <strong>Certifications:</strong>{" "}
+                  {article.certifications || "Unknown"}
                 </div>
               </li>
               <li className="flex items-start">
                 <IconBulb className="w-5 h-5 mt-1 mr-2 text-blue" />
                 <div className="text-blueblack-white">
-                  <strong>Motto:</strong> Placeholder
+                  <strong>Motto:</strong> {article.motto || "Unknown"}
                 </div>
               </li>
             </ul>
