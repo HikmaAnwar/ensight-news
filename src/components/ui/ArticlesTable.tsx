@@ -210,7 +210,7 @@ export default function ArticlesTable({
           />
           <Select
             placeholder="All"
-            data={["All", "tech_science", "finance", "economy", "business"]}
+            data={["All", "Tech and Science", "Finance", "Economy", "Business"]}
             value={filter}
             onChange={setFilter}
             size="sm"
