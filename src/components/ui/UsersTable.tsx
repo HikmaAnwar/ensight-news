@@ -204,7 +204,7 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
       </div>
 
       {/* Entity Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto min-w-full">
         <EntityTable
           columns={columns}
           data={filteredData}
@@ -218,7 +218,7 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
         onClose={() => setAddOpened(false)}
         title="Add New User"
         size="90%"
-        className="max-w-lg mx-auto"
+        className="max-w-sm mx-auto sm:flex sm:items-center sm:justify-center"
         transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
@@ -230,7 +230,7 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
         onClose={() => setEditOpened(false)}
         title="Edit User"
         size="90%"
-        className="max-w-lg mx-auto"
+        className="max-w-sm mx-auto sm:flex sm:items-center sm:justify-center"
         transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >

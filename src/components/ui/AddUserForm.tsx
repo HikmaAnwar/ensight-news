@@ -52,24 +52,30 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
   };
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
+    <form onSubmit={form.onSubmit(handleSubmit)} className="p-4 sm:p-6">
       <TextInput
         label="First Name"
         placeholder="Enter first name"
         {...form.getInputProps("firstName")}
         mb="md"
+        size="sm"
+        className="w-full"
       />
       <TextInput
         label="Last Name"
         placeholder="Enter last name"
         {...form.getInputProps("lastName")}
         mb="md"
+        size="sm"
+        className="w-full"
       />
       <TextInput
         label="Email"
         placeholder="Enter email"
         {...form.getInputProps("email")}
         mb="md"
+        size="sm"
+        className="w-full"
       />
       <Select
         label="Role"
@@ -77,12 +83,25 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
         data={["User", "Admin"]}
         {...form.getInputProps("role")}
         mb="md"
+        size="sm"
+        className="w-full"
       />
-      <Group justify="flex-end" mt="md">
-        <Button variant="outline" onClick={onClose}>
+      <Group justify="flex-end" mt="md" gap="xs" className="flex-wrap">
+        <Button
+          variant="outline"
+          onClick={onClose}
+          size="compact-md"
+          className="w-full sm:w-auto"
+        >
           Cancel
         </Button>
-        <Button type="submit" variant="filled" color="blue">
+        <Button
+          type="submit"
+          variant="filled"
+          color="blue"
+          size="compact-md"
+          className="w-full sm:w-auto"
+        >
           Add User
         </Button>
       </Group>

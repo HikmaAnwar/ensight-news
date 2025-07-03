@@ -124,22 +124,27 @@ export default function ArticlesTable({
   ];
 
   const renderRow = (article: Article) => (
-    <tr key={article.id}>
-      <td>
-        <input type="checkbox" />
+    <tr key={article.id} className="text-sm md:text-base">
+      <td className="p-2">
+        <input type="checkbox" className="h-4 w-4" />
       </td>
-      <td>{article.title}</td>
-      <td>{article.category}</td>
-      <td>{article.subcategory || "-"}</td>
-      <td>{article.author}</td>
-      <td>
-        <Badge color={statusColors[article.isPremium ? "Active Now" : "Mute"]}>
+      <td className="p-2">{article.title}</td>
+      <td className="p-2 hidden sm:table-cell">{article.category}</td>
+      <td className="p-2 hidden md:table-cell">{article.subcategory || "-"}</td>
+      <td className="p-2 hidden md:table-cell">{article.author}</td>
+      <td className="p-2">
+        <Badge
+          color={statusColors[article.isPremium ? "Active Now" : "Mute"]}
+          size="sm"
+        >
           {article.isPremium ? "Premium" : "Mute"}
         </Badge>
       </td>
-      <td>{new Date(article.date).toLocaleDateString()}</td>
-      <td>
-        <Group gap="xs">
+      <td className="p-2 hidden lg:table-cell">
+        {new Date(article.date).toLocaleDateString()}
+      </td>
+      <td className="p-2">
+        <Group gap="xs" wrap="nowrap">
           <ActionIcon
             color="blue"
             onClick={() => {
@@ -147,15 +152,17 @@ export default function ArticlesTable({
               setEditOpened(true);
             }}
             title="Edit"
+            size="sm"
           >
-            <IconPencil size={16} />
+            <IconPencil size={14} />
           </ActionIcon>
           <ActionIcon
             color="red"
             onClick={() => console.log("Delete article", article.id)}
             title="Delete"
+            size="sm"
           >
-            <IconTrash size={16} />
+            <IconTrash size={14} />
           </ActionIcon>
         </Group>
       </td>
@@ -163,15 +170,17 @@ export default function ArticlesTable({
   );
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 md:p-8 max-w-full overflow-x-auto">
       {/* Actions */}
-      <div className="mt-4 flex justify-between items-center">
-        <Group>
+      <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <Group gap="xs" wrap="wrap">
           <Button
             leftSection={<IconPlus size={16} />}
             variant="filled"
             color="blue"
             onClick={() => setAddOpened(true)}
+            size="compact-md"
+            className="w-full sm:w-auto"
           >
             Add new
           </Button>
@@ -180,6 +189,8 @@ export default function ArticlesTable({
             variant="outline"
             color="blue"
             onClick={handleRefresh}
+            size="compact-md"
+            className="w-full sm:w-auto"
           >
             Refresh
           </Button>
@@ -187,31 +198,36 @@ export default function ArticlesTable({
             placeholder="This Month"
             data={["This Month", "Last Month", "This Year"]}
             value="This Month"
+            size="sm"
           />
         </Group>
-        <Group>
+        <Group gap="xs" wrap="wrap">
           <TextInput
             placeholder="Search..."
             value={search}
             onChange={(event) => setSearch(event.currentTarget.value)}
             rightSection={<IconSearch size={16} />}
+            size="sm"
           />
           <Select
             placeholder="All"
             data={["All", "tech_science", "finance", "economy", "business"]}
             value={filter}
             onChange={setFilter}
+            size="sm"
           />
         </Group>
       </div>
 
       {/* Entity Table */}
-      <EntityTable
-        columns={columns}
-        data={filteredData}
-        isLoading={loading}
-        renderRow={renderRow}
-      />
+      <div className="overflow-x-auto">
+        <EntityTable
+          columns={columns}
+          data={filteredData}
+          isLoading={loading}
+          renderRow={renderRow}
+        />
+      </div>
 
       <Modal
         opened={addOpened}
@@ -232,11 +248,12 @@ export default function ArticlesTable({
         transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div className="flex justify-end mb-4">
           <ActionIcon
             color="gray"
             onClick={() => setEditOpened(false)}
             title="Close"
+            size="sm"
           >
             <IconX size={16} />
           </ActionIcon>
