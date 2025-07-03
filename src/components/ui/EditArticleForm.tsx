@@ -45,12 +45,13 @@ export default function EditArticleForm({
   const form = useForm<Article>({
     initialValues: {
       ...article,
-      image: "",
-      author: article.author || "",
-      quote: "",
-      quoteAuthor: "",
-      tag: "",
-      noOfReaders: 0,
+      image: "", // Initialize as empty string for FileInput
+      author: article.author || "", // Ensure author is a string
+      date: article.date ? new Date(article.date) : new Date(), // Initialize as Date object
+      quote: article.quote || "",
+      quoteAuthor: article.quoteAuthor || "",
+      tag: article.tag || "",
+      noOfReaders: article.noOfReaders || 0,
     },
     validate: {
       slug: (value) =>
@@ -66,7 +67,6 @@ export default function EditArticleForm({
         value.length < 2 ? "Author name must be at least 2 characters" : null,
       date: (value) => (!value ? "Publication date is required" : null),
       readTime: (value) => (!value ? "Read time is required" : null),
-
       content: (value) =>
         value.length < 10 ? "Content must be at least 10 characters" : null,
       description: (value) =>
@@ -81,9 +81,16 @@ export default function EditArticleForm({
       const selectedCategory = categories.find(
         (cat) => cat.value === form.values.category
       );
-      setSubcategories(selectedCategory?.subcategories || []);
+      const newSubcategories = selectedCategory?.subcategories || [];
+      setSubcategories((prev) => {
+        const isSame =
+          prev.length === newSubcategories.length &&
+          prev.every((val, index) => val === newSubcategories[index]);
+        return isSame ? prev : newSubcategories;
+      });
       if (
-        !selectedCategory?.subcategories.includes(form.values.subcategory || "")
+        form.values.subcategory &&
+        !newSubcategories.includes(form.values.subcategory)
       ) {
         form.setFieldValue("subcategory", "");
       }
@@ -99,6 +106,8 @@ export default function EditArticleForm({
       Object.entries(values).forEach(([key, value]) => {
         if (key === "image" && value instanceof File) {
           formData.append(key, value);
+        } else if (key === "date" && value instanceof Date) {
+          formData.append(key, value.toISOString()); // Convert Date to ISO string for submission
         } else {
           formData.append(key, String(value));
         }
@@ -164,16 +173,14 @@ export default function EditArticleForm({
       <TextInput
         label="Author Name"
         placeholder="Enter author name"
-        {...form.getInputProps("authorName")}
+        {...form.getInputProps("author")} // Fixed from "authorName" to "author"
         mb="md"
       />
       <DateTimePicker
         label="Publication Date"
         placeholder="Select publication date"
-        value={form.values.date ? new Date(form.values.date) : null}
-        onChange={(date) =>
-          form.setFieldValue("date", date ? date.toString() : "")
-        }
+        value={form.values.date} // Use Date object directly
+        onChange={(date) => form.setFieldValue("date", date)} // Store Date or null
         error={form.errors.date}
         mb="md"
       />
@@ -190,7 +197,6 @@ export default function EditArticleForm({
         {...form.getInputProps("image")}
         mb="md"
       />
-
       <Textarea
         label="Content"
         placeholder="Enter article content"
@@ -215,7 +221,7 @@ export default function EditArticleForm({
       />
       <TextInput
         label="Image Caption"
-        placeholder="Enter image caption (optional)"
+        placeholder="Image caption (optional)"
         {...form.getInputProps("caption")}
         mb="md"
       />

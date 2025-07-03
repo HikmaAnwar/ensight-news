@@ -49,7 +49,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       category: "",
       subcategory: "",
       author: "",
-      date: new Date().toISOString(),
+      date: new Date(), // Initialize as Date object instead of ISO string
       readTime: "",
       image: "",
       href: "",
@@ -127,6 +127,8 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       Object.entries(values).forEach(([key, value]) => {
         if (key === "image" && value instanceof File) {
           formData.append(key, value);
+        } else if (key === "date" && value instanceof Date) {
+          formData.append(key, value.toISOString()); // Convert Date to ISO string for submission
         } else {
           formData.append(key, String(value));
         }
@@ -189,18 +191,16 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         mb="md"
       />
       <TextInput
-        label="Author Name"
+        label="Author "
         placeholder="Enter author name"
-        {...form.getInputProps("authorName")}
+        {...form.getInputProps("author")}
         mb="md"
       />
       <DateTimePicker
         label="Publication Date"
         placeholder="Select publication date"
-        value={form.values.date ? new Date(form.values.date) : null}
-        onChange={(date) =>
-          form.setFieldValue("date", date ? date.toString() : "")
-        }
+        value={form.values.date ? form.values.date : null} // Use Date object directly
+        onChange={(date) => form.setFieldValue("date", date)} // Store Date or null
         error={form.errors.date}
         mb="md"
       />
@@ -217,7 +217,6 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         {...form.getInputProps("image")}
         mb="md"
       />
-
       <Textarea
         label="Content"
         placeholder="Enter article content"
