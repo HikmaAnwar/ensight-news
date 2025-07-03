@@ -46,3 +46,11 @@ export interface Plan {
   features: string[];
   isHighlighted?: boolean;
 }
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: "Admin" | "User";
+}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Tabs } from "@mantine/core";
 import ArticlesTable from "../../components/ui/ArticlesTable";
+import UserTable from "../../components/ui/UsersTable";
 import { Article } from "@/lib/types";
 
 export default function ManagementPage() {
@@ -25,6 +26,9 @@ export default function ManagementPage() {
 
         <Tabs.Panel value="Articles" pt="xs">
           <ArticlesTable data={articles} />
+        </Tabs.Panel>
+        <Tabs.Panel value="User" pt="xs">
+          <UserTable data={[]} />
         </Tabs.Panel>
         {/* Add other panels for User, Resources, and Corporate as needed */}
       </Tabs>
