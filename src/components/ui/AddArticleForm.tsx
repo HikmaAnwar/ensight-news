@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form";
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   Select,
   Group,
   Switch,
-  NumberInput,
+  FileInput,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { v4 as uuidv4 } from "uuid";
@@ -48,7 +48,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       status: "DRAFT",
       category: "",
       subcategory: "",
-      author: "",
+      authorName: "",
       date: new Date().toISOString(),
       readTime: "",
       image: "",
@@ -72,24 +72,14 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       title: (value) =>
         value.length < 3 ? "Title must be at least 3 characters" : null,
       category: (value) => (!value ? "Category is required" : null),
-      // author: (value) =>
-      //   !value
-      //     ? "Author UUID is required"
-      //     : /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-      //         value
-      //       )
-      //     ? null
-      //     : "Invalid UUID format",
+      authorName: (value) =>
+        value.length < 2 ? "Author name must be at least 2 characters" : null,
       date: (value) => (!value ? "Publication date is required" : null),
       readTime: (value) => (!value ? "Read time is required" : null),
-      // image: (value) => (!value ? "Image URL is required" : null),
-      // href: (value) => (!value ? "Article URL is required" : null),
       content: (value) =>
         value.length < 10 ? "Content must be at least 10 characters" : null,
       description: (value) =>
         value.length < 10 ? "Description must be at least 10 characters" : null,
-      noOfReaders: (value) =>
-        value < 0 ? "Number of readers cannot be negative" : null,
     },
   });
 
@@ -124,7 +114,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
   }, [form, form.values.category]);
 
   useEffect(() => {
-    if (!window) return;
+    if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
@@ -133,13 +123,29 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
 
   const handleSubmit = async (values: Article) => {
     try {
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        if (key === "image" && value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, String(value));
+        }
+      });
+
+      // Remove fields not needed in the payload
+      formData.delete("noOfReaders");
+      formData.delete("tag");
+      formData.delete("quote");
+      formData.delete("quoteAuthor");
+      formData.delete("author");
+      formData.append("authorName", values.authorName);
+
       const response = await fetch("/api/article", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        body: JSON.stringify(values),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -182,6 +188,12 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         disabled={!form.values.category}
         mb="md"
       />
+      <TextInput
+        label="Author Name"
+        placeholder="Enter author name"
+        {...form.getInputProps("authorName")}
+        mb="md"
+      />
       <DateTimePicker
         label="Publication Date"
         placeholder="Select publication date"
@@ -198,18 +210,14 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         {...form.getInputProps("readTime")}
         mb="md"
       />
-      {/* <TextInput
-        label="Image URL"
-        placeholder="Enter image URL"
+      <FileInput
+        label="Image"
+        placeholder="Upload image"
+        accept="image/*"
         {...form.getInputProps("image")}
         mb="md"
       />
-      <TextInput
-        label="Article URL"
-        placeholder="Enter article URL"
-        {...form.getInputProps("href")}
-        mb="md"
-      /> */}
+
       <Textarea
         label="Content"
         placeholder="Enter article content"
@@ -238,33 +246,6 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         {...form.getInputProps("caption")}
         mb="md"
       />
-      <Textarea
-        label="Quote"
-        placeholder="Enter quoted text (optional)"
-        minRows={3}
-        {...form.getInputProps("quote")}
-        mb="md"
-      />
-      <TextInput
-        label="Quote Author"
-        placeholder="Enter quote author (optional)"
-        {...form.getInputProps("quoteAuthor")}
-        mb="md"
-      />
-      <TextInput
-        label="Tag"
-        placeholder="Enter tag (e.g., SPECIAL REPORT) (optional)"
-        {...form.getInputProps("tag")}
-        mb="md"
-      />
-      <NumberInput
-        label="Number of Readers"
-        placeholder="Enter number of readers"
-        min={0}
-        {...form.getInputProps("noOfReaders")}
-        mb="md"
-      />
-
       <Group justify="flex-end" mt="lg">
         <Button type="submit">Create Article</Button>
       </Group>

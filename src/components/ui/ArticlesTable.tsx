@@ -18,10 +18,10 @@ import {
   IconTrash,
   IconRefresh,
 } from "@tabler/icons-react";
-import AddArticleForm from "./AddArticleForm";
-import EditArticleForm from "./EditArticleForm";
 import { Article } from "@/lib/types";
 import EntityTable from "@/components/common/EnitityTable";
+import AddArticleForm from "./AddArticleForm";
+import EditArticleForm from "./EditArticleForm";
 
 interface ArticlesTableProps {
   data: Article[];
@@ -46,7 +46,7 @@ export default function ArticlesTable({
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!window) return;
+    if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
@@ -117,7 +117,7 @@ export default function ArticlesTable({
     { header: "Title", accessor: "title" },
     { header: "Category", accessor: "category" },
     { header: "Subcategory", accessor: "subcategory" },
-    { header: "Author", accessor: "author" },
+    { header: "Author", accessor: "authorName" },
     { header: "Status", accessor: "status" },
     { header: "Publication Date", accessor: "date" },
     { header: "Actions", accessor: "actions" },
@@ -131,7 +131,7 @@ export default function ArticlesTable({
       <td className="p-2">{article.title}</td>
       <td className="p-2 hidden sm:table-cell">{article.category}</td>
       <td className="p-2 hidden md:table-cell">{article.subcategory || "-"}</td>
-      <td className="p-2 hidden md:table-cell">{article.author}</td>
+      <td className="p-2 hidden md:table-cell">{article.authorName}</td>
       <td className="p-2">
         <Badge
           color={statusColors[article.isPremium ? "Active Now" : "Mute"]}
@@ -171,7 +171,6 @@ export default function ArticlesTable({
 
   return (
     <div className="p-4 sm:p-6 md:p-8 max-w-full overflow-x-auto">
-      {/* Actions */}
       <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <Group gap="xs" wrap="wrap">
           <Button
@@ -197,7 +196,7 @@ export default function ArticlesTable({
           <Select
             placeholder="This Month"
             data={["This Month", "Last Month", "This Year"]}
-            value="This Month"
+            defaultValue="This Month"
             size="sm"
           />
         </Group>
@@ -219,7 +218,6 @@ export default function ArticlesTable({
         </Group>
       </div>
 
-      {/* Entity Table */}
       <div className="overflow-x-auto">
         <EntityTable
           columns={columns}
@@ -234,7 +232,6 @@ export default function ArticlesTable({
         onClose={() => setAddOpened(false)}
         title="Add New Article"
         size="xl"
-        transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
         <AddArticleForm onClose={() => setAddOpened(false)} />
@@ -245,7 +242,6 @@ export default function ArticlesTable({
         onClose={() => setEditOpened(false)}
         title="Edit Article"
         size="xl"
-        transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
         <div className="flex justify-end mb-4">
