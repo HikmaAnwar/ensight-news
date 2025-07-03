@@ -131,7 +131,7 @@ export default function ArticlesTable({
       <td className="p-2">{article.title}</td>
       <td className="p-2 hidden sm:table-cell">{article.category}</td>
       <td className="p-2 hidden md:table-cell">{article.subcategory || "-"}</td>
-      <td className="p-2 hidden md:table-cell">{article.authorName}</td>
+      <td className="p-2 hidden md:table-cell">{article.author}</td>
       <td className="p-2">
         <Badge
           color={statusColors[article.isPremium ? "Active Now" : "Mute"]}

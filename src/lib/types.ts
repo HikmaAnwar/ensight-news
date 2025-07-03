@@ -4,7 +4,7 @@ export interface Article {
   title: string;
   category: string;
   subcategory: string;
-  authorName: string;
+  author: string;
   date: string;
   readTime: string;
   image: string;

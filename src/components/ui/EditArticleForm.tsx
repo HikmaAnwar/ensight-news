@@ -46,7 +46,7 @@ export default function EditArticleForm({
     initialValues: {
       ...article,
       image: "",
-      authorName: article.authorName || "",
+      author: article.author || "",
       quote: "",
       quoteAuthor: "",
       tag: "",
@@ -62,7 +62,7 @@ export default function EditArticleForm({
       title: (value) =>
         value.length < 3 ? "Title must be at least 3 characters" : null,
       category: (value) => (!value ? "Category is required" : null),
-      authorName: (value) =>
+      author: (value) =>
         value.length < 2 ? "Author name must be at least 2 characters" : null,
       date: (value) => (!value ? "Publication date is required" : null),
       readTime: (value) => (!value ? "Read time is required" : null),
@@ -110,7 +110,7 @@ export default function EditArticleForm({
       formData.delete("quote");
       formData.delete("quoteAuthor");
       formData.delete("author");
-      formData.append("authorName", values.authorName);
+      formData.append("authorName", values.author);
 
       const response = await fetch(`/api/article/${values.id}`, {
         method: "PUT",
