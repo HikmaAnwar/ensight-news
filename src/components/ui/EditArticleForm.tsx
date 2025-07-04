@@ -45,9 +45,9 @@ export default function EditArticleForm({
   const form = useForm<Article>({
     initialValues: {
       ...article,
-      image: "", // Initialize as empty string for FileInput
-      author: article.author || "", // Ensure author is a string
-      date: article.date ? new Date(article.date) : new Date(), // Initialize as Date object
+      image: "", // clear file input on form load
+      author: article.author || "",
+      date: article.date ? new Date(article.date) : new Date(),
       quote: article.quote || "",
       quoteAuthor: article.quoteAuthor || "",
       tag: article.tag || "",
@@ -119,7 +119,7 @@ export default function EditArticleForm({
       formData.delete("quote");
       formData.delete("quoteAuthor");
       formData.delete("author");
-      formData.append("authorName", values.author);
+      formData.append("author", values.author);
 
       const response = await fetch(`/api/article/${values.id}`, {
         method: "PUT",
@@ -173,7 +173,7 @@ export default function EditArticleForm({
       <TextInput
         label="Author Name"
         placeholder="Enter author name"
-        {...form.getInputProps("author")} // Fixed from "authorName" to "author"
+        {...form.getInputProps("author")}
         mb="md"
       />
       <DateTimePicker

@@ -8,7 +8,7 @@ export interface Article {
   date: Date | null;
   readTime: string;
   image: string;
-  href: string;
+  href: null;
   content: string;
   description: string;
   isPremium: boolean;

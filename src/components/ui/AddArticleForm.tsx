@@ -52,7 +52,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       date: new Date(), // Initialize as Date object instead of ISO string
       readTime: "",
       image: "",
-      href: "",
+      href: null,
       content: "",
       description: "",
       isPremium: false,
@@ -140,7 +140,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       formData.delete("quote");
       formData.delete("quoteAuthor");
       formData.delete("author");
-      formData.append("authorName", values.author);
+      formData.append("author", values.author);
 
       const response = await fetch("/api/article", {
         method: "POST",

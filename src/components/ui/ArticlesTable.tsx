@@ -117,7 +117,7 @@ export default function ArticlesTable({
     { header: "Title", accessor: "title" },
     { header: "Category", accessor: "category" },
     { header: "Subcategory", accessor: "subcategory" },
-    { header: "Author", accessor: "authorName" },
+    { header: "Author", accessor: "author" },
     { header: "Status", accessor: "status" },
     { header: "Publication Date", accessor: "date" },
     { header: "Actions", accessor: "actions" },
@@ -141,7 +141,7 @@ export default function ArticlesTable({
         </Badge>
       </td>
       <td className="p-2 hidden lg:table-cell">
-        {new Date(article.date).toLocaleDateString()}
+        {article.date ? new Date(article.date).toLocaleDateString() : "-"}
       </td>
       <td className="p-2">
         <Group gap="xs" wrap="nowrap">
