@@ -16,6 +16,7 @@ import SettingsPanel from "@/components/ui/profile/SettingsPanel";
 import TopicsPanel from "@/components/ui/profile/TopicPanel";
 import SavedArticlesPanel from "@/components/ui/profile/SavedArticlesPanel";
 import ReadingHistoryPanel from "@/components/ui/profile/ReadingHistoryPanel";
+import { Profile } from "@/lib/types";
 
 const tabItems = [
   {
@@ -34,20 +35,6 @@ const tabItems = [
     icon: <IconHistory size={16} className="inline-block mr-2 -mt-1" />,
   },
 ];
-
-interface Profile {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  enablePersonalization?: boolean;
-  trackReadingProgress?: boolean;
-  contentUpdateNotifications?: boolean;
-  topics?: string[];
-  //eslint-disable-next-line
-  savedArticles?: any[];
-  //eslint-disable-next-line
-  readingHistory?: any[];
-}
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();

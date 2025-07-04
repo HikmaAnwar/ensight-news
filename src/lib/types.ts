@@ -55,6 +55,22 @@ export interface User {
   role: "Admin" | "User";
 }
 
+export interface Profile {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  role: "Admin" | "User";
+  enablePersonalization?: boolean;
+  trackReadingProgress?: boolean;
+  contentUpdateNotifications?: boolean;
+  topics?: string[];
+  //eslint-disable-next-line
+  savedArticles?: any[];
+  //eslint-disable-next-line
+  readingHistory?: any[];
+}
+
 export interface Resource {
   title: string;
   description: string;
@@ -68,16 +84,16 @@ export interface Corporate {
   title: string;
   description: string;
   content: string;
-  image: string; // Corporate article image URL
-  profileImage: string; // Person's profile picture URL
+  image: string;
+  profileImage: string;
   quote?: string;
-  name: string; // Display name for the person
-  role: string; // e.g., "CEO", "Analyst"
-  born: string; // e.g., "New York", "1980-01-01"
-  education: string; // e.g., "PhD, MIT"
-  mission: string; // Person or company mission
-  specialties: string; // Company specialties
-  certifications: string; // Company certifications
-  motto: string; // Company motto
+  name: string;
+  role: string;
+  born: string;
+  education: string;
+  mission: string;
+  specialties: string;
+  certifications: string;
+  motto: string;
   founded: string;
 }

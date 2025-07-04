@@ -18,13 +18,13 @@ import {
   IconTrash,
   IconRefresh,
 } from "@tabler/icons-react";
-import AddUserForm from "./AddUserForm";
-import EditUserForm from "./EditUserForm";
-import { User } from "@/lib/types";
+import AddProfileForm from "./AddUserForm";
+import EditProfileForm from "./EditUserForm";
+import { Profile } from "@/lib/types";
 import EntityTable from "@/components/common/EnitityTable";
 
-interface UsersTableProps {
-  data: User[];
+interface ProfilesTableProps {
+  data: Profile[];
 }
 
 const roleColors: Record<"Admin" | "User", string> = {
@@ -32,13 +32,15 @@ const roleColors: Record<"Admin" | "User", string> = {
   User: "gray",
 };
 
-export default function UsersTable({ data: initialData }: UsersTableProps) {
+export default function ProfilesTable({
+  data: initialData,
+}: ProfilesTableProps) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string | null>("All");
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[]>(initialData);
+  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+  const [profiles, setProfiles] = useState<Profile[]>(initialData);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
 
@@ -52,10 +54,10 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
 
   useEffect(() => {
     if (!token) return;
-    const loadUsers = async () => {
+    const loadProfiles = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/user", {
+        const response = await fetch("/api/profile", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -68,21 +70,21 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
         }
 
         const data = await response.json();
-        setUsers(data);
+        setProfiles(data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching profiles:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    loadUsers();
+    loadProfiles();
   }, [token]);
 
   const handleRefresh = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/user", {
+      const response = await fetch("/api/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -95,20 +97,20 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
       }
 
       const data = await response.json();
-      setUsers(data);
+      setProfiles(data);
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error("Error fetching profiles:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredData = users.filter(
-    (user) =>
-      (user.firstName.toLowerCase().includes(search.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(search.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.toLowerCase())) &&
-      (filter === "All" || user.role === filter)
+  const filteredData = profiles.filter(
+    (Profile) =>
+      ((Profile.firstName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+        (Profile.lastName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+        (Profile.email ?? "").toLowerCase().includes(search.toLowerCase())) &&
+      (filter === "All" || Profile.role === filter)
   );
 
   const columns = [
@@ -120,17 +122,17 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
     { header: "Actions", accessor: "actions" },
   ];
 
-  const renderRow = (user: User) => (
-    <tr key={user.id} className="text-sm md:text-base">
+  const renderRow = (profile: Profile) => (
+    <tr key={profile.id} className="text-sm md:text-base">
       <td className="p-2">
         <input type="checkbox" className="h-4 w-4" />
       </td>
-      <td className="p-2">{user.firstName}</td>
-      <td className="p-2 hidden sm:table-cell">{user.lastName}</td>
-      <td className="p-2 hidden md:table-cell">{user.email}</td>
+      <td className="p-2">{profile.firstName}</td>
+      <td className="p-2 hidden sm:table-cell">{profile.lastName}</td>
+      <td className="p-2 hidden md:table-cell">{profile.email}</td>
       <td className="p-2">
-        <Badge color={roleColors[user.role]} size="sm">
-          {user.role}
+        <Badge color={roleColors[profile.role]} size="sm">
+          {profile.role}
         </Badge>
       </td>
       <td className="p-2">
@@ -138,7 +140,7 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
           <ActionIcon
             color="blue"
             onClick={() => {
-              setSelectedUser(user);
+              setSelectedProfile(profile);
               setEditOpened(true);
             }}
             title="Edit"
@@ -148,7 +150,7 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
           </ActionIcon>
           <ActionIcon
             color="red"
-            onClick={() => console.log("Delete user", user.id)}
+            onClick={() => console.log("Delete profile", profile.id)}
             title="Delete"
             size="sm"
           >
@@ -203,7 +205,6 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
         </Group>
       </div>
 
-      {/* Entity Table */}
       <div className="overflow-x-auto min-w-full">
         <EntityTable
           columns={columns}
@@ -216,19 +217,19 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
       <Modal
         opened={addOpened}
         onClose={() => setAddOpened(false)}
-        title="Add New User"
+        title="Add New Profile"
         size="90%"
         className="max-w-sm mx-auto sm:flex sm:items-center sm:justify-center"
         transitionProps={{ transition: "slide-right", duration: 300 }}
         closeOnEscape={false}
       >
-        <AddUserForm onClose={() => setAddOpened(false)} />
+        <AddProfileForm onClose={() => setAddOpened(false)} />
       </Modal>
 
       <Modal
         opened={editOpened}
         onClose={() => setEditOpened(false)}
-        title="Edit User"
+        title="Edit Profile"
         size="90%"
         className="max-w-sm mx-auto sm:flex sm:items-center sm:justify-center"
         transitionProps={{ transition: "slide-right", duration: 300 }}
@@ -244,9 +245,9 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
             <IconX size={16} />
           </ActionIcon>
         </div>
-        {selectedUser && (
-          <EditUserForm
-            user={selectedUser}
+        {selectedProfile && (
+          <EditProfileForm
+            profile={selectedProfile}
             onClose={() => setEditOpened(false)}
           />
         )}

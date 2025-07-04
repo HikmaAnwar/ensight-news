@@ -2,27 +2,31 @@
 
 import { useForm } from "@mantine/form";
 import { Button, TextInput, Select, Group } from "@mantine/core";
-import { User } from "@/lib/types";
+import { Profile } from "@/lib/types";
 
-interface EditUserFormProps {
-  user: User;
+interface EditProfileFormProps {
+  profile: Profile;
   onClose: () => void;
 }
 
-export default function EditUserForm({ user, onClose }: EditUserFormProps) {
+export default function EditProfileForm({
+  profile,
+  onClose,
+}: EditProfileFormProps) {
   const form = useForm({
     initialValues: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      role: user.role,
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      email: profile.email,
+      role: profile.role,
     },
     validate: {
       firstName: (value) =>
-        value.trim().length > 0 ? null : "First name is required",
+        (value?.trim().length ?? 0) > 0 ? null : "First name is required",
       lastName: (value) =>
-        value.trim().length > 0 ? null : "Last name is required",
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+        (value?.trim().length ?? 0) > 0 ? null : "Last name is required",
+      email: (value) =>
+        /^\S+@\S+$/.test(value ?? "") ? null : "Invalid email",
       role: (value) =>
         ["Admin", "User"].includes(value) ? null : "Invalid role",
     },
@@ -31,8 +35,8 @@ export default function EditUserForm({ user, onClose }: EditUserFormProps) {
   const handleSubmit = async (values: typeof form.values) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/user/${user.id}`, {
-        method: "PUT",
+      const response = await fetch(`/api/profile/${profile.id}`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
@@ -46,7 +50,7 @@ export default function EditUserForm({ user, onClose }: EditUserFormProps) {
 
       onClose(); // Close modal on success
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error updating profile:", error);
     }
   };
 

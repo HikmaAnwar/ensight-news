@@ -3,11 +3,11 @@
 import { useForm } from "@mantine/form";
 import { Button, TextInput, Select, Group } from "@mantine/core";
 
-interface AddUserFormProps {
+interface AddProfileFormProps {
   onClose: () => void;
 }
 
-export default function AddUserForm({ onClose }: AddUserFormProps) {
+export default function AddProfileForm({ onClose }: AddProfileFormProps) {
   const form = useForm({
     initialValues: {
       firstName: "",
@@ -29,7 +29,7 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
   const handleSubmit = async (values: typeof form.values) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("/api/user", {
+      const response = await fetch("/api/profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
 
       onClose(); // Close modal on success
     } catch (error) {
-      console.error("Error adding user:", error);
+      console.error("Error adding profile:", error);
     }
   };
 
@@ -102,7 +102,7 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
           size="compact-md"
           className="w-full sm:w-auto"
         >
-          Add User
+          Add Profile
         </Button>
       </Group>
     </form>

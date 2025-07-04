@@ -49,7 +49,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       category: "",
       subcategory: "",
       author: "",
-      date: new Date(), // Initialize as Date object instead of ISO string
+      date: new Date(),
       readTime: "",
       image: "",
       href: null,
