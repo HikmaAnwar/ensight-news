@@ -27,9 +27,9 @@ interface ArticlesTableProps {
   data: Article[];
 }
 
-const statusColors: Record<"Draft" | "Published", string> = {
-  Draft: "red",
-  Published: "green",
+const statusColors: Record<"DRAFT" | "PUBLISHED", string> = {
+  DRAFT: "red",
+  PUBLISHED: "green",
 };
 
 export default function ArticlesTable({
@@ -52,36 +52,7 @@ export default function ArticlesTable({
     }
   }, []);
 
-  useEffect(() => {
-    if (!token) return;
-    const loadArticles = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/article", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token ? `Bearer ${token}` : "",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setArticles(data);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadArticles();
-  }, [token]);
-
-  const handleRefresh = async () => {
+  const loadArticles = async () => {
     try {
       setLoading(true);
       const response = await fetch("/api/article", {
@@ -102,6 +73,38 @@ export default function ArticlesTable({
       console.error("Error fetching articles:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!token) return;
+    loadArticles();
+  }, [token]);
+
+  const handleRefresh = async () => {
+    loadArticles();
+  };
+
+  const handleDelete = async (articleId: string) => {
+    try {
+      const response = await fetch(`/api/article/${articleId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(
+          error.message || `HTTP error! status: ${response.status}`
+        );
+      }
+
+      // Refresh articles after successful deletion
+      await loadArticles();
+    } catch (error) {
+      console.error("Error deleting article:", error);
     }
   };
 
@@ -133,10 +136,10 @@ export default function ArticlesTable({
       <td className="p-2 hidden md:table-cell">{article.author}</td>
       <td className="p-2">
         <Badge
-          color={statusColors[article.isPremium ? "Published" : "Draft"]}
+          color={statusColors[article.status as "DRAFT" | "PUBLISHED"]}
           size="sm"
         >
-          {article.isPremium ? "Premium" : "Draft"}
+          {article.status}
         </Badge>
       </td>
       <td className="p-2 hidden lg:table-cell">
@@ -157,7 +160,7 @@ export default function ArticlesTable({
           </ActionIcon>
           <ActionIcon
             color="red"
-            onClick={() => console.log("Delete article", article.id)}
+            onClick={() => handleDelete(article.id)}
             title="Delete"
             size="sm"
           >
@@ -233,7 +236,12 @@ export default function ArticlesTable({
         size="xl"
         closeOnEscape={false}
       >
-        <AddArticleForm onClose={() => setAddOpened(false)} />
+        <AddArticleForm
+          onClose={() => {
+            setAddOpened(false);
+            handleRefresh();
+          }}
+        />
       </Modal>
 
       <Modal
@@ -256,7 +264,10 @@ export default function ArticlesTable({
         {selectedArticle && (
           <EditArticleForm
             article={selectedArticle}
-            onClose={() => setEditOpened(false)}
+            onClose={() => {
+              setEditOpened(false);
+              handleRefresh();
+            }}
           />
         )}
       </Modal>

@@ -6,20 +6,43 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
+    const articleData = formData.get("article_data");
+    const image = formData.get("image");
+    const token = request.headers.get("Authorization");
+
+    if (!token) {
+      return NextResponse.json(
+        { message: "Authorization token is required" },
+        { status: 401 }
+      );
+    }
+
+    if (!articleData) {
+      return NextResponse.json(
+        { message: "article_data is required" },
+        { status: 400 }
+      );
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("article_data", articleData);
+    if (image) {
+      formDataToSend.append("image", image);
+    }
+
     const response = await fetch(`${BASE_URL}/articles/${params.id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: request.headers.get("Authorization") || "",
+        Authorization: token,
       },
-      body: JSON.stringify(body),
+      body: formDataToSend,
     });
 
     if (!response.ok) {
       const error = await response.json();
       return NextResponse.json(
-        { message: error.message || "Failed to update article" },
+        { message: error.detail || "Failed to update article" },
         { status: response.status }
       );
     }

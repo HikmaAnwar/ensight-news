@@ -43,7 +43,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
+    const articleData = formData.get("article_data");
+    const image = formData.get("image");
     const token = request.headers.get("Authorization");
 
     if (!token) {
@@ -53,19 +55,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!articleData || !image) {
+      return NextResponse.json(
+        { message: "article_data and image are required" },
+        { status: 400 }
+      );
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("article_data", articleData);
+    formDataToSend.append("image", image);
+
     const response = await fetch(`${BASE_URL}/articles/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: token,
       },
-      body: JSON.stringify(body),
+      body: formDataToSend,
     });
 
     if (!response.ok) {
       const error = await response.json();
       return NextResponse.json(
-        { message: error.message || "Failed to create article" },
+        { message: error.detail || "Failed to create article" },
         { status: response.status }
       );
     }
