@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     );
   }
   try {
-    const response = await fetch(`${BASE_URL}/article/articles`, {
+    const response = await fetch(`${BASE_URL}/articles`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const response = await fetch(`${BASE_URL}/article/`, {
+    const response = await fetch(`${BASE_URL}/articles/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
