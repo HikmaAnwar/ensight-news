@@ -18,19 +18,19 @@ import { Article } from "@/lib/types";
 const categories = [
   {
     label: "Business",
-    value: "business",
-    subcategories: ["startup", "markets"],
+    value: "Business",
+    subcategories: ["Startup", "Markets"],
   },
   {
     label: "Finance",
-    value: "finance",
-    subcategories: ["banking", "investment"],
+    value: "Finance",
+    subcategories: ["Banking", "Investment"],
   },
-  { label: "Economy", value: "economy", subcategories: ["policies", "trade"] },
+  { label: "Economy", value: "Economy", subcategories: ["Policies", "Trade"] },
   {
     label: "Tech and Science",
-    value: "tech_science",
-    subcategories: ["innovation", "digital"],
+    value: "Tech and Science",
+    subcategories: ["Innovation", "Digital"],
   },
 ];
 
@@ -49,7 +49,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       category: "",
       subcategory: "",
       author: "",
-      date: new Date(),
+      date: new Date(), // Initialize with Date object
       readTime: "",
       image: "",
       href: null,
@@ -191,7 +191,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         mb="md"
       />
       <TextInput
-        label="Author "
+        label="Author"
         placeholder="Enter author name"
         {...form.getInputProps("author")}
         mb="md"
@@ -199,8 +199,11 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
       <DateTimePicker
         label="Publication Date"
         placeholder="Select publication date"
-        value={form.values.date ? form.values.date : null} // Use Date object directly
-        onChange={(date) => form.setFieldValue("date", date)} // Store Date or null
+        value={form.values.date} // Date object or null
+        onChange={(date) => {
+          // Ensure date is Date | null
+          form.setFieldValue("date", date instanceof Date ? date : null);
+        }}
         error={form.errors.date}
         mb="md"
       />

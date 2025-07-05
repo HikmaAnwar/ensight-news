@@ -27,10 +27,9 @@ interface ArticlesTableProps {
   data: Article[];
 }
 
-const statusColors: Record<"Mute" | "Active Now" | "Deactivated", string> = {
-  Mute: "red",
-  "Active Now": "green",
-  Deactivated: "gray",
+const statusColors: Record<"Draft" | "Published", string> = {
+  Draft: "red",
+  Published: "green",
 };
 
 export default function ArticlesTable({
@@ -134,10 +133,10 @@ export default function ArticlesTable({
       <td className="p-2 hidden md:table-cell">{article.author}</td>
       <td className="p-2">
         <Badge
-          color={statusColors[article.isPremium ? "Active Now" : "Mute"]}
+          color={statusColors[article.isPremium ? "Published" : "Draft"]}
           size="sm"
         >
-          {article.isPremium ? "Premium" : "Mute"}
+          {article.isPremium ? "Premium" : "Draft"}
         </Badge>
       </td>
       <td className="p-2 hidden lg:table-cell">

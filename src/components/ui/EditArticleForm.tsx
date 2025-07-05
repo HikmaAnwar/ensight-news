@@ -17,19 +17,19 @@ import { Article } from "@/lib/types";
 const categories = [
   {
     label: "Business",
-    value: "business",
-    subcategories: ["startup", "markets"],
+    value: "Business",
+    subcategories: ["Startup", "Markets"],
   },
   {
     label: "Finance",
-    value: "finance",
-    subcategories: ["banking", "investment"],
+    value: "Finance",
+    subcategories: ["Banking", "Investment"],
   },
-  { label: "Economy", value: "economy", subcategories: ["policies", "trade"] },
+  { label: "Economy", value: "Economy", subcategories: ["Policies", "Trade"] },
   {
     label: "Tech and Science",
-    value: "tech_science",
-    subcategories: ["innovation", "digital"],
+    value: "Tech and Science",
+    subcategories: ["Innovation", "Digital"],
   },
 ];
 
@@ -121,8 +121,8 @@ export default function EditArticleForm({
       formData.delete("author");
       formData.append("author", values.author);
 
-      const response = await fetch(`/api/article/${values.id}`, {
-        method: "PUT",
+      const response = await fetch(`/api/articles/${values.id}`, {
+        method: "PATCH",
         headers: {
           Authorization: localStorage.getItem("token")
             ? `Bearer ${localStorage.getItem("token")}`

@@ -15,7 +15,7 @@ export async function GET(
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/article/${category}`, {
+    const response = await fetch(`${BASE_URL}/articles/${category}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: req.headers.get("Authorization") || "",

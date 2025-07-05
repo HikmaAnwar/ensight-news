@@ -3,7 +3,7 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(request: NextRequest) {
   try {
-    const response = await fetch(`${BASE_URL}/article/articles/popular`, {
+    const response = await fetch(`${BASE_URL}/articles/popular`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: request.headers.get("Authorization") || "",

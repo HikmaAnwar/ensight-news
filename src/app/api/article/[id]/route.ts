@@ -7,8 +7,8 @@ export async function PATCH(
 ) {
   try {
     const body = await request.json();
-    const response = await fetch(`${BASE_URL}/article/${params.id}`, {
-      method: "PUT",
+    const response = await fetch(`${BASE_URL}/articles/${params.id}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: request.headers.get("Authorization") || "",
@@ -44,7 +44,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const response = await fetch(`${BASE_URL}/article/${params.id}`, {
+    const response = await fetch(`${BASE_URL}/articles/${params.id}`, {
       method: "DELETE",
       headers: {
         Authorization: request.headers.get("Authorization") || "",

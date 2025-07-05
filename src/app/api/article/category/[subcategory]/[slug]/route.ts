@@ -20,7 +20,7 @@ export async function GET(
 
   try {
     const response = await fetch(
-      `${BASE_URL}/article/${category}/${subcategory}/${slug}`,
+      `${BASE_URL}/articles/${category}/${subcategory}/${slug}`,
       {
         headers: {
           "Content-Type": "application/json",
