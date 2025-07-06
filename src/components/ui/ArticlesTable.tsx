@@ -9,6 +9,10 @@ import {
   ActionIcon,
   Badge,
   Modal,
+  Menu,
+  Text,
+  Title,
+  Image,
 } from "@mantine/core";
 import {
   IconPlus,
@@ -17,6 +21,8 @@ import {
   IconPencil,
   IconTrash,
   IconRefresh,
+  IconDots,
+  IconEye,
 } from "@tabler/icons-react";
 import { Article } from "@/lib/types";
 import EntityTable from "@/components/common/EnitityTable";
@@ -39,6 +45,7 @@ export default function ArticlesTable({
   const [filter, setFilter] = useState<string | null>("All");
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
+  const [viewOpened, setViewOpened] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [articles, setArticles] = useState<Article[]>(initialData);
   const [loading, setLoading] = useState(true);
@@ -101,11 +108,15 @@ export default function ArticlesTable({
         );
       }
 
-      // Refresh articles after successful deletion
       await loadArticles();
     } catch (error) {
       console.error("Error deleting article:", error);
     }
+  };
+
+  const handleView = (article: Article) => {
+    setSelectedArticle(article);
+    setViewOpened(true);
   };
 
   const filteredData = articles.filter(
@@ -146,27 +157,37 @@ export default function ArticlesTable({
         {article.date ? new Date(article.date).toLocaleDateString() : "-"}
       </td>
       <td className="p-2">
-        <Group gap="xs" wrap="nowrap">
-          <ActionIcon
-            color="blue"
-            onClick={() => {
-              setSelectedArticle(article);
-              setEditOpened(true);
-            }}
-            title="Edit"
-            size="sm"
-          >
-            <IconPencil size={14} />
-          </ActionIcon>
-          <ActionIcon
-            color="red"
-            onClick={() => handleDelete(article.id)}
-            title="Delete"
-            size="sm"
-          >
-            <IconTrash size={14} />
-          </ActionIcon>
-        </Group>
+        <Menu shadow="md" width={200} position="bottom-end">
+          <Menu.Target>
+            <ActionIcon color="gray" title="Actions" size="sm">
+              <IconDots size={14} />
+            </ActionIcon>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item
+              leftSection={<IconEye size={14} />}
+              onClick={() => handleView(article)}
+            >
+              View
+            </Menu.Item>
+            <Menu.Item
+              leftSection={<IconPencil size={14} />}
+              onClick={() => {
+                setSelectedArticle(article);
+                setEditOpened(true);
+              }}
+            >
+              Edit
+            </Menu.Item>
+            <Menu.Item
+              leftSection={<IconTrash size={14} />}
+              onClick={() => handleDelete(article.id)}
+              color="red"
+            >
+              Delete
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </td>
     </tr>
   );
@@ -195,12 +216,6 @@ export default function ArticlesTable({
           >
             Refresh
           </Button>
-          {/* <Select
-            placeholder="This Month"
-            data={["This Month", "Last Month", "This Year"]}
-            defaultValue="This Month"
-            size="sm"
-          /> */}
         </Group>
         <Group gap="xs" wrap="wrap">
           <TextInput
@@ -251,16 +266,6 @@ export default function ArticlesTable({
         size="xl"
         closeOnEscape={false}
       >
-        <div className="flex justify-end mb-4">
-          <ActionIcon
-            color="gray"
-            onClick={() => setEditOpened(false)}
-            title="Close"
-            size="sm"
-          >
-            <IconX size={16} />
-          </ActionIcon>
-        </div>
         {selectedArticle && (
           <EditArticleForm
             article={selectedArticle}
@@ -269,6 +274,79 @@ export default function ArticlesTable({
               handleRefresh();
             }}
           />
+        )}
+      </Modal>
+
+      <Modal
+        opened={viewOpened}
+        onClose={() => setViewOpened(false)}
+        title="View Article"
+        size="xl"
+        closeOnEscape={true}
+      >
+        {selectedArticle && (
+          <div className="space-y-4">
+            {selectedArticle.image && (
+              <div>
+                <Title order={4}>Image</Title>
+                <Image
+                  src={selectedArticle.image}
+                  alt={selectedArticle.title}
+                  radius="md"
+                  height={200}
+                  fit="contain"
+                  className="w-full max-w-md"
+                />
+              </div>
+            )}
+            <div>
+              <Title order={4}>Title</Title>
+              <Text>{selectedArticle.title}</Text>
+            </div>
+            <div>
+              <Title order={4}>Category</Title>
+              <Text>{selectedArticle.category}</Text>
+            </div>
+            <div>
+              <Title order={4}>Subcategory</Title>
+              <Text>{selectedArticle.subcategory || "-"}</Text>
+            </div>
+            <div>
+              <Title order={4}>Author</Title>
+              <Text>{selectedArticle.author}</Text>
+            </div>
+            <div>
+              <Title order={4}>Status</Title>
+              <Badge
+                color={
+                  statusColors[selectedArticle.status as "DRAFT" | "PUBLISHED"]
+                }
+                size="sm"
+              >
+                {selectedArticle.status}
+              </Badge>
+            </div>
+            <div>
+              <Title order={4}>Publication Date</Title>
+              <Text>
+                {selectedArticle.date
+                  ? new Date(selectedArticle.date).toLocaleDateString()
+                  : "-"}
+              </Text>
+            </div>
+            <div>
+              <Title order={4}>Description</Title>
+              <Text>{selectedArticle.description || "-"}</Text>
+            </div>
+            <div>
+              <Title order={4}>Content</Title>
+              <Text>{selectedArticle.content || "-"}</Text>
+            </div>
+            <div>
+              <Title order={4}>Read Time</Title>
+              <Text>{selectedArticle.readTime || "-"}</Text>
+            </div>
+          </div>
         )}
       </Modal>
     </div>
