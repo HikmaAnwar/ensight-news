@@ -36,7 +36,7 @@ export default function ProfilesTable({
   data: initialData,
 }: ProfilesTableProps) {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<string | null>("All");
+  const [filter, setFilter] = useState<string>("All");
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
@@ -52,32 +52,39 @@ export default function ProfilesTable({
     }
   }, []);
 
+  const loadProfiles = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setProfiles(data);
+      // Log unique roles for debugging
+      console.log(
+        "Unique roles in profiles:",
+        [
+          ...new Set(data.map((profile: Profile) => profile.role || "None")),
+        ].join(", ")
+      );
+    } catch (error) {
+      console.error("Error fetching profiles:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!token) return;
-    const loadProfiles = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token ? `Bearer ${token}` : "",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setProfiles(data);
-      } catch (error) {
-        console.error("Error fetching profiles:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadProfiles();
   }, [token]);
 
@@ -98,6 +105,13 @@ export default function ProfilesTable({
 
       const data = await response.json();
       setProfiles(data);
+      // Log unique roles for debugging
+      console.log(
+        "Unique roles in profiles:",
+        [
+          ...new Set(data.map((profile: Profile) => profile.role || "None")),
+        ].join(", ")
+      );
     } catch (error) {
       console.error("Error fetching profiles:", error);
     } finally {
@@ -105,13 +119,29 @@ export default function ProfilesTable({
     }
   };
 
-  const filteredData = profiles.filter(
-    (profile) =>
-      ((profile.firstName ?? "").toLowerCase().includes(search.toLowerCase()) ||
-        (profile.lastName ?? "").toLowerCase().includes(search.toLowerCase()) ||
-        (profile.email ?? "").toLowerCase().includes(search.toLowerCase())) &&
-      (filter === "All" || profile.role === filter)
-  );
+  const filteredData = profiles.filter((profile) => {
+    const matchesSearch =
+      (profile.firstName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (profile.lastName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (profile.email ?? "").toLowerCase().includes(search.toLowerCase());
+    const profileRole = profile.role || "None";
+    const matchesFilter =
+      filter === "All" || profileRole.toLowerCase() === filter.toLowerCase();
+    console.log(
+      `Profile: ${profile.firstName} ${profile.lastName}, Role: ${profileRole}, Filter: ${filter}, Matches: ${matchesFilter}`
+    );
+    return matchesSearch && matchesFilter;
+  });
+
+  useEffect(() => {
+    console.log(
+      "Filtered profiles:",
+      filteredData.map((profile) => ({
+        name: `${profile.firstName} ${profile.lastName}`,
+        role: profile.role || "None",
+      }))
+    );
+  }, [filteredData]);
 
   const columns = [
     { header: "", accessor: "checkbox" },
@@ -132,7 +162,7 @@ export default function ProfilesTable({
       <td className="p-2">{profile.email}</td>
       <td className="p-2">
         <Badge color={roleColors[profile.role]} size="sm">
-          {profile.role}
+          {profile.role || "None"}
         </Badge>
       </td>
       <td className="p-2">
@@ -163,7 +193,6 @@ export default function ProfilesTable({
 
   return (
     <div className="p-4 sm:p-6 md:p-8 max-w-full overflow-x-auto">
-      {/* Actions */}
       <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <Group gap="xs" wrap="wrap">
           <Button
@@ -199,7 +228,11 @@ export default function ProfilesTable({
             placeholder="All"
             data={["All", "Admin", "User"]}
             value={filter}
-            onChange={setFilter}
+            onChange={(value) => {
+              const newFilter = value || "All";
+              setFilter(newFilter);
+              console.log("Filter updated to:", newFilter);
+            }}
             size="sm"
           />
         </Group>
