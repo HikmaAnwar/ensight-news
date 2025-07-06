@@ -3,9 +3,10 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params; // Await the params
     const formData = await request.formData();
     const articleData = formData.get("article_data");
     const image = formData.get("image");
@@ -64,9 +65,10 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params; // Await the params
     const response = await fetch(`${BASE_URL}/articles/${params.id}`, {
       method: "DELETE",
       headers: {
