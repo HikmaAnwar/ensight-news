@@ -17,7 +17,6 @@ import {
 import {
   IconPlus,
   IconSearch,
-  IconX,
   IconPencil,
   IconTrash,
   IconRefresh,
