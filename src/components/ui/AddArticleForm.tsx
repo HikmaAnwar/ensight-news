@@ -117,6 +117,7 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
     try {
       const articleData = {
         title: values.title,
+        status: values.status,
         category: values.category,
         subcategory: values.subcategory || null,
         date: values.date instanceof Date ? values.date.toISOString() : null,
@@ -167,6 +168,16 @@ export default function AddArticleForm({ onClose }: AddArticleFormProps) {
         label="Title"
         placeholder="Enter article title"
         {...form.getInputProps("title")}
+        mb="md"
+      />
+      <Select
+        label="Status"
+        placeholder="Select status"
+        data={[
+          { label: "Draft", value: "DRAFT" },
+          { label: "Published", value: "PUBLISHED" },
+        ]}
+        {...form.getInputProps("status")}
         mb="md"
       />
       <Select
