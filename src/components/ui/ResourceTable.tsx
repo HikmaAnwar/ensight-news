@@ -47,7 +47,7 @@ export default function ResourceTable({
   );
 
   useEffect(() => {
-    if (!window) return;
+    if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
@@ -152,10 +152,7 @@ export default function ResourceTable({
       <td className="p-2" style={{ color: "var(--color-muted)" }}>
         {resource.title}
       </td>
-      <td
-        className="p-2 hidden sm:table-cell"
-        style={{ color: "var(--color-muted)" }}
-      >
+      <td className="p-2" style={{ color: "var(--color-muted)" }}>
         {resource.description}
       </td>
       <td className="p-2">
@@ -225,7 +222,7 @@ export default function ResourceTable({
         </Group>
       </div>
 
-      <div className="overflow-x-auto min-w-full">
+      <div className="overflow-x-auto">
         <EntityTable
           columns={columns}
           data={filteredData}

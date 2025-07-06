@@ -23,17 +23,17 @@ export default function CorporateTable({
   data: initialData,
 }: CorporateTableProps) {
   const [search, setSearch] = useState("");
-  const [articles, setArticles] = useState<Corporate[]>(initialData);
+  const [corporates, setCorporates] = useState<Corporate[]>(initialData);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
-  const [selectedArticle, setSelectedArticle] = useState<Corporate | null>(
+  const [selectedCorporate, setSelectedCorporate] = useState<Corporate | null>(
     null
   );
 
   useEffect(() => {
-    if (!window) return;
+    if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
@@ -42,7 +42,7 @@ export default function CorporateTable({
 
   useEffect(() => {
     if (!token) return;
-    const loadArticles = async () => {
+    const loadCorporates = async () => {
       try {
         setLoading(true);
         const response = await fetch("/api/corporate", {
@@ -58,7 +58,7 @@ export default function CorporateTable({
         }
 
         const data = await response.json();
-        setArticles(Array.isArray(data) ? data : [data]);
+        setCorporates(Array.isArray(data) ? data : [data]);
       } catch (error) {
         console.error("Error fetching corporate articles:", error);
       } finally {
@@ -66,7 +66,7 @@ export default function CorporateTable({
       }
     };
 
-    loadArticles();
+    loadCorporates();
   }, [token]);
 
   const handleRefresh = async () => {
@@ -85,7 +85,7 @@ export default function CorporateTable({
       }
 
       const data = await response.json();
-      setArticles(Array.isArray(data) ? data : [data]);
+      setCorporates(Array.isArray(data) ? data : [data]);
     } catch (error) {
       console.error("Error fetching corporate articles:", error);
     } finally {
@@ -116,11 +116,11 @@ export default function CorporateTable({
     }
   };
 
-  const filteredData = articles.filter(
-    (article) =>
-      article.title.toLowerCase().includes(search.toLowerCase()) ||
-      article.description.toLowerCase().includes(search.toLowerCase()) ||
-      article.name.toLowerCase().includes(search.toLowerCase())
+  const filteredData = corporates.filter(
+    (corporate) =>
+      corporate.title.toLowerCase().includes(search.toLowerCase()) ||
+      corporate.description.toLowerCase().includes(search.toLowerCase()) ||
+      corporate.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const columns = [
@@ -131,29 +131,26 @@ export default function CorporateTable({
     { header: "Actions", accessor: "actions" },
   ];
 
-  const renderRow = (article: Corporate) => (
-    <tr key={article.title} className="text-sm md:text-base">
+  const renderRow = (corporate: Corporate) => (
+    <tr key={corporate.title} className="text-sm md:text-base">
       <td className="p-2">
         <input type="checkbox" className="h-4 w-4" />
       </td>
       <td className="p-2" style={{ color: "var(--color-muted)" }}>
-        {article.title}
-      </td>
-      <td
-        className="p-2 hidden sm:table-cell"
-        style={{ color: "var(--color-muted)" }}
-      >
-        {article.description}
+        {corporate.title}
       </td>
       <td className="p-2" style={{ color: "var(--color-muted)" }}>
-        {article.name}
+        {corporate.description}
+      </td>
+      <td className="p-2" style={{ color: "var(--color-muted)" }}>
+        {corporate.name}
       </td>
       <td className="p-2">
         <Group gap="xs" wrap="nowrap">
           <ActionIcon
             color="blue"
             onClick={() => {
-              setSelectedArticle(article);
+              setSelectedCorporate(corporate);
               setEditOpened(true);
             }}
             title="Edit"
@@ -163,7 +160,7 @@ export default function CorporateTable({
           </ActionIcon>
           <ActionIcon
             color="red"
-            onClick={() => handleDelete(article.title)}
+            onClick={() => handleDelete(corporate.title)}
             title="Delete"
             size="sm"
           >
@@ -210,7 +207,7 @@ export default function CorporateTable({
         </Group>
       </div>
 
-      <div className="overflow-x-auto min-w-full">
+      <div className="overflow-x-auto">
         <EntityTable
           columns={columns}
           data={filteredData}
@@ -255,9 +252,9 @@ export default function CorporateTable({
             <IconX size={16} />
           </ActionIcon>
         </div>
-        {selectedArticle && (
+        {selectedCorporate && (
           <EditCorporateForm
-            article={selectedArticle}
+            article={selectedCorporate}
             onClose={() => {
               setEditOpened(false);
               handleRefresh();

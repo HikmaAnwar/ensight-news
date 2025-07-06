@@ -41,7 +41,7 @@ export default function ArticlesTable({
   data: initialData,
 }: ArticlesTableProps) {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<string | null>("All");
+  const [filter, setFilter] = useState<string>("All");
   const [addOpened, setAddOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [viewOpened, setViewOpened] = useState(false);
@@ -75,6 +75,15 @@ export default function ArticlesTable({
 
       const data = await response.json();
       setArticles(data);
+      // Log unique categories for debugging
+      console.log(
+        "Unique categories in articles:",
+        [
+          ...new Set(
+            data.map((article: Article) => article.category || "None")
+          ),
+        ].join(", ")
+      );
     } catch (error) {
       console.error("Error fetching articles:", error);
     } finally {
@@ -118,11 +127,29 @@ export default function ArticlesTable({
     setViewOpened(true);
   };
 
-  const filteredData = articles.filter(
-    (article) =>
-      article.title.toLowerCase().includes(search.toLowerCase()) &&
-      (filter === "All" || article.category === filter)
-  );
+  const filteredData = articles.filter((article) => {
+    const matchesSearch = article.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const articleCategory = article.category || "None";
+    const matchesFilter =
+      filter === "All" ||
+      articleCategory.toLowerCase() === filter.toLowerCase();
+    console.log(
+      `Article: ${article.title}, Category: ${articleCategory}, Filter: ${filter}, Matches: ${matchesFilter}`
+    );
+    return matchesSearch && matchesFilter;
+  });
+
+  useEffect(() => {
+    console.log(
+      "Filtered articles:",
+      filteredData.map((article) => ({
+        title: article.title,
+        category: article.category || "None",
+      }))
+    );
+  }, [filteredData]);
 
   const columns = [
     { header: "", accessor: "checkbox" },
@@ -141,9 +168,9 @@ export default function ArticlesTable({
         <input type="checkbox" className="h-4 w-4" />
       </td>
       <td className="p-2">{article.title}</td>
-      <td className="p-2 hidden sm:table-cell">{article.category}</td>
-      <td className="p-2 hidden md:table-cell">{article.subcategory || "-"}</td>
-      <td className="p-2 hidden md:table-cell">{article.author}</td>
+      <td className="p-2">{article.category || "None"}</td>
+      <td className="p-2">{article.subcategory || "-"}</td>
+      <td className="p-2">{article.author}</td>
       <td className="p-2">
         <Badge
           color={statusColors[article.status as "DRAFT" | "PUBLISHED"]}
@@ -152,7 +179,7 @@ export default function ArticlesTable({
           {article.status}
         </Badge>
       </td>
-      <td className="p-2 hidden lg:table-cell">
+      <td className="p-2">
         {article.date ? new Date(article.date).toLocaleDateString() : "-"}
       </td>
       <td className="p-2">
@@ -228,7 +255,11 @@ export default function ArticlesTable({
             placeholder="All"
             data={["All", "Tech and Science", "Finance", "Economy", "Business"]}
             value={filter}
-            onChange={setFilter}
+            onChange={(value) => {
+              const newFilter = value || "All";
+              setFilter(newFilter);
+              console.log("Filter updated to:", newFilter);
+            }}
             size="sm"
           />
         </Group>
@@ -304,7 +335,7 @@ export default function ArticlesTable({
             </div>
             <div>
               <Title order={4}>Category</Title>
-              <Text>{selectedArticle.category}</Text>
+              <Text>{selectedArticle.category || "None"}</Text>
             </div>
             <div>
               <Title order={4}>Subcategory</Title>

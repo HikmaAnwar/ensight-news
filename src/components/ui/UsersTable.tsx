@@ -45,7 +45,7 @@ export default function ProfilesTable({
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!window) return;
+    if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
@@ -106,11 +106,11 @@ export default function ProfilesTable({
   };
 
   const filteredData = profiles.filter(
-    (Profile) =>
-      ((Profile.firstName ?? "").toLowerCase().includes(search.toLowerCase()) ||
-        (Profile.lastName ?? "").toLowerCase().includes(search.toLowerCase()) ||
-        (Profile.email ?? "").toLowerCase().includes(search.toLowerCase())) &&
-      (filter === "All" || Profile.role === filter)
+    (profile) =>
+      ((profile.firstName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+        (profile.lastName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+        (profile.email ?? "").toLowerCase().includes(search.toLowerCase())) &&
+      (filter === "All" || profile.role === filter)
   );
 
   const columns = [
@@ -128,8 +128,8 @@ export default function ProfilesTable({
         <input type="checkbox" className="h-4 w-4" />
       </td>
       <td className="p-2">{profile.firstName}</td>
-      <td className="p-2 hidden sm:table-cell">{profile.lastName}</td>
-      <td className="p-2 hidden md:table-cell">{profile.email}</td>
+      <td className="p-2">{profile.lastName}</td>
+      <td className="p-2">{profile.email}</td>
       <td className="p-2">
         <Badge color={roleColors[profile.role]} size="sm">
           {profile.role}
@@ -205,7 +205,7 @@ export default function ProfilesTable({
         </Group>
       </div>
 
-      <div className="overflow-x-auto min-w-full">
+      <div className="overflow-x-auto">
         <EntityTable
           columns={columns}
           data={filteredData}

@@ -17,36 +17,43 @@ export default function EntityTable<T>({
   renderRow,
 }: EntityTableProps<T>) {
   return (
-    <Table highlightOnHover withTableBorder withColumnBorders>
-      <Table.Thead>
-        <Table.Tr>
-          {columns.map((col) => (
-            <Table.Th key={String(col.accessor)}>{col.header}</Table.Th>
-          ))}
-        </Table.Tr>
-      </Table.Thead>
+    <div className="overflow-x-auto">
+      <Table
+        highlightOnHover
+        withTableBorder
+        withColumnBorders
+        className="min-w-full"
+      >
+        <Table.Thead>
+          <Table.Tr>
+            {columns.map((col) => (
+              <Table.Th key={String(col.accessor)}>{col.header}</Table.Th>
+            ))}
+          </Table.Tr>
+        </Table.Thead>
 
-      <Table.Tbody>
-        {isLoading ? (
-          <Table.Tr>
-            <Table.Td colSpan={columns.length}>
-              <div className="flex justify-center items-center py-6">
-                <Loader color="blue" />
-              </div>
-            </Table.Td>
-          </Table.Tr>
-        ) : data.length > 0 ? (
-          data.map((item) => renderRow(item))
-        ) : (
-          <Table.Tr>
-            <Table.Td colSpan={columns.length}>
-              <div className="text-center py-4 text-gray-500">
-                No records found.
-              </div>
-            </Table.Td>
-          </Table.Tr>
-        )}
-      </Table.Tbody>
-    </Table>
+        <Table.Tbody>
+          {isLoading ? (
+            <Table.Tr>
+              <Table.Td colSpan={columns.length}>
+                <div className="flex justify-center items-center py-6">
+                  <Loader color="blue" />
+                </div>
+              </Table.Td>
+            </Table.Tr>
+          ) : data.length > 0 ? (
+            data.map((item) => renderRow(item))
+          ) : (
+            <Table.Tr>
+              <Table.Td colSpan={columns.length}>
+                <div className="text-center py-4 text-gray-500">
+                  No records found.
+                </div>
+              </Table.Td>
+            </Table.Tr>
+          )}
+        </Table.Tbody>
+      </Table>
+    </div>
   );
 }
