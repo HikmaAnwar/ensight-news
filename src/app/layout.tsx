@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className="bg-surface">
+      <body className="bg-surface overflow-x-hidden">
         <MantineProvider defaultColorScheme="dark">
           <a href="#main-content" className="sr-only focus:not-sr-only">
             Skip to Main Content
