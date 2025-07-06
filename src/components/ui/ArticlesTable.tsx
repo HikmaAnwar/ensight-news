@@ -195,12 +195,12 @@ export default function ArticlesTable({
           >
             Refresh
           </Button>
-          <Select
+          {/* <Select
             placeholder="This Month"
             data={["This Month", "Last Month", "This Year"]}
             defaultValue="This Month"
             size="sm"
-          />
+          /> */}
         </Group>
         <Group gap="xs" wrap="wrap">
           <TextInput
