@@ -3,9 +3,10 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+ context: { params: Promise<{ id: string }> }
 ) {
   const token = request.headers.get("Authorization");
+  const params = await context.params;
   const { id } = params;
 
   if (!token) {
