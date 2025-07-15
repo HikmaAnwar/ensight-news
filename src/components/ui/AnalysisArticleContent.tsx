@@ -115,11 +115,14 @@ export default function AnalysisArticleContent({
               style={{ color: "var(--color-blueblack-white)" }}
             >
               <span>
-                {new Date(selectedArticle.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+              {selectedArticle.date
+  ? new Date(selectedArticle.date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : "Unknown date"}
+
               </span>
               <span>• {selectedArticle.readTime || "15 min read"}</span>
             </div>
