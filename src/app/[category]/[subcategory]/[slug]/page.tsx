@@ -155,7 +155,11 @@ export default function ReadingPage({
               </div>
               <div className="relative w-full mb-8 h-96">
                 <Image
-                  src={article.image}
+                  src={
+                    typeof article.image === "string"
+                      ? article.image
+                      : "/placeholder-image.jpg"
+                  }
                   alt={article.title}
                   fill
                   className="object-cover rounded-lg"
