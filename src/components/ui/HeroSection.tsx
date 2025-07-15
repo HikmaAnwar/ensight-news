@@ -10,10 +10,11 @@ interface ArticleDetailProps {
   article?: {
     title: string;
     description: string;
-    image: string;
+    image: string | File | null;
   };
   isLoading?: boolean;
 }
+
 
 export function HeroSection({
   article,
@@ -73,8 +74,8 @@ export function HeroSection({
               height={400}
               plugins={[Autoplay({ delay: 2000 })]}
             >
-              {[article?.image || "/images/logo-red.png"].map((src, index) => (
-                <Carousel.Slide key={index}>
+             {[typeof article?.image === "string" ? article.image : "/images/logo-red.png"].map((src, index) => (
+   <Carousel.Slide key={index}>
                   <Image
                     src={src}
                     alt="article images"
