@@ -165,7 +165,7 @@ export default function AnalysisArticleContent({
           <Image
              src={
                     typeof selectedArticle.image === "string"
-                      ? selectedArticle.imag
+                      ? selectedArticle.image
                       : "/placeholder-image.jpg"
                   }
                   alt={article.title}
