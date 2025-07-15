@@ -3,9 +3,9 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { category: string } }
+  { params }: Promise<{ params: { category: string } }>
 ) {
-  const { category } = params;
+  const { category } = await params;
 
   if (!category) {
     return NextResponse.json(
