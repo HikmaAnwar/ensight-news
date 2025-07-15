@@ -163,8 +163,12 @@ export default function AnalysisArticleContent({
 
         <div className="relative mb-4 overflow-hidden rounded-lg">
           <Image
-            src={selectedArticle.image || "/images/new-red-logo.jpg"}
-            alt="Featured Image"
+             src={
+                    typeof selectedArticle.image === "string"
+                      ? selectedArticle.imag
+                      : "/placeholder-image.jpg"
+                  }
+                  alt={article.title}
             width={400}
             height={150}
             className="object-cover w-full rounded-lg h-100"
