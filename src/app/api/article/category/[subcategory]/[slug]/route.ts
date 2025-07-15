@@ -6,10 +6,10 @@ export async function GET(
   {
     params,
   }: {
-    params: { category: string; subcategory: string; slug: string };
+    params:  Promise<{ category: string; subcategory: string; slug: string }>;
   }
 ) {
-  const { category, subcategory, slug } = params;
+  const { category, subcategory, slug } = await params;
 
   if (!category || !subcategory || !slug) {
     return NextResponse.json(
