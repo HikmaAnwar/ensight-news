@@ -114,10 +114,14 @@ const Corporate = () => {
 
           <Paper shadow="sm" radius="md" className="mb-8 overflow-hidden">
             <Image
-              src={article.image}
+             src={
+                    typeof article.image === "string"
+                      ? article.image
+                      : "/placeholder-image.jpg"
+                  }
+                  alt={article.title}
               width={800}
               height={600}
-              alt="Article Image"
               className="object-cover w-full h-auto rounded-lg"
             />
             <Text className="p-4 text-sm italic text-center text-secondary bg-surface">
@@ -160,8 +164,12 @@ const Corporate = () => {
             className="flex-grow p-6 border bg-surface border-border"
           >
             <Image
-              src={article.profileImage || "/images/new-red-logo.png"}
-              alt="Profile Image"
+             src={
+                    typeof article.profileImage === "string"
+                      ? article.profileImage
+                      : "/placeholder-image.jpg"
+                  }
+                  alt={article.title}
               width={150}
               height={150}
               className="w-32 h-32 mx-auto mb-5 rounded-full"
