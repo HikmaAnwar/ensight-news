@@ -40,7 +40,7 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
- context: { params: Promise<{ id: string }> }
+ context: { params: Promise<{ user_id: string }> }
 ) {
   const params = await context.params;
   const { user_id } = params;
