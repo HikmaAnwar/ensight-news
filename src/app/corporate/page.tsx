@@ -85,8 +85,12 @@ const Corporate = () => {
     <Card radius="none" className="px-0 py-6 rounded-lg shadow-lg">
       <div className="relative h-[500px] overflow-hidden">
         <Image
-          src={article.image || "/images/new-red-logo.png"}
-          alt={article.title || "Corporate Article Image"}
+          src={
+                    typeof article.image === "string"
+                      ? article.image
+                      : "/placeholder-image.jpg"
+                  }
+                  alt={article.title}
           className="object-cover w-full h-full rounded-md"
           width={1200}
           height={500}
