@@ -95,8 +95,12 @@ export default function AnalysisArticleContent({
 
         <Group className="flex items-start my-7">
           <Image
-            src={authorProfile?.avatar || "/images/new-red-logo.png"}
-            alt="Author"
+             src={
+                    typeof authorProfile?.avatar === "string"
+                      ? authorProfile?.avatar
+                      : "/placeholder-image.jpg"
+                  }
+                  alt={authorProfile?.title}
             width={authorProfile?.avatar ? 48 : 100}
             height={48}
             className="object-cover my-auto rounded-full"
@@ -168,7 +172,7 @@ export default function AnalysisArticleContent({
                       ? selectedArticle.image
                       : "/placeholder-image.jpg"
                   }
-                  alt={article.title}
+                  alt={selectedArticle.title}
             width={400}
             height={150}
             className="object-cover w-full rounded-lg h-100"
