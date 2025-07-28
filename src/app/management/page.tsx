@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { Tabs } from "@mantine/core";
-import ArticlesTable from "../../components/ui/ArticlesTable";
-import UserTable from "../../components/ui/UsersTable";
+import ArticlesTable from "../../components/ui/management/article/ArticlesTable";
+import UserTable from "../../components/ui/management/user/UsersTable";
 import { Article } from "@/lib/types";
-import ResourceTable from "@/components/ui/ResourceTable";
-import CorporateTable from "@/components/ui/CorporateTable";
+import ResourceTable from "@/components/ui/management/resources/ResourceTable";
+import CorporateTable from "@/components/ui/management/corporate/CorporateTable";
 
 export default function ManagementPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -18,7 +18,7 @@ export default function ManagementPage() {
 
   return (
     <div>
-      <Tabs defaultValue="Articles">
+      <Tabs defaultValue="Articles" className="pt-5">
         <Tabs.List>
           <Tabs.Tab value="User">User</Tabs.Tab>
           <Tabs.Tab value="Articles">Articles</Tabs.Tab>
@@ -38,8 +38,6 @@ export default function ManagementPage() {
         <Tabs.Panel value="Corporate" pt="xs">
           <CorporateTable data={[]} />
         </Tabs.Panel>
-
-        {/* Add other panels for User, Resources, and Corporate as needed */}
       </Tabs>
     </div>
   );

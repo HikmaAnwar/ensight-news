@@ -5,6 +5,7 @@ import { Footer } from "@/components/ui/Footer";
 import "@mantine/dates/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/core/styles.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Ensight - Business Intelligence",
@@ -22,14 +23,17 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className="bg-surface overflow-x-hidden">
+      <body className="overflow-x-hidden bg-surface">
         <MantineProvider defaultColorScheme="dark">
           <a href="#main-content" className="sr-only focus:not-sr-only">
             Skip to Main Content
           </a>
           <Header />
           <main id="main-content" className="bg-surface">
-            <div className="md:px-20">{children}</div>
+            <div className="md:px-20">
+              {children}{" "}
+              <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+            </div>
           </main>
           <Footer />
         </MantineProvider>

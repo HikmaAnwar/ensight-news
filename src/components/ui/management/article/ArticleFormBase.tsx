@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "@mantine/form";
 import {
   Button,
@@ -10,49 +10,51 @@ import {
   Group,
   Switch,
   FileInput,
+  Loader,
+  Text,
+  Stack,
+  NumberInput,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { Article } from "@/lib/types";
+import Image from "next/image";
 
 const categories = [
   {
     label: "Business",
-    value: "Business",
-    subcategories: ["Startup", "Markets"],
+    value: "business",
+    subcategories: ["startup", "markets"],
   },
   {
     label: "Finance",
-    value: "Finance",
-    subcategories: ["Banking", "Investment"],
+    value: "finance",
+    subcategories: ["banking", "investment"],
   },
-  { label: "Economy", value: "Economy", subcategories: ["Policies", "Trade"] },
+  { label: "Economy", value: "economy", subcategories: ["policies", "trade"] },
   {
     label: "Tech and Science",
-    value: "Tech and Science",
+    value: "tech and science",
     subcategories: ["Innovation", "Digital"],
   },
 ];
 
-interface EditArticleFormProps {
-  article: Article;
-  onClose: () => void;
+interface ArticleFormBaseProps {
+  initialValues: Article;
+  onSubmit: (values: Article) => Promise<void>;
+  loading: boolean;
+  isEditMode: boolean;
 }
 
-export default function EditArticleForm({
-  article,
-  onClose,
-}: EditArticleFormProps) {
-  const [token, setToken] = useState<string | null>(null);
+export default function ArticleFormBase({
+  initialValues,
+  onSubmit,
+  loading,
+  isEditMode,
+}: ArticleFormBaseProps) {
+  const [subcategories, setSubcategories] = useState<string[]>([]);
+
   const form = useForm<Article>({
-    initialValues: {
-      ...article,
-      image: "", // Clear file input on form load
-      date: article.date ? new Date(article.date) : new Date(),
-      quote: article.quote || "",
-      quoteAuthor: article.quoteAuthor || "",
-      tag: article.tag || "",
-      noOfReaders: article.noOfReaders || 0,
-    },
+    initialValues,
     validate: {
       title: (value) =>
         value.length < 3 ? "Title must be at least 3 characters" : null,
@@ -63,18 +65,10 @@ export default function EditArticleForm({
         value.length < 10 ? "Content must be at least 10 characters" : null,
       description: (value) =>
         value.length < 10 ? "Description must be at least 10 characters" : null,
+      image: (value) =>
+        isEditMode && !value ? "Image is required for new articles" : null,
     },
   });
-
-  const [subcategories, setSubcategories] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
 
   useEffect(() => {
     if (form.values.category) {
@@ -98,72 +92,48 @@ export default function EditArticleForm({
       setSubcategories([]);
       form.setFieldValue("subcategory", "");
     }
-  }, [form, form.values.category]);
+  }, [form.values.category]);
 
-  const handleSubmit = async (values: Article) => {
-    try {
-      const articleData = {
-        title: values.title,
-        category: values.category,
-        subcategory: values.subcategory || null,
-        date: values.date instanceof Date ? values.date.toISOString() : null,
-        read_time: values.readTime,
-        content: values.content,
-        description: values.description,
-        is_premium: values.isPremium,
-        caption: values.caption || null,
-        quote: values.quote || null,
-        quote_author: values.quoteAuthor || null,
-        tag: values.tag || null,
-      };
-
-      const formData = new FormData();
-      formData.append("article_data", JSON.stringify(articleData));
-      //eslint-disable-next-line
-      if (values.image && (values.image as any) instanceof File) {
-        formData.append("image", values.image);
-      }
-
-      const response = await fetch(`/api/articles/${values.id}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(
-          error.message || `HTTP error! status: ${response.status}`
-        );
-      }
-
-      onClose();
-      //eslint-disable-next-line
-    } catch (error: any) {
-      console.error("Error updating article:", error);
-      form.setFieldError("title", error.message || "Failed to update article");
-    }
-  };
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)} className="p-4">
+    <form onSubmit={form.onSubmit(onSubmit)} className="p-4">
       <TextInput
         label="Title"
         placeholder="Enter article title"
         {...form.getInputProps("title")}
         mb="md"
       />
+      {!isEditMode && (
+        <Select
+          label="Status"
+          placeholder="Select status"
+          data={[
+            { label: "Draft", value: "DRAFT" },
+            { label: "Published", value: "PUBLISHED" },
+          ]}
+          {...form.getInputProps("status")}
+          mb="md"
+        />
+      )}
       <Select
         label="Category"
         placeholder="Select category"
-        data={categories.map((cat) => ({ label: cat.label, value: cat.value }))}
+        data={categories.map((cat) => ({
+          label: cat.label,
+          value: cat.value,
+        }))}
         {...form.getInputProps("category")}
         mb="md"
       />
       <Select
-        label="Subcategory"
+        label="Subcategory (First select category)"
         placeholder="Select subcategory"
         data={subcategories.map((sub) => ({ label: sub, value: sub }))}
         {...form.getInputProps("subcategory")}
@@ -174,23 +144,51 @@ export default function EditArticleForm({
         label="Publication Date"
         placeholder="Select publication date"
         value={form.values.date}
-        onChange={(date) => form.setFieldValue("date", date)}
+        onChange={(value: string | null) => {
+          const date = value ? new Date(value) : null;
+          form.setFieldValue("date", date);
+        }}
         error={form.errors.date}
         mb="md"
       />
-      <TextInput
+      <NumberInput
         label="Read Time"
         placeholder="Enter read time (e.g., 5 min)"
         {...form.getInputProps("readTime")}
         mb="md"
       />
-      <FileInput
-        label="Image"
-        placeholder="Upload new image (optional)"
-        accept="image/*"
-        {...form.getInputProps("image")}
-        mb="md"
-      />
+      <Group justify="space-between" align="flex-start" wrap="nowrap" mb="md">
+        {isEditMode && form.values.image && (
+          <Stack align="center" gap="xs" style={{ flexShrink: 0 }}>
+            <Image
+              src={
+                form.values.image instanceof File
+                  ? URL.createObjectURL(form.values.image)
+                  : typeof form.values.image === "string"
+                  ? form.values.image
+                  : ""
+              }
+              alt={form.values.title || "Uploaded image"}
+              width={100}
+              height={100}
+              style={{ objectFit: "cover" }}
+            />
+            <Text size="sm" color="dimmed">
+              Current Image
+            </Text>
+          </Stack>
+        )}
+        <FileInput
+          label="Select an Image"
+          placeholder="Upload image"
+          accept="image/*"
+          {...form.getInputProps("image")}
+          style={{
+            flex: 1,
+            maxWidth: `${isEditMode ? "calc(100% - 120px)" : "100%"}`,
+          }}
+        />
+      </Group>
       <Textarea
         label="Content"
         placeholder="Enter article content"
@@ -238,7 +236,9 @@ export default function EditArticleForm({
         mb="md"
       />
       <Group justify="flex-end" mt="lg">
-        <Button type="submit">Update Article</Button>
+        <Button type="submit" disabled={loading || !form.isDirty} color="blue">
+          {isEditMode ? "Update Article" : "Create Article"}
+        </Button>
       </Group>
     </form>
   );

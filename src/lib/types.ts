@@ -7,7 +7,7 @@ export interface Article {
   author: string;
   date: Date | null;
   readTime: string;
-  image: string;
+  image: string | File | null;
   href: null;
   content: string;
   description: string;
@@ -81,11 +81,12 @@ export interface Resource {
     | "Date Hub & Archive";
 }
 export interface Corporate {
+  id?: string;
   title: string;
   description: string;
   content: string;
-  image: string;
-  profileImage: string;
+  image: string | File | null;
+  profileImage: string | File | null;
   quote?: string;
   name: string;
   role: string;
