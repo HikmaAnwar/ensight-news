@@ -8,7 +8,7 @@ export async function GET(
   const { user_id } = params;
 
   try {
-    const response = await fetch(`${BASE_URL}/Profile/${user_id}`, {
+    const response = await fetch(`${BASE_URL}/profiles/${user_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

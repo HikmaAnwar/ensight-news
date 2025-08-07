@@ -11,9 +11,17 @@ export async function GET(request: NextRequest) {
     });
 
     if (!response.ok) {
-      const error = await response.json();
+      const errorData = await response.json(); // Use a different variable name to avoid confusion
+      console.error(
+        `External API Error - Status: ${response.status}, Message: ${
+          errorData.message || "No message provided from external API"
+        }`
+      );
       return NextResponse.json(
-        { message: error.message || "Failed to fetch articles" },
+        {
+          message:
+            errorData.message || "Failed to fetch articles from external API",
+        },
         { status: response.status }
       );
     }
@@ -22,10 +30,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(data, { status: 200 });
     //eslint-disable-next-line
   } catch (error: any) {
-    console.error("Fetch error:", error);
+    console.error("Next.js API Route Fetch Error:", error);
     return NextResponse.json(
       {
-        message: "Internal Server Error",
+        message: "Internal Server Error in Next.js API route",
         error: error?.message || String(error),
       },
       { status: 500 }

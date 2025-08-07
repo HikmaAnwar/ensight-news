@@ -39,7 +39,21 @@ export default function HomePage() {
 
   return (
     <Container fluid className="w-full px-0">
-      <HeroSection article={LatestArticles[0]} isLoading={loading} />
+      <HeroSection
+        article={
+          LatestArticles[0]
+            ? {
+                title: LatestArticles[0].title,
+                description: LatestArticles[0].description,
+                image:
+                  typeof LatestArticles[0].image === "string"
+                    ? LatestArticles[0].image
+                    : "",
+              }
+            : undefined
+        }
+        isLoading={loading}
+      />
       {loading ? (
         <Container size="lg" className="py-10">
           <div className="text-center text-gray-500">
