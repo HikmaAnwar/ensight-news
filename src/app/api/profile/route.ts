@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const response = await fetch(`${BASE_URL}/Profile`, {
+    const response = await fetch(`${BASE_URL}/profiles`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
 }
 export async function GET(req: NextRequest) {
   try {
-    const response = await fetch(`${BASE_URL}/Profile`, {
+    const response = await fetch(`${BASE_URL}/profiles`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -19,12 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <ColorSchemeScript />
       </head>
       <body className="overflow-x-hidden bg-surface">
-        <MantineProvider defaultColorScheme="dark">
+        <MantineProvider defaultColorScheme="light">
           <a href="#main-content" className="sr-only focus:not-sr-only">
             Skip to Main Content
           </a>

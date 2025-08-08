@@ -41,7 +41,7 @@ export default function UsersTable({ data: initialData }: UsersTableProps) {
   const loadUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/profile", {
+      const response = await fetch(`/api/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${BASE_URL}/corporate/corporates`, {
+    const response = await fetch(`${BASE_URL}/corporate/`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: token,

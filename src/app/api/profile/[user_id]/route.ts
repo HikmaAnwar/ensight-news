@@ -3,12 +3,12 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { user_id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { user_id } = params;
+  const { id } = params;
 
   try {
-    const response = await fetch(`${BASE_URL}/profiles/${user_id}`, {
+    const response = await fetch(`${BASE_URL}/profiles/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,9 +39,9 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { user_id: string } }
+  { params }: { params: { userId: string } }
 ) {
-  const { user_id } = params;
+  const { userId } = params;
 
   try {
     const body = await req.json();
@@ -53,7 +53,7 @@ export async function PATCH(
       );
     }
 
-    const response = await fetch(`${BASE_URL}/Profile/${user_id}`, {
+    const response = await fetch(`${BASE_URL}/profiles/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
