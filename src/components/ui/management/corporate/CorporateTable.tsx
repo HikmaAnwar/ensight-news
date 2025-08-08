@@ -7,7 +7,7 @@ import CorporateTableView from "./CorporateTableView";
 import AddCorporateForm from "./AddCorporateForm";
 import EditCorporateForm from "./EditCorporateForm";
 import ViewCorporate from "./ViewCorporate";
-import { Corporate } from "@/lib/types";
+import { Corporate } from "@/lib/types"; // Make sure your Corporate type is correctly defined here
 import toast from "react-hot-toast";
 
 interface CorporateTableProps {
@@ -24,11 +24,13 @@ export default function CorporateTable({
   const [selectedCorporate, setSelectedCorporate] = useState<Corporate | null>(
     null
   );
-  const [corporates, setCorporates] = useState<Corporate[]>(initialData);
+  // Initialize corporates state with initialData or an empty array
+  const [corporates, setCorporates] = useState<Corporate[]>(initialData || []);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
+    // This effect runs only on the client-side
     if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
     if (storedToken) setToken(storedToken);
@@ -48,32 +50,48 @@ export default function CorporateTable({
         toast.error(
           `Failed to fetch corporate entries: ${response.statusText}`
         );
-        setCorporates([]);
+        setCorporates([]); // Ensure corporates is an array even on error
+        return; // Exit early on non-OK response
       }
       const data = await response.json();
-      setCorporates(data);
+      // Ensure data is an array before setting state
+      if (Array.isArray(data)) {
+        setCorporates(data);
+      } else {
+        console.error("API response is not an array:", data);
+        toast.error("Received unexpected data format from API.");
+        setCorporates([]); // Set to empty array if unexpected format
+      }
     } catch (error) {
       toast.error(
         error instanceof Error
           ? error.message
           : "Failed to load corporate entries. Please try again later."
       );
-      setCorporates([]);
+      setCorporates([]); // Ensure corporates is an array even on error
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (!token) return;
-    loadCorporates();
-  }, [token]);
+    // Only load corporates if a token is available
+    if (token) {
+      loadCorporates();
+    } else {
+      setLoading(false); // If no token, we're not loading
+    }
+  }, [token]); // Rerun when token changes
 
   const handleRefresh = () => {
     loadCorporates();
   };
 
   const handleDelete = async (corporateId: string | undefined) => {
+    if (!corporateId) {
+      toast.error("Corporate ID is missing for deletion.");
+      return;
+    }
     try {
       const response = await fetch(`/api/corporate/${corporateId}`, {
         method: "DELETE",
@@ -89,7 +107,8 @@ export default function CorporateTable({
         );
         return;
       }
-      await loadCorporates();
+      toast.success("Corporate entry deleted successfully!");
+      await loadCorporates(); // Refresh the list after deletion
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -109,13 +128,23 @@ export default function CorporateTable({
     setEditOpened(true);
   };
 
-  const filteredData = corporates.filter(
-    (corporate) =>
-      corporate.title.toLowerCase().includes(search.toLowerCase()) ||
-      corporate.description.toLowerCase().includes(search.toLowerCase()) ||
-      corporate.name.toLowerCase().includes(search.toLowerCase()) ||
-      corporate.role.toLowerCase().includes(search.toLowerCase())
-  );
+  // The crucial fix: Safely handle potentially null or undefined properties
+  const filteredData = corporates.filter((corporate) => {
+    // Use logical OR (||) to default to an empty string if the property is null or undefined
+    // This ensures .toLowerCase() is always called on a string.
+    const title = corporate.title || "";
+    const description = corporate.description || "";
+    const name = corporate.name || "";
+    const role = corporate.role || "";
+
+    // Perform case-insensitive search on all relevant fields
+    return (
+      title.toLowerCase().includes(search.toLowerCase()) ||
+      description.toLowerCase().includes(search.toLowerCase()) ||
+      name.toLowerCase().includes(search.toLowerCase()) ||
+      role.toLowerCase().includes(search.toLowerCase())
+    );
+  });
 
   return (
     <div className="max-w-full p-4 overflow-x-auto sm:p-6 md:p-8">
@@ -159,6 +188,7 @@ export default function CorporateTable({
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+      {/* Modals for Add, Edit, and View operations */}
       <Modal
         opened={addOpened}
         onClose={() => setAddOpened(false)}
@@ -170,7 +200,7 @@ export default function CorporateTable({
         <AddCorporateForm
           onClose={() => {
             setAddOpened(false);
-            handleRefresh();
+            handleRefresh(); // Refresh data after adding
           }}
         />
       </Modal>
@@ -187,7 +217,7 @@ export default function CorporateTable({
             corporate={selectedCorporate}
             onClose={() => {
               setEditOpened(false);
-              handleRefresh();
+              handleRefresh(); // Refresh data after editing
             }}
           />
         )}
