@@ -35,7 +35,9 @@ export default function ResourcesTable({
   const [selectedResource, setSelectedResource] = useState<Resource | null>(
     null
   );
-  const [resources, setResources] = useState<Resource[]>(initialData);
+  // FIX: Ensure resources is always an array.
+  // The initial state should be an empty array if initialData is not available.
+  const [resources, setResources] = useState<Resource[]>(initialData || []);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
 
@@ -58,9 +60,12 @@ export default function ResourcesTable({
       if (!response.ok) {
         toast.error(`Failed to fetch resources: ${response.statusText}`);
         setResources([]);
+        return;
       }
       const data = await response.json();
-      setResources(data);
+      // FIX: Ensure the API response is an array before setting the state.
+      // If data is not an array, default to an empty array.
+      setResources(Array.isArray(data) ? data : []);
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -74,7 +79,10 @@ export default function ResourcesTable({
   };
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      return;
+    }
     loadResources();
   }, [token]);
 
