@@ -1,15 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
-export async function GET(
-  req: NextRequest,
-  {
-    params,
-  }: {
-    params: { category: string; subcategory: string };
-  }
-) {
-  const { category, subcategory } = params;
+export async function GET(req: NextRequest) {
+  // Read category and subcategory from query parameters
+  const { searchParams } = new URL(req.url);
+  const category = searchParams.get("category");
+  const subcategory = searchParams.get("subcategory");
 
   if (!category || !subcategory) {
     return NextResponse.json(
@@ -19,8 +15,9 @@ export async function GET(
   }
 
   try {
+    // Construct the URL with query parameters for the external API
     const response = await fetch(
-      `${BASE_URL}/articles/${category}/${subcategory}`,
+      `${BASE_URL}/articles?category=${category}&subcategory=${subcategory}`,
       {
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,3 @@
-// app/components/ui/ArticleSection.tsx
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -39,7 +37,6 @@ export function ArticleSection({
       setLoading(true);
       setError(null);
       try {
-        // Construct the URL with query parameters
         const url = new URL("/api/article", window.location.origin);
         url.searchParams.append("category", category.toLowerCase());
         url.searchParams.append("subcategory", subcategory.toLowerCase());
@@ -57,7 +54,15 @@ export function ArticleSection({
         }
 
         const data: Article[] = await res.json();
-        setArticles(data);
+
+        // ➡️ FIX: Manually filter the data to ensure accuracy
+        const filteredData = data.filter(
+          (article) =>
+            article.category?.toLowerCase() === category.toLowerCase() &&
+            article.subcategory?.toLowerCase() === subcategory.toLowerCase()
+        );
+
+        setArticles(filteredData);
         //eslint-disable-next-line
       } catch (err: any) {
         setError(err.message || "Failed to fetch articles");

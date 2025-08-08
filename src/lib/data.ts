@@ -130,7 +130,7 @@ export const navItems = [
   {
     label: "Business",
     submenu: [
-      { label: "Startups", href: "/business/startups" },
+      { label: "Startup", href: "/business/startup" },
       { label: "Markets", href: "/business/markets" },
       { label: "Policy & Regulation", href: "/business/policy-regulation" },
     ],
@@ -158,9 +158,9 @@ export const navItems = [
   {
     label: "Tech and Science",
     submenu: [
-      { label: "Innovation", href: "/technology/innovation" },
-      { label: "Digital", href: "/technology/digital" },
-      { label: "Research", href: "/technology/research" },
+      { label: "Innovation", href: "/tech-and-science/innovation" },
+      { label: "Digital", href: "/tech-and-science/digital" },
+      { label: "Research", href: "/tech-and-science/research" },
     ],
   },
   {
@@ -188,7 +188,7 @@ export const Footermenus = [
       { label: "Business", href: "/business/startups" },
       { label: "Finance", href: "/finance/banking" },
       { label: "Economy", href: "/economy/policies" },
-      { label: "Tech and Science", href: "/technology/innovation" },
+      { label: "Tech and Science", href: "/tech-and-science/innovation" },
     ],
   },
   {

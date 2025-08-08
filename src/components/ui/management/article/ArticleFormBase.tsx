@@ -23,18 +23,29 @@ const categories = [
   {
     label: "Business",
     value: "business",
-    subcategories: ["startup", "markets"],
+    subcategories: ["startup", "markets", "policy-regulation"],
   },
   {
     label: "Finance",
     value: "finance",
-    subcategories: ["banking", "investment"],
+    subcategories: ["banking", "investment", "fintech", "capital-markets"],
   },
-  { label: "Economy", value: "economy", subcategories: ["policies", "trade"] },
+  {
+    label: "Economy",
+    value: "economy",
+    subcategories: [
+      "policies",
+      "trade",
+      "development",
+      "inflation",
+      "growth",
+      "jobs",
+    ],
+  },
   {
     label: "Tech and Science",
-    value: "tech and science",
-    subcategories: ["Innovation", "Digital"],
+    value: "tech-and-science",
+    subcategories: ["innovation", "digital", "research"],
   },
 ];
 
