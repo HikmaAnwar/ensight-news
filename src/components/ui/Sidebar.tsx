@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Text, Divider, Loader, Center } from "@mantine/core";
+import { Text, Divider, Loader, Center, Anchor } from "@mantine/core";
 import { Article } from "@/lib/types";
-import { ArticleCard } from "./ArticleCard";
+import Link from "next/link";
+import styles from "@/app/Sidebar.module.css";
 
 export default function Sidebar() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -34,7 +35,6 @@ export default function Sidebar() {
     }
     fetchArticles();
   }, []);
-  const article = articles[0];
 
   return (
     <aside>
@@ -82,12 +82,48 @@ export default function Sidebar() {
             </Text>
           </Center>
         ) : (
-          <div key={article.slug}>
-            <ArticleCard
-              key={article.slug || article.id}
-              article={article}
-              linkPath={`/${article.category}/${article.subcategory}/${article.slug}`}
-            />
+          <div>
+            {articles.map((article) => (
+              <div key={article.slug}>
+                <Link
+                  href={`/${article.category}/${article.subcategory}/${article.slug}`}
+                  passHref
+                  legacyBehavior
+                >
+                  <Anchor
+                    component="a"
+                    className={styles.articleLink}
+                    style={{
+                      fontFamily: "serif",
+                      color: "var(--text-color)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <Text
+                      size="md"
+                      className="text-blueblack-white hover:underline hover:text-red-500"
+                    >
+                      {article.title}
+                    </Text>
+                  </Anchor>
+                </Link>
+                <div style={{ display: "flex", gap: "8px", marginTop: "4px" }}>
+                  <Text size="sm" style={{ color: "red", fontFamily: "serif" }}>
+                    {article.category}
+                  </Text>
+                  <Text
+                    size="sm"
+                    style={{ color: "gray", fontFamily: "serif" }}
+                  >
+                    | {article.readTime} min read
+                  </Text>
+                </div>
+                <Divider
+                  my="sm"
+                  style={{ borderTopColor: "rgba(156, 163, 175, 1)" }}
+                />
+              </div>
+            ))}
           </div>
         )}
       </div>

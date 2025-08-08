@@ -64,16 +64,16 @@ export default function EditArticleForm({
         title: values.title,
         status: values.status,
         category: values.category,
-        subcategory: values.subcategory || null,
-        date: values.date || null,
-        read_time: values.readTime,
+        subcategory: values.subcategory || "", // Change null to empty string
+        date: values.date || "", // Change null to empty string
+        read_time: String(values.readTime),
         content: values.content,
         description: values.description,
         is_premium: values.isPremium,
-        caption: values.caption || null,
-        quote: values.quote || null,
-        quote_author: values.quoteAuthor || null,
-        tag: values.tag || null,
+        caption: values.caption || "", // Change null to empty string
+        quote: values.quote || "", // Change null to empty string
+        quote_author: values.quoteAuthor || "", // Change null to empty string
+        tag: values.tag || "", // Change null to empty string
         author: values.author || "d8a6d106-016d-4faa-9bed-5e223cd6536b",
       };
 

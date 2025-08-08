@@ -1,0 +1,17 @@
+/* Sidebar.module.css */
+
+.articleLink {
+  /* This ensures the initial color is what's defined by the parent or a global theme */
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.articleLink:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.articleLink:active {
+  color: darkred;
+}

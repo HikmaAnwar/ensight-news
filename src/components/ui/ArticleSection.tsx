@@ -1,3 +1,5 @@
+// app/components/ui/ArticleSection.tsx
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -37,18 +39,18 @@ export function ArticleSection({
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(
-          `/api/article/${encodeURIComponent(
-            category.toLowerCase()
-          )}/${encodeURIComponent(subcategory.toLowerCase())}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-            },
-          }
-        );
+        // Construct the URL with query parameters
+        const url = new URL("/api/article", window.location.origin);
+        url.searchParams.append("category", category.toLowerCase());
+        url.searchParams.append("subcategory", subcategory.toLowerCase());
+
+        const res = await fetch(url.toString(), {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+          },
+        });
 
         if (!res.ok) {
           throw new Error(`Error fetching articles: ${res.statusText}`);
