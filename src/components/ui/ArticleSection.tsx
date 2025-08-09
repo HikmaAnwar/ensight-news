@@ -7,7 +7,6 @@ import {
   Box,
   Skeleton,
   SimpleGrid,
-  Container,
   Stack,
   Grid,
 } from "@mantine/core";
@@ -76,7 +75,9 @@ export function ArticleSection({
 
   return (
     <Box component="section" py={{ base: 24, md: 20 }}>
-      <Container size="xl">
+      {/* Removed the Container component to allow content to go to the edges */}
+      {/* Added horizontal padding directly to the Box, with responsive values */}
+      <Box px={{ base: "md", md: "lg", xl: "xl" }}>
         <Grid gutter={50}>
           <Grid.Col span={{ base: 12, md: 8 }}>
             <Stack gap="md">
@@ -109,7 +110,7 @@ export function ArticleSection({
                   <Text size="lg" c="dimmed">
                     Showing {articles.length} articles
                   </Text>
-                  <SimpleGrid cols={{ base: 1, sm: 2, md: 2 }} spacing="lg">
+                  <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
                     {articles.map((article) => {
                       const mainCategory = article.category.toLowerCase();
                       const subCategory =
@@ -139,7 +140,7 @@ export function ArticleSection({
             </Stack>
           </Grid.Col>
         </Grid>
-      </Container>
+      </Box>
     </Box>
   );
 }

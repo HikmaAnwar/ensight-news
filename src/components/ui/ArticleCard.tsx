@@ -47,7 +47,7 @@ export function ArticleCard({
         className="flex flex-col w-full transition-shadow duration-200 cursor-pointer bg-none rounded-xl hover:shadow-lg"
         radius="md"
         style={{
-          backgroundColor: "var(--background)",
+          backgroundColor: "var(--color-background)",
           borderColor: "var(--border)",
           boxShadow: "var(--shadow-card)",
         }}
@@ -62,7 +62,7 @@ export function ArticleCard({
           />
           {article.isPremium ? (
             <Badge
-              className="absolute font-bold bg-blue-800 top-2 right-2 text-blueblack-white"
+              className="absolute font-bold font-serif bg-blue-800 top-2 right-2 text-blueblack-white"
               color="blue"
               variant="filled"
             >
@@ -70,7 +70,7 @@ export function ArticleCard({
             </Badge>
           ) : (
             <Badge
-              className="absolute font-bold bg-blue-800 top-2 right-2 text-blueblack-white"
+              className="absolute font-bold font-serif bg-blue-800 top-2 right-2 text-blueblack-white"
               color="gray"
               variant="filled"
             >

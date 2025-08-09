@@ -30,7 +30,7 @@ export default function RootLayout({
           </a>
           <Header />
           <main id="main-content" className="bg-surface">
-            <div className="md:px-20">
+            <div className="w-full">
               {children}{" "}
               <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
             </div>
