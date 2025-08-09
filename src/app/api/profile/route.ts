@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { BASE_URL } from "@/lib/constants";
 
+// This file handles requests to the general /api/profiles endpoint.
+// It is located at: app/api/profiles/route.ts
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -41,6 +44,7 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
 export async function GET(req: NextRequest) {
   try {
     const response = await fetch(`${BASE_URL}/profiles`, {

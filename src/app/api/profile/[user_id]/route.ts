@@ -1,17 +1,30 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { BASE_URL } from "@/lib/constants";
+
+// This file handles requests for a single user profile using a dynamic ID.
+// The file should be located at: app/api/profile/[user_id]/route.ts
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { user_id: string } }
 ) {
-  const { id } = params;
+  // Extract the dynamic 'user_id' parameter from the URL.
+  const { user_id } = params;
+
+  if (!user_id) {
+    return NextResponse.json(
+      { message: "User ID is required" },
+      { status: 400 }
+    );
+  }
 
   try {
-    const response = await fetch(`${BASE_URL}/profiles/${id}`, {
+    // Construct the URL for the external API to fetch the user profile.
+    const response = await fetch(`${BASE_URL}/profiles/${user_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        // Pass the Authorization header from the incoming request.
         Authorization: req.headers.get("authorization") || "",
       },
     });
@@ -27,6 +40,7 @@ export async function GET(
     const userData = await response.json();
     return NextResponse.json(userData, { status: 200 });
   } catch (error) {
+    console.error("Fetch error:", error);
     return NextResponse.json(
       {
         message: "Internal server error",
@@ -39,9 +53,17 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { userId: string } }
+  // Changed 'id' to 'user_id' to match the file path '[user_id]'.
+  { params }: { params: { user_id: string } }
 ) {
-  const { userId } = params;
+  const { user_id } = params;
+
+  if (!user_id) {
+    return NextResponse.json(
+      { message: "User ID is required for updating" },
+      { status: 400 }
+    );
+  }
 
   try {
     const body = await req.json();
@@ -53,7 +75,7 @@ export async function PATCH(
       );
     }
 
-    const response = await fetch(`${BASE_URL}/profiles/${userId}`, {
+    const response = await fetch(`${BASE_URL}/profiles/${user_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -73,6 +95,7 @@ export async function PATCH(
     const updatedUserData = await response.json();
     return NextResponse.json(updatedUserData, { status: 200 });
   } catch (error) {
+    console.error("Patch error:", error);
     return NextResponse.json(
       {
         message: "Internal server error",

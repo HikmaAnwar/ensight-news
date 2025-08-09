@@ -30,8 +30,8 @@ export default function ReadingPage({
   // useEffect hook to fetch the article data when the component mounts or params change
   useEffect(() => {
     const fetchArticle = async () => {
-      // The URL is now correctly pointing to the Next.js API route
-      const url = `/api/article/${category}/${subcategory}/${slug}`;
+      // FIX: The URL now points to the new, non-conflicting API route
+      const url = `/api/get-article/${category}/${subcategory}/${slug}`;
       try {
         setLoading(true);
         setError(null);
@@ -71,8 +71,8 @@ export default function ReadingPage({
 
   // useEffect to fetch author profile after the article data is loaded
   useEffect(() => {
-    const fetchAuthorProfile = async (authorId: string) => {
-      const url = `/api/profile/${authorId}`;
+    const fetchAuthorProfile = async (user_id: string) => {
+      const url = `/api/profile/${user_id}`;
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -95,8 +95,8 @@ export default function ReadingPage({
     };
 
     if (article && article.author) {
-      const authorId = article.author;
-      fetchAuthorProfile(authorId);
+      const user_id = article.author;
+      fetchAuthorProfile(user_id);
     }
   }, [article]);
 
