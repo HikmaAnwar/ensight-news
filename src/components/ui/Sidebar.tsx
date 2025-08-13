@@ -6,30 +6,8 @@ interface Article {
   title: string;
   readTime: number;
   category: string;
+  subcategory: string;
 }
-
-// Mock data to simulate an API response
-const mockArticles: Article[] = [
-  {
-    slug: "ethiopia-explores-new-financing",
-    title:
-      "Ethiopia Explores New Financing Models for GERD Completion and Infrastructure Push",
-    category: "Economy",
-    readTime: 8,
-  },
-  {
-    slug: "ai-startups-the-next-big-thing",
-    title: "AI Startups: The Next Big Thing in 2025",
-    category: "Featured",
-    readTime: 4,
-  },
-  {
-    slug: "sustainable-cities-of-the-future",
-    title: "Sustainable Cities of the Future: A Look at Urban Planning",
-    category: "Environment",
-    readTime: 12,
-  },
-];
 
 // Custom loader component for a better user experience
 const Loader = () => (
@@ -63,36 +41,56 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Simulate an API call to fetch articles
+  // Use a fixed category and subcategory for the API call.
+  // This can be changed later to a prop if the component is used in different contexts.
+  const API_CATEGORY = "Economy";
+  const API_SUBCATEGORY = "Economy";
+
+  // Fetch articles from your Next.js API endpoint
   useEffect(() => {
     const fetchArticles = async () => {
       try {
         setError(null);
         setLoading(true);
-        // Simulate a network delay
-        await new Promise((resolve) => setTimeout(resolve, 1500));
 
-        // Use mock data instead of a real API call
-        setArticles(mockArticles);
-      } catch (err) {
-        console.error(err);
-        setError("An unexpected error occurred");
+        // Construct the URL to your Next.js API route
+        const url = `/api/article?category=${API_CATEGORY}&subcategory=${API_SUBCATEGORY}`;
+
+        // You can get the authorization token from localStorage if needed
+        const token = cookieStore.get("token");
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to fetch articles");
+        }
+
+        const data: Article[] = await response.json();
+        setArticles(data);
+        //eslint-disable-next-line
+      } catch (err: any) {
+        console.error("Fetch error:", err);
+        setError(err.message || "An unexpected error occurred");
       } finally {
         setLoading(false);
       }
     };
     fetchArticles();
-  }, []);
+  }, [API_CATEGORY, API_SUBCATEGORY]);
 
   return (
     <aside className="p-4 font-serif flex justify-center">
-      {/* Increased the fixed pixel width from 500px to 600px to make it wider */}
       <div className="w-[800px] mx-auto my-2 p-4 border border-gray-700 rounded-lg shadow-lg bg-background text-blueblack-white">
-        {/* Title Section */}
         <h2 className="text-xl font-bold mb-4 font-serif">Popular This Week</h2>
         <div className="border-t border-gray-400 mb-4"></div>
 
-        {/* Conditional rendering for loading, error, or no articles */}
         {loading ? (
           <div className="flex justify-center items-center h-24">
             <Loader />
@@ -106,12 +104,12 @@ const Sidebar = () => {
             <p className="text-gray-400 font-serif">No articles found</p>
           </div>
         ) : (
-          // Render the list of articles
           <div className="space-y-4">
             {articles.slice(0, 3).map((article, index) => (
               <div key={article.slug}>
+                {/* Replaced Next.js Link with a standard <a> tag to fix the compilation error */}
                 <a
-                  href={`/${article.category}/${article.slug}`}
+                  href={`/${article.category}/${article.subcategory}/${article.slug}`}
                   className="block text-blueblack-white hover:text-red-500 transition-colors duration-200"
                 >
                   <p className="text-base font-serif font-semibold">

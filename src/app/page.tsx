@@ -38,7 +38,7 @@ export default function HomePage() {
   }, [setLatestArticles, setLoading]);
 
   return (
-    <Container fluid className="w-full px-0">
+    <Container fluid className="w-full mx-4 md:mx-8 lg:mx-16">
       <HeroSection
         article={
           LatestArticles[0]

@@ -27,8 +27,8 @@ export default function AnalysisArticleContent({
   //eslint-disable-next-line
   const [authorProfile, setAuthorProfile] = useState<any>(null);
   useEffect(() => {
-    const fetchAuthorProfile = async (authorId: string) => {
-      const url = `/api/profile/${authorId}`;
+    const fetchAuthorProfile = async (user_id: string) => {
+      const url = `/api/profile/${user_id}`;
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -51,8 +51,8 @@ export default function AnalysisArticleContent({
     };
 
     if (selectedArticle && selectedArticle.author) {
-      const authorId = selectedArticle.author;
-      fetchAuthorProfile(authorId);
+      const user_id = selectedArticle.author;
+      fetchAuthorProfile(user_id);
     }
   }, [selectedArticle]);
 
@@ -115,11 +115,13 @@ export default function AnalysisArticleContent({
               style={{ color: "var(--color-blueblack-white)" }}
             >
               <span>
-                {new Date(selectedArticle.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                {selectedArticle.date
+                  ? new Date(selectedArticle.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : "Date Unknown"}
               </span>
               <span>• {selectedArticle.readTime || "15 min read"}</span>
             </div>
@@ -160,7 +162,11 @@ export default function AnalysisArticleContent({
 
         <div className="relative mb-4 overflow-hidden rounded-lg">
           <Image
-            src={selectedArticle.image || "/images/new-red-logo.jpg"}
+            src={
+              typeof selectedArticle.image === "string"
+                ? selectedArticle.image
+                : "/images/new-red-logo.jpg"
+            }
             alt="Featured Image"
             width={400}
             height={150}

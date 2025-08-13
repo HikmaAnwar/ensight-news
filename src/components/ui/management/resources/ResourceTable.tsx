@@ -35,8 +35,6 @@ export default function ResourcesTable({
   const [selectedResource, setSelectedResource] = useState<Resource | null>(
     null
   );
-  // FIX: Ensure resources is always an array.
-  // The initial state should be an empty array if initialData is not available.
   const [resources, setResources] = useState<Resource[]>(initialData || []);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
@@ -44,12 +42,14 @@ export default function ResourcesTable({
   useEffect(() => {
     if (typeof window === "undefined") return;
     const storedToken = localStorage.getItem("token");
+    console.log("Stored token:", storedToken); // Debug: Log token
     if (storedToken) setToken(storedToken);
   }, []);
 
   const loadResources = async () => {
     try {
       setLoading(true);
+      console.log("Fetching resources with token:", token); // Debug: Log token used in request
       const response = await fetch("/api/resources", {
         method: "GET",
         headers: {
@@ -57,16 +57,21 @@ export default function ResourcesTable({
           Authorization: token ? `Bearer ${token}` : "",
         },
       });
+      console.log("Response status:", response.status, response.statusText); // Debug: Log response status
       if (!response.ok) {
-        toast.error(`Failed to fetch resources: ${response.statusText}`);
+        const error = await response.json();
+        console.error("Error response:", error); // Debug: Log error details
+        toast.error(
+          `Failed to fetch resources: ${error.message || response.statusText}`
+        );
         setResources([]);
         return;
       }
       const data = await response.json();
-      // FIX: Ensure the API response is an array before setting the state.
-      // If data is not an array, default to an empty array.
+      console.log("Fetched data:", data); // Debug: Log response data
       setResources(Array.isArray(data) ? data : []);
     } catch (error) {
+      console.error("Fetch error:", error); // Debug: Log any fetch errors
       toast.error(
         error instanceof Error
           ? error.message
@@ -80,6 +85,7 @@ export default function ResourcesTable({
 
   useEffect(() => {
     if (!token) {
+      console.log("No token found, skipping resource fetch"); // Debug: Log when no token
       setLoading(false);
       return;
     }
@@ -87,11 +93,13 @@ export default function ResourcesTable({
   }, [token]);
 
   const handleRefresh = () => {
+    console.log("Refreshing resources"); // Debug: Log refresh action
     loadResources();
   };
 
   const handleDelete = async (resourceId: string) => {
     try {
+      console.log("Deleting resource:", resourceId); // Debug: Log delete attempt
       const response = await fetch(`/api/resources/${resourceId}`, {
         method: "DELETE",
         headers: {
@@ -100,11 +108,13 @@ export default function ResourcesTable({
       });
       if (!response.ok) {
         const error = await response.json();
+        console.error("Delete error:", error); // Debug: Log delete error
         toast.error(error.message || `HTTP error! status: ${response.status}`);
         return;
       }
       await loadResources();
     } catch (error) {
+      console.error("Delete fetch error:", error); // Debug: Log fetch error
       toast.error(
         error instanceof Error
           ? error.message
@@ -114,11 +124,13 @@ export default function ResourcesTable({
   };
 
   const handleView = (resource: Resource) => {
+    console.log("Viewing resource:", resource); // Debug: Log viewed resource
     setSelectedResource(resource);
     setViewOpened(true);
   };
 
   const handleEdit = (resource: Resource) => {
+    console.log("Editing resource:", resource); // Debug: Log edited resource
     setSelectedResource(resource);
     setEditOpened(true);
   };

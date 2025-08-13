@@ -11,6 +11,7 @@ interface User {
   lastName: string;
   email: string;
   role: string;
+  password: string;
 }
 
 interface AddUserFormProps {
@@ -33,6 +34,7 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
     lastName: "",
     email: "",
     role: "",
+    password: "",
   };
 
   const handleSubmit = async (values: User) => {
@@ -40,12 +42,36 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
       toast.error("Authentication token missing");
       return;
     }
+
+    // Client-side validation
+    if (!values.firstName.trim()) {
+      toast.error("First name is required");
+      return;
+    }
+    if (!values.lastName.trim()) {
+      toast.error("Last name is required");
+      return;
+    }
+    if (!values.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+      toast.error("A valid email is required");
+      return;
+    }
+    if (!values.password || values.password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+    if (!values.role) {
+      toast.error("Role is required");
+      return;
+    }
+
     setLoading(true);
     try {
       const userData = {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        email: values.email,
+        first_name: values.firstName.trim(),
+        last_name: values.lastName.trim(),
+        email: values.email.trim(),
+        password: values.password,
         role: values.role,
         avatar: null,
         enablePersonalization: false,
@@ -53,6 +79,8 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
         contentUpdateNotifications: false,
         topics: [],
       };
+
+      console.log("Sending payload:", JSON.stringify(userData, null, 2));
 
       const response = await fetch("/api/profile", {
         method: "POST",
@@ -65,14 +93,18 @@ export default function AddUserForm({ onClose }: AddUserFormProps) {
 
       if (!response.ok) {
         const error = await response.json();
-        toast.error(error.message || "Failed to create user");
+        console.error("Server error:", error);
+        const errorMessage =
+          error.detail?.[0]?.msg || error.message || "Failed to create user";
+        toast.error(errorMessage);
         return;
       }
 
       toast.success("User created successfully");
       onClose();
-      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line
     } catch (error: any) {
+      console.error("Error:", error);
       toast.error(error.message || "Failed to create user");
     } finally {
       setLoading(false);

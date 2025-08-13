@@ -34,7 +34,7 @@ export default function SubcategoryPage({ params }: Props) {
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: capitalize(category), href: `` },
+    { label: capitalize(category), href: `/` },
     { label: capitalize(subcategory), href: `/${category}/${subcategory}` },
   ];
 
@@ -50,7 +50,7 @@ export default function SubcategoryPage({ params }: Props) {
   }
 
   return (
-    <Container size="xl" className="py-3">
+    <Container size="xl" className="py-3 px-4 md:px-8 lg:px-16">
       <Grid gutter="md">
         <Grid.Col span={12}>
           <ArticleSection

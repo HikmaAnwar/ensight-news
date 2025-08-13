@@ -8,6 +8,7 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   role: string;
 }
 
@@ -40,6 +41,8 @@ export default function UserFormBase({
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
           ? "Invalid email address"
           : null,
+      password: (value) =>
+        value.length < 6 ? "Password must be at least 6 characters" : null,
       role: (value) => (!value ? "Role is required" : null),
     },
   });
@@ -72,6 +75,15 @@ export default function UserFormBase({
         {...form.getInputProps("email")}
         mb="md"
       />
+
+      <TextInput
+        label="Password"
+        type="password"
+        placeholder="Enter password"
+        {...form.getInputProps("password")}
+        mb="md"
+      />
+
       <Select
         label="Role"
         placeholder="Select role"

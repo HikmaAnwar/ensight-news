@@ -30,10 +30,10 @@ export default function RootLayout({
           </a>
           <Header />
           <main id="main-content" className="bg-surface">
-            <div className="w-full">
-              {children}{" "}
-              <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+            <div className="w-full max-w-[1440px] mx-4 md:mx-8 lg:mx-16">
+              {children}
             </div>
+            <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
           </main>
           <Footer />
         </MantineProvider>
