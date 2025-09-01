@@ -23,35 +23,34 @@ export function Header() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const { colorScheme, toggleColorScheme } = useTheme();
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  //eslint-disable-next-line
-  const hoverTimeoutRef = useRef<any>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { isLoggedIn, setLoggedIn } = useAuthStore();
   const [role, setRole] = useState<string | null>(null);
-  if (window && window.localStorage) {
-    const user = localStorage.getItem("user");
-    if (user) {
-      try {
-        const parsedUser = JSON.parse(user);
-        setRole(parsedUser.role || null);
-      } catch (error) {
-        console.error("Error parsing user data:", error);
-      }
-    }
-  }
-
   const router = useRouter();
-
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(
     null
   );
 
+  // Move localStorage check to useEffect
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    setLoggedIn(!!user);
-  }, [setLoggedIn]);
+    if (typeof window !== "undefined" && window.localStorage) {
+      const user = localStorage.getItem("user");
+      if (user) {
+        try {
+          const parsedUser = JSON.parse(user);
+          setRole(parsedUser.role || null);
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
+      }
+      setLoggedIn(!!user); // Combine with existing isLoggedIn logic
+    }
+  }, [setLoggedIn]); // Dependency array includes setLoggedIn
 
   const handleMouseEnter = (label: string) => {
-    clearTimeout(hoverTimeoutRef.current);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
     setHoveredMenu(label);
   };
 

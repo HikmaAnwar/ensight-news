@@ -3,8 +3,9 @@ import { BASE_URL } from "@/lib/constants";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { user_id: string } }
+ context: { params: Promise<{ user_id: string }> }
 ) {
+  const params = await context.params;
   const { user_id } = params;
 
   try {
@@ -39,8 +40,9 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { user_id: string } }
+ context: { params: Promise<{ user_id: string }> }
 ) {
+  const params = await context.params;
   const { user_id } = params;
 
   try {

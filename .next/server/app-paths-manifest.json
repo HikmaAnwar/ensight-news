@@ -1,0 +1,10 @@
+{
+  "/[category]/[subcategory]/page": "app/[category]/[subcategory]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/article/latest/route": "app/api/article/latest/route.js",
+  "/api/article/popular/route": "app/api/article/popular/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js"
+}
